@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kai Beads</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <header>
+        <div class="info-bar">
+            <div class="btn-container" id="auth-buttons" style="display: none;">
+                <a href="templates/register.html" class="btn-create-account">Criar conta</a>
+                <a href="templates/login.html" class="btn-login">Entrar</a>
+            </div>
+        </div>
+
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const firebaseConfig = {
+                    apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+                    authDomain: "kaibeads-2ab98.firebaseapp.com",
+                    projectId: "kaibeads-2ab98",
+                    storageBucket: "kaibeads-2ab98.appspot.com",
+                    messagingSenderId: "405735155633",
+                    appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+                    measurementId: "G-N2NDBL58J7"
+                };
+                firebase.initializeApp(firebaseConfig);
+
+                const authButtons = document.getElementById("auth-buttons");
+
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        authButtons.innerHTML = `<button class="btn-logout">Sair</button>`;
+                        document.querySelector(".btn-logout").addEventListener("click", () => {
+                            firebase.auth().signOut().then(() => {
+                                window.location.reload();
+                            }).catch((error) => {
+                                alert("Erro ao sair: " + error.message);
+                            });
+                        });
+                    } else {
+                        authButtons.innerHTML = `
+                    <a href="templates/register.html" class="btn-create-account">Criar conta</a>
+                    <a href="templates/login.html" class="btn-login">Entrar</a>
+                `;
+                    }
+
+                    // Agora que a verificação terminou, exibe os botões corretamente
+                    authButtons.style.display = "block";
+                });
+            });
+        </script>
+
+
+
+
+
+        <div id="interface" class="interface">
+            <div class="logo">
+                <a href="#"><img src="./assets/Foto sem fundo.png" alt="Logo da KaiBeads"></a>
+            </div>
+
+            <nav class="menu-desktop">
+                <ul>
+                    <li><a href="#interface" id="link-inicio">Inicio</a></li>
+                    <li class="menu-categorias">
+                        <a href="categorias.html" id="link-categorias">Categorias</a>
+                        <div class="submenu">
+                            <div class="submenu-item">
+                                <a href="#">Canga-toalha</a>
+                                <div class="submenu-nestedC">
+                                    <a href="#">Básicas</a>
+                                    <a href="#">Sofisticadas</a>
+                                </div>
+                            </div>
+
+                            <div class="submenu-item">
+                                <a href="categorias.html#todos-btn">Prata 925</a>
+                                <div class="submenu-nested">
+                                    <a href="categorias.html#anel-btn">Anéis</a>
+                                    <a href="categorias.html#brinco-btn">Brincos</a>
+                                    <a href="categorias.html#colar-btn">Colares</a>
+                                    <a href="categorias.html#corrente-btn">Correntes</a>
+                                    <a href="categorias.html#pulseira-btn">Pulseiras</a>
+                                    <a href="categorias.html#piercing-btn">Piercings</a>
+                                    <a href="categorias.html#limpeza-btn">Limpeza</a>
+                                </div>
+                            </div>
+
+
+
+                            <div class="submenu-item">
+                                <a href="#">Moletons</a>
+                                <div class="submenu-nestedM">
+                                    <a href="#">Finos</a>
+                                    <a href="#">Grossos</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li><a href="#sobre" id="link-sobre">Sobre</a></li>
+                    <li>
+                        <div class="search-container">
+                          <input type="text" id="searchInput" placeholder="Pesquisar" autocomplete="off">
+                          <i class="bi bi-search"></i>
+                          <ul id="autocomplete-list" class="autocomplete-items"></ul>
+                        </div>
+                      </li>
+                     
+                    <li>
+                        <a href="carrinho.html" id="link-carrinho">
+                            <i class="bi bi-cart"></i>
+                            <span id="contador-carrinho">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="btn-contato">
+                <a href="#footer"><button>Contato</button></a>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="carrossel-container">
+            <div class="carrossel">
+                <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+                <div class="slides">
+                    <div class="slide">
+                        <img src="assets/Foto 1.JPG" alt="Imagem 1">
+                    </div>
+                    <div class="slide">
+                        <img src="assets/Foto 3.JPG" alt="Imagem 2">
+                    </div>
+                    <div class="slide">
+                        <img src="assets/Foto 1.JPG" alt="Imagem 3">
+                    </div>
+                    <div class="slide">
+                        <img src="assets/Foto 3.JPG" alt="Imagem 4">
+                    </div>
+                    <div class="slide">
+                        <img src="assets/Foto 1.JPG" alt="Imagem 5">
+                    </div>
+                    <div class="slide">
+                        <img src="assets/Foto 3.JPG" alt="Imagem 5">
+                    </div>
+                </div>
+                <button class="next" onclick="moveSlide(1)">&#10095;</button>
+            </div>
+        </section>
+
+
+        <section class="info-loja">
+            <div class="info-item">
+                <i class="fa fa-truck" aria-hidden="true"></i>
+                <h3>Frete Fixo</h3>
+                <p>Para Porto Alegre*</p>
+            </div>
+            <div class="info-item">
+                <i class="fa fa-plane" aria-hidden="true"></i>
+                <h3>Enviamos</h3>
+                <p>para todo Brasil</p>
+            </div>
+            <div class="info-item">
+                <i class="fa fa-credit-card" aria-hidden="true"></i>
+                <h3>Cartão</h3>
+                <p>até 12x com taxas</p>
+            </div>
+        </section>
+
+
+
+
+        <section id="produto" class="produto">
+            <div class="interface">
+                <h2 class="titulo">EM <span>DESTAQUE</span></h2>
+                <div class="flex">
+                    <!-- Primeira linha de produtos -->
+                    <div class="produto-item">
+                        <div class="card-produto">
+                            <a href="produto.html?nome=Lilac%20Piercings&preco=120.99&imagem=./assets/FotoAneis.png">
+                                <div class="img-produ" style="background-image: url('./assets/FotoAneis.png');"></div>
+                            </a>                            
+                            <div class="info-produto">
+                                <a href="produto.html?nome=Lilac%20Piercings&preco=120.99&imagem=./assets/FotoAneis.png">
+                                    <h3 class="produto-nome">Lilac Piercings</h3>
+                                </a>
+                                <a href="produto.html?nome=Lilac%20Piercings&preco=120.99&imagem=./assets/FotoAneis.png">
+                                    <p class="preco">R$ 120,99</p>
+                                </a>
+                                <div class="btn-comprar">
+                                    <button class="btn-add-carrinho" data-nome="Lilac Piercings" data-preco="120.99"
+                                        data-imagem="./assets/FotoAneis.png">
+                                        ADICIONAR AO CARRINHO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="produto-item">
+                        <div class="card-produto">
+                            <a href="produto.html?nome=Joias%20Boz&preco=68.75&imagem=./assets/FotoAneis.png">
+                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                            </a>
+                            <div class="info-produto">
+                                <a href="produto.html?nome=Joias%20Boz&preco=68.75&imagem=./assets/FotoAneis.png">
+                                    <h3 class="produto-nome">Joias Boz</h3>
+                                </a>
+                                <a href="produto.html?nome=Joias%20Boz&preco=68.75&imagem=./assets/FotoAneis.png">
+                                    <p class="preco">R$ 68,75</p>
+                                </a>
+                                <div class="btn-comprar">
+                                    <button class="btn-add-carrinho" data-nome="Joias Boz" data-preco="68.75"
+                                        data-imagem="./assets/FotoAneis.png">
+                                        ADICIONAR AO CARRINHO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="produto-item">
+                        <div class="card-produto">
+                            <a href="produto.html?nome=Balenciaga&preco=299.00&imagem=./assets/FotoAneis.png">
+                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                            </a>
+                            <div class="info-produto">
+                                <a href="produto.html?nome=Balenciaga&preco=299.00&imagem=./assets/FotoAneis.png">
+                                    <h3 class="produto-nome">Balenciaga</h3>
+                                </a>
+                                <a href="produto.html?nome=Balenciaga&preco=299.00&imagem=./assets/FotoAneis.png">
+                                    <p class="preco">R$ 299,00</p>
+                                </a>
+                                <div class="btn-comprar">
+                                    <button class="btn-add-carrinho" data-nome="Balenciaga" data-preco="299.00"
+                                        data-imagem="./assets/FotoAneis.png">
+                                        ADICIONAR AO CARRINHO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="produto-item">
+                        <div class="card-produto">
+                            <a href="produto.html?nome=Vivara&preco=134.90&imagem=./assets/FotoAneis.png">
+                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                            </a>
+                            <div class="info-produto">
+                                <a href="produto.html?nome=Vivara&preco=134.90&imagem=./assets/FotoAneis.png">
+                                    <h3 class="produto-nome">Vivara</h3>
+                                </a>
+                                <a href="produto.html?nome=Vivara&preco=134.90&imagem=./assets/FotoAneis.png">
+                                    <p class="preco">R$ 134,90</p>
+                                </a>
+                                <div class="btn-comprar">
+                                    <button class="btn-add-carrinho" data-nome="Vivara" data-preco="134.90"
+                                        data-imagem="./assets/FotoAneis.png">
+                                        ADICIONAR AO CARRINHO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="produto-item">
+                        <div class="card-produto">
+                            <a href="produto.html?nome=Rommanel&preco=75.00&imagem=./assets/FotoAneis.png">
+                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                            </a>
+                            <div class="info-produto">
+                                <a href="produto.html?nome=Rommanel&preco=75.00&imagem=./assets/FotoAneis.png">
+                                    <h3 class="produto-nome">Rommanel</h3>
+                                </a>
+                                <a href="produto.html?nome=Rommanel&preco=75.00&imagem=./assets/FotoAneis.png">
+                                    <p class="preco">R$ 75,00</p>
+                                </a>
+                                <div class="btn-comprar">
+                                    <button class="btn-add-carrinho" data-nome="Rommanel" data-preco="75.00"
+                                        data-imagem="./assets/FotoAneis.png">
+                                        ADICIONAR AO CARRINHO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="produto-item">
+                        <div class="card-produto">
+                            <a href="produto.html?nome=Nina%20Bruni&preco=89.90&imagem=./assets/FotoAneis.png">
+                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                            </a>
+                            <div class="info-produto">
+                                <a href="produto.html?nome=Nina%20Bruni&preco=89.90&imagem=./assets/FotoAneis.png">
+                                    <h3 class="produto-nome">Nina Bruni</h3>
+                                </a>
+                                <a href="produto.html?nome=Nina%20Bruni&preco=89.90&imagem=./assets/FotoAneis.png">
+                                    <p class="preco">R$ 89.90</p>
+                                </a>
+                                <div class="btn-comprar">
+                                    <button class="btn-add-carrinho" data-nome="Nina Bruni" data-preco="89.90"
+                                        data-imagem="./assets/FotoAneis.png">
+                                        ADICIONAR AO CARRINHO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div><!--flex-->
+            </div><!--interface-->
+        </section><!--produto-->
+
+
+
+
+
+        <section id="sobre" class="sobre">
+            <div class="interface">
+                <div class="flex">
+                    <div class="img-sobre">
+                        <img src="./assets/Logo.JPG" alt="logo com fundo">
+                    </div><!--img-sobre-->
+                    <div class="txt-sobre">
+                        <h2>MUITO PRAZER, <span>SOMOS A KAI BEADS</span></h2>
+                        <p>É um prazer recebê-lo na LRE - Digital Agency. Nossa missão é simples, mas poderosa:
+                            capacitá-lo para conquistar o cenário digital com confiança e
+                            sucesso. Com uma combinação única de criatividade, inovação e expertise técnica, estamos
+                            aqui para tornar sua jornada digital emocionante e
+                            recompensadora. Seja você um empreendedor aspirante, uma empresa em crescimento ou uma marca
+                            estabelecida, estamos comprometidos em fornecer
+                            soluções personalizadas que atendam às suas necessidades específicas e o levem além de suas
+                            expectativas. Bem-vindo à sua nova era digital -
+                            estamos prontos para ajudá-lo a brilhar online.</p>
+
+                        <div class="btn-social">
+                            <a href="https://www.instagram.com/lre_digitalagency/"><button><i
+                                        class="bi bi-instagram"></i></button></a>
+                            <a href="#"><button><i class="bi bi-tiktok"></i></button></a>
+                            <a href="#"><button><i class="bi bi-linkedin"></i></button></a>
+
+                        </div> <!--BTN-SOCIAL-->
+                    </div><!--txt-sobre-->
+                </div><!--flex-->
+            </div><!--interface>-->
+        </section><!--sobre-->
+
+
+        <section id="duvidas" class="faq-section">
+            <h2 class="faq-title">DÚVIDAS FREQUENTES</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="question-wrapper">
+                            <span class="arrow">▶</span>
+                            Os acessórios em Prata 925 escurecem com o tempo? #1
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Os acessórios em Prata 925 podem oxidar com o tempo devido ao contato com o ar e substâncias
+                        como suor e produtos químicos.
+                        No entanto, isso é normal e pode ser facilmente resolvido com uma flanela especial para
+                        polimento de prata.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="question-wrapper">
+                            <span class="arrow">▶</span>
+                            Como saber se a Prata 925 é verdadeira? #2
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Todos os nossos acessórios em Prata 925 possuem certificação de autenticidade e selo de
+                        qualidade. Além disso, a Prata 925 tem um brilho característico e
+                        pode ser testada com um ímã (a prata verdadeira não é magnética).
+
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="question-wrapper">
+                            <span class="arrow">▶</span>
+                            Os moletons encolhem na lavagem? #3
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Nossos moletons são feitos com tecidos de alta qualidade e pré-encolhidos para evitar alterações
+                        de tamanho. Recomendamos lavar com água fria e evitar o uso
+                        de secadora para manter a durabilidade do produto.
+
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="question-wrapper">
+                            <span class="arrow">▶</span>
+                            As canga-toalhas são feitas de que material? #4
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Nossas canga-toalhas são feitas de tecido macio e absorvente, ideal para a praia e piscina. Elas
+                        possuem dupla função: podem ser usadas como canga estilosa
+                        ou como toalha para se secar.
+
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="question-wrapper">
+                            <span class="arrow">▶</span>
+                            Como posso saber meu tamanho ideal de moletom? #5
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Disponibilizamos uma tabela de medidas em cada página de produto para ajudar você a escolher o
+                        tamanho certo. Se estiver na dúvida entre dois tamanhos,
+                        recomendamos optar pelo maior para um ajuste mais confortável.
+
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="question-wrapper">
+                            <span class="arrow">▶</span>
+                            Como funciona a troca e devolução? #6
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Você pode solicitar a troca ou devolução em até 7 dias após o recebimento do pedido, desde que o
+                        produto esteja sem uso e com a embalagem original.
+                        Basta entrar em contato com nossa equipe de atendimento.
+
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="question-wrapper">
+                            <span class="arrow">▶</span>
+                            Os moletons encolhem na lavagem? #7
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Nossos moletons são feitos com tecidos de alta qualidade e pré-encolhidos para evitar alterações
+                        de tamanho. Recomendamos lavar com água fria e evitar o uso
+                        de secadora para manter a durabilidade do produto.
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="footer">
+        <div class="interface">
+            <div class="line-footer">
+                <div class="flex">
+                    <!-- Parte Esquerda (Loja e Contato) -->
+                    <div class="footer-left">
+                        <h3>Loja</h3>
+                        <ul>
+                            <li><a href="categorias.html">Todos os produtos</a></li>
+                            <li><a href="#sobre">Quem somos</a></li>
+                            <li><a href="#duvidas">Perguntas frequentes</a></li>
+                            <li><a href="#">Políticas da Loja</a></li>
+                        </ul>
+                        <h3>Fale Conosco</h3>
+                        <p>kaibeads@gmail.com</p>
+                        <p>(51) 99373-6553</p>
+                        <p>@kai.beads</p>
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com/kai.beads/" target="_blank">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@kai.beads" target="_blank">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Parte Central (Pagamentos e Envio) -->
+                    <div class="footer-center">
+                        <img class="footer-logo" src="assets/Foto sem fundo.png" alt="Logo Ananda Pratas">
+                        <p class="footer-title">Pagamentos e Envio</p>
+                        <img class="footer-payment" src="assets/pagamentos_sem_fundo.png" alt="Formas de Pagamento">
+                        <img class="footer-shipping" src="assets/correios_sem_fundo.png" alt="Opções de Envio">
+                    </div>
+
+                    <div class="footer-right">
+                        <h3>Ficou com alguma dúvida? Entre em contato com a gente!</h3>
+                        <form id="contact-form" action="https://formsubmit.co/eduardomassicorrea@gmail.com"
+                            method="POST">
+                            <!-- Campos do formulário -->
+                            <input type="text" name="name" placeholder="Seu Nome" required>
+                            <input type="email" name="email" placeholder="Seu E-mail" required>
+                            <input type="tel" name="phone" placeholder="Seu Telefone">
+                            <textarea name="message" placeholder="Sua Mensagem" required></textarea>
+
+                            <!-- Extras para melhorar o formulário -->
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_subject" value="Nova mensagem do site!">
+
+                            <button type="submit">Enviar</button>
+                        </form>
+
+                        <!-- Mensagem de sucesso -->
+                        <p id="success-message"
+                            style="display: none; color: #ADD8E6; font-weight: bold; margin-top: 10px;">
+                            Mensagem enviada com sucesso! Entraremos em contato em breve.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="home.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kai Beads</title>
+    <link rel="stylesheet" href="produto.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <header>
+        <div class="info-bar">
+            <div class="btn-container" id="auth-buttons" style="display: none;">
+                <a href="templates/register.html" class="btn-create-account">Criar conta</a>
+                <a href="templates/login.html" class="btn-login">Entrar</a>
+            </div>
+        </div>
+
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const firebaseConfig = {
+                    apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+                    authDomain: "kaibeads-2ab98.firebaseapp.com",
+                    projectId: "kaibeads-2ab98",
+                    storageBucket: "kaibeads-2ab98.appspot.com",
+                    messagingSenderId: "405735155633",
+                    appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+                    measurementId: "G-N2NDBL58J7"
+                };
+                firebase.initializeApp(firebaseConfig);
+
+                const authButtons = document.getElementById("auth-buttons");
+
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        authButtons.innerHTML = `<button class="btn-logout">Sair</button>`;
+                        document.querySelector(".btn-logout").addEventListener("click", () => {
+                            firebase.auth().signOut().then(() => {
+                                window.location.reload();
+                            }).catch((error) => {
+                                alert("Erro ao sair: " + error.message);
+                            });
+                        });
+                    } else {
+                        authButtons.innerHTML = `
+                    <a href="templates/register.html" class="btn-create-account">Criar conta</a>
+                    <a href="templates/login.html" class="btn-login">Entrar</a>
+                `;
+                    }
+
+                    // Agora que a verificação terminou, exibe os botões corretamente
+                    authButtons.style.display = "block";
+                });
+            });
+        </script>
+
+
+
+
+
+        <div id="interface" class="interface">
+            <div class="logo">
+                <a href="#"><img src="./assets/Foto sem fundo.png" alt="Logo da KaiBeads"></a>
+            </div>
+
+            <nav class="menu-desktop">
+                <ul>
+                    <li><a href="home.html" id="link-inicio">Inicio</a></li>
+                    <li class="menu-categorias">
+                        <a href="categorias.html" id="link-categorias">Categorias</a>
+                        <div class="submenu">
+                            <div class="submenu-item">
+                                <a href="#">Canga-toalha</a>
+                                <div class="submenu-nestedC">
+                                    <a href="#">Básicas</a>
+                                    <a href="#">Sofisticadas</a>
+                                </div>
+                            </div>
+
+                            <div class="submenu-item">
+                                <a href="categorias.html#anel-btn">Prata 925</a>
+                                <div class="submenu-nested">
+                                    <a href="categorias.html#anel-btn">Anéis</a>
+                                    <a href="categorias.html#brinco-btn">Brincos</a>
+                                    <a href="categorias.html#colar-btn">Colares</a>
+                                    <a href="categorias.html#corrente-btn">Correntes</a>
+                                    <a href="categorias.html#pulseira-btn">Pulseiras</a>
+                                    <a href="categorias.html#piercing-btn">Piercings</a>
+                                    <a href="categorias.html#limpeza-btn">Limpeza</a>
+                                </div>
+                            </div>
+
+
+
+                            <div class="submenu-item">
+                                <a href="#">Moletons</a>
+                                <div class="submenu-nestedM">
+                                    <a href="#">Finos</a>
+                                    <a href="#">Grossos</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li><a href="home.html#sobre" id="link-sobre">Sobre</a></li>
+                    <li>
+                        <div class="search-container">
+                          <input type="text" id="searchInput" placeholder="Pesquisar" autocomplete="off">
+                          <i class="bi bi-search"></i>
+                          <ul id="autocomplete-list" class="autocomplete-items"></ul>
+                        </div>
+                      </li>
+
+                    <li>
+                        <a href="carrinho.html" id="link-carrinho">
+                            <i class="bi bi-cart"></i>
+                            <span id="contador-carrinho">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="btn-contato">
+                <a href="#footer"><button>Contato</button></a>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+
+        <div class="container">
+            <div class="produto-detalhe">
+                <img id="imagem-produto" src="" alt="Imagem do Produto" />
+                <div class="info">
+                    <h1 id="nome-produto">Nome do Produto</h1>
+                    <p id="preco-produto">Preço</p>
+                    <label for="quantidade">Quantidade:</label>
+                    <input type="number" id="quantidade" name="quantidade" min="1" value="1" />
+                    <button id="adicionar-carrinho">Adicionar ao Carrinho</button>
+                    <div class="observacoes">
+                        <h3>Observações:</h3>
+                        <p>Esse produto é feito com materiais de alta qualidade e acompanha certificado de autenticidade.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer id="footer">
+        <div class="interface">
+            <div class="line-footer">
+                <div class="flex">
+                    <!-- Parte Esquerda (Loja e Contato) -->
+                    <div class="footer-left">
+                        <h3>Loja</h3>
+                        <ul>
+                            <li><a href="categorias.html">Todos os produtos</a></li>
+                            <li><a href="#sobre">Quem somos</a></li>
+                            <li><a href="#duvidas">Perguntas frequentes</a></li>
+                            <li><a href="#">Políticas da Loja</a></li>
+                        </ul>
+                        <h3>Fale Conosco</h3>
+                        <p>kaibeads@gmail.com</p>
+                        <p>(51) 99373-6553</p>
+                        <p>@kai.beads</p>
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com/kai.beads/" target="_blank">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@kai.beads" target="_blank">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Parte Central (Pagamentos e Envio) -->
+                    <div class="footer-center">
+                        <img class="footer-logo" src="assets/Foto sem fundo.png" alt="Logo Ananda Pratas">
+                        <p class="footer-title">Pagamentos e Envio</p>
+                        <img class="footer-payment" src="assets/pagamentos_sem_fundo.png" alt="Formas de Pagamento">
+                        <img class="footer-shipping" src="assets/correios_sem_fundo.png" alt="Opções de Envio">
+                    </div>
+
+                    <div class="footer-right">
+                        <h3>Ficou com alguma dúvida? Entre em contato com a gente!</h3>
+                        <form id="contact-form" action="https://formsubmit.co/eduardomassicorrea@gmail.com" method="POST">
+                            <!-- Campos do formulário -->
+                            <input type="text" name="name" placeholder="Seu Nome" required>
+                            <input type="email" name="email" placeholder="Seu E-mail" required>
+                            <input type="tel" name="phone" placeholder="Seu Telefone">
+                            <textarea name="message" placeholder="Sua Mensagem" required></textarea>
+                            
+                            <!-- Extras para melhorar o formulário -->
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_subject" value="Nova mensagem do site!">
+                    
+                            <button type="submit">Enviar</button>
+                        </form>
+                    
+                        <!-- Mensagem de sucesso -->
+                        <p id="success-message" style="display: none; color: #ADD8E6; font-weight: bold; margin-top: 10px;">
+                            Mensagem enviada com sucesso! Entraremos em contato em breve.
+                        </p>
+                    </div>                  
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="produto.js"></script>
+</body>
+
+</html>

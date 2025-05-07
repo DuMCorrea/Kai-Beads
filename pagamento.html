@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página de Pagamento</title>
+  <link rel="stylesheet" href="pagamento.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Pagamento</h1>
+
+    <section class="cliente-info">
+      <h2>Informações do cliente</h2>
+      <form id="formCliente">
+        <div class="campo">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" required />
+        </div>
+    
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+    
+        <div class="campo">
+          <label for="telefone">Telefone</label>
+          <input type="tel" id="telefone" name="telefone" required />
+        </div>
+    
+        <h3>Endereço de entrega</h3>
+        <div class="campo">
+          <label for="endereco">Endereço</label>
+          <input type="text" id="endereco" name="endereco" required />
+        </div>
+    
+        <div class="campo-duplo">
+          <div class="campo">
+            <label for="numero">Número</label>
+            <input type="text" id="numero" name="numero" required />
+          </div>
+          <div class="campo">
+            <label for="complemento">Complemento</label>
+            <input type="text" id="complemento" name="complemento" />
+          </div>
+        </div>
+    
+        <div class="campo">
+          <label for="cidade">Cidade</label>
+          <input type="text" id="cidade" name="cidade" required />
+        </div>
+    
+        <div class="campo-duplo">
+          <div class="campo">
+            <label for="estado">Estado</label>
+            <input type="text" id="estado" name="estado" required />
+          </div>
+          <div class="campo">
+            <label for="cep">Código Postal (CEP)</label>
+            <input type="text" id="cep" name="cep" required />
+          </div>
+        </div>
+    
+        <button type="submit">Continuar</button>
+      </form>
+    
+      <div id="resumo" style="display: none;">
+        <h3>Resumo das informações</h3>
+        <p><strong>Nome completo:</strong> <span id="resumo-nome"></span></p>
+        <p><strong>E-mail:</strong> <span id="resumo-email"></span></p>
+        <p><strong>Telefone:</strong> <span id="resumo-telefone"></span></p>
+        <p>
+          <strong>Endereço completo:</strong> 
+          <span id="resumo-endereco"></span>, 
+          <span id="resumo-numero"></span>, 
+          <span id="resumo-cidade"></span> - 
+          <span id="resumo-estado"></span>, 
+          <span id="resumo-cep"></span>
+        </p>
+        <p><strong>Complemento:</strong> <span id="resumo-complemento"></span></p>
+        <button id="editarButton">Editar</button>
+      </div>   
+    </section>
+    
+
+    
+    <section id="metodoEntrega" class="metodo-entrega">
+      <h2>Método de Entrega</h2>
+    
+      <form id="formEntrega">
+        <div class="grupo-entrega">
+          <h3>Entrega</h3>
+          <div class="opcoes-entrega">
+            <label>
+              <input type="radio" name="entrega" value="Sedex" disabled />
+              <div class="info-entrega">
+                <span>📦 Correios SEDEX</span>
+                <span class="descricao">R$ 13,70</span>
+                <span class="descricao-extra">3 dias úteis</span>
+              </div>
+            </label>
+    
+            <label>
+              <input type="radio" name="entrega" value="Uber" disabled />
+              <div class="info-entrega">
+                <span>🚗 Uber (Valor do App)</span>
+                <span class="descricao">Sem taxa</span>
+              </div>
+            </label>
+    
+            <label>
+              <input type="radio" name="entrega" value="Correios" disabled />
+              <div class="info-entrega">
+                <span>📮 Correios</span>
+                <span class="descricao">R$ 25,00</span>
+              </div>
+            </label>
+          </div>
+        </div>
+    
+        <div class="grupo-retirada">
+          <h3>Retirada</h3>
+          <div class="opcoes-entrega">
+            <label>
+              <input type="radio" name="entrega" value="Retirada" disabled />
+              <div class="info-entrega">
+                <span>🏬 Retirada</span>
+                <span class="descricao">Sem taxa</span>
+                <span class="descricao-extra">Av. Benno Mentz 1266, Porto Alegre, RS, 91370-020</span>
+              </div>
+            </label>
+          </div>
+        </div>
+    
+        <br />
+        <button type="button" id="botaoContinuarEntrega" disabled>Continuar</button>
+      </form>
+      <div id="resumo-entrega" style="display: none;">
+        <h3>Método de Entrega Selecionado</h3>
+        <div id="resumo-entrega-opcao" class="info-entrega"></div>
+        <button type="button" id="editarEntrega">Editar</button>
+      </div>      
+    </section>
+    
+    
+    
+    
+    
+    <section id="sessaoPagamento" class="pagamento">
+      <h2>Pagamento</h2>
+      <form>
+        <div class="opcoes-pagamento">
+          <label>
+            <input type="radio" name="pagamento" value="Mercado Pago" disabled />
+            <div class="info-pagamento">
+              <span>💳 Mercado Pago</span>
+              <span class="descricao">
+                Ao continuar com este método de pagamento, você será redirecionado para Mercado Pago.
+              </span>
+            </div>
+          </label>
+    
+          <label>
+            <input type="radio" name="pagamento" value="Pagamento Offline" disabled />
+            <div class="info-pagamento">
+              <span>🏦 Pagamento Offline</span>
+              <span class="descricao">
+                Pagamento via PIX para a chave CNPJ: 42.173.599/0001-05
+              </span>
+              <span class="descricao-extra">
+                Enviar comprovante via WhatsApp (51) 99373-6553 ou email anandapratass@gmail.com
+              </span>
+            </div>
+          </label>
+        </div>
+      </form>
+      
+    
+      <!-- Sessão finalização -->
+      <div class="finalizar-pedido">
+        <h3>Reveja e finalize o pedido</h3>
+        <p>
+          Verifique as informações do cliente, método de entrega e pagamento.
+          Se tudo estiver correto, pode prosseguir com seu pedido!
+        </p>
+        <button type="button" id="botaoFinalizarPedido" disabled>Fazer pedido e pagar</button>
+      </div>
+    </section>
+    
+    
+    
+    
+
+    
+  </div>
+
+  <script src="pagamento.js"></script>
+</body>
+</html>

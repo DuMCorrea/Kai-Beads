@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            font-size: 24px;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px 88px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #777;
+        }
+
+        a {
+            color: #FF8A65;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .google-btn {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            color: #000;
+        }
+
+        .facebook-btn {
+            background-color: #1877f2;
+            color: #fff;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .divider span {
+            flex: 1;
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        .divider p {
+            margin: 0 10px;
+            color: #777;
+        }
+
+        .email-btn {
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+
+        .email-form {
+            display: none;
+            margin-top: 15px;
+        }
+
+        input {
+            width: 95%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .login-btn {
+            background-color: #FF8A65;
+            color: white;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/home.html" class="close-icon">✖</a>
+    <div class="container">
+        <h1>Login</h1>
+        <p>Não tem uma conta? <a href="register.html">Cadastre-se aqui</a></p>
+        
+        <button class="google-btn">Login com Google</button>
+        <button class="facebook-btn">Login com Facebook</button>
+        
+        <div class="divider">
+            <span></span>
+            <p>ou</p>
+            <span></span>
+        </div>
+        
+        <button class="email-btn">Login com email</button>
+        <div class="email-form">
+            <input type="email" id="email" placeholder="Digite seu email">
+            <input type="password" id="password" placeholder="Digite sua senha">
+            <button class="login-btn">Entrar</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const firebaseConfig = {
+      apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+      authDomain: "kaibeads-2ab98.firebaseapp.com",
+      projectId: "kaibeads-2ab98",
+      storageBucket: "kaibeads-2ab98.appspot.com",
+      messagingSenderId: "405735155633",
+      appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+      measurementId: "G-N2NDBL58J7"
+    };
+            firebase.initializeApp(firebaseConfig);
+
+            const emailBtn = document.querySelector('.email-btn');
+            const emailForm = document.querySelector('.email-form');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const loginBtn = document.querySelector('.login-btn');
+            const googleBtn = document.querySelector('.google-btn');
+
+            emailBtn.addEventListener('click', () => {
+                emailForm.style.display = 'block';
+            });
+
+            loginBtn.addEventListener('click', () => {
+                const email = emailInput.value;
+                const password = passwordInput.value;
+
+                firebase.auth().signInWithEmailAndPassword(email, password)
+                    .then(() => {
+                        alert("Login realizado com sucesso!");
+                        window.location.href = "/home.html";
+                    })
+                    .catch((error) => {
+                        alert("Erro ao fazer login: " + error.message);
+                    });
+            });
+
+            googleBtn.addEventListener('click', () => {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                firebase.auth().signInWithPopup(provider)
+                    .then(() => {
+                        alert("Login com Google realizado com sucesso!");
+                        window.location.href = "/home.html";
+                    })
+                    .catch((error) => {
+                        alert("Erro ao autenticar com Google: " + error.message);
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
