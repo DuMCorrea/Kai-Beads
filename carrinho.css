@@ -72,6 +72,11 @@ body{
     transition: .2s;
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-behavior: smooth 800ms ease-in-out; 
+}
+
 h2.titulo{
     color: white;
     font-size: 38px;
@@ -189,19 +194,31 @@ button:hover, form .btn-enviar input:hover{
 
 
 
+.logo {
+    width: 220px;          /* largura fixa para o contêiner da logo */
+    height: 80px;          /* altura fixa para manter o layout estável */
+    display: flex;
+    align-items: center;   /* centraliza a logo verticalmente */
+    justify-content: center;
+    flex-shrink: 0;        /* impede que a logo encolha */
+     margin-top: 25px;
+}
+
 .logo img {
-    width: 220px;  /* Ajuste conforme o tamanho desejado */
+    width: 150px;  /* Ajuste conforme o tamanho desejado */
     height: auto;   /* Mantém a proporção da imagem */
-    margin-top: 25px;
+    margin-top: 0px;
+    margin-bottom: 40px;
 }
 
 header > .interface {
-    display: flex;
+     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 30px;
     margin-left: 50px; /* Move os itens para a direita */
-    margin-top: -50px; /* Move os itens para a direita */
+    margin-bottom: 60px;
+    margin-top: 30px;
 }
 header a{
     color: #5c5c5c;
@@ -310,6 +327,20 @@ header nav ul li{
     background-color: #f0f0f0;
 }
 
+.autocomplete-item {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre a imagem e o nome */
+}
+
+.autocomplete-img {
+    width: 40px; /* Tamanho pequeno e retangular */
+    height: 30px;
+    object-fit: cover;
+    border-radius: 4px; /* borda arredondada opcional */
+}
+
+
 
 .menu-desktop input[type="text"]::placeholder {
     color: #999; /* Cor do texto do placeholder */
@@ -350,7 +381,7 @@ header nav ul li{
 #contador-carrinho {
     position: absolute;
     top: 14px; /* Ajusta a posição dentro do ícone do carrinho */
-    right: 7px;
+    right: 5px;
     color:  black;
     font-size: 12px;
     font-weight: bold;
@@ -568,7 +599,19 @@ header nav ul li{
 .btn-remover:hover {
     background-color: #d32f2f;
 }
-
+.conteudo-principal {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 20px;
+  }
+  
+  .formulario-pagamento {
+    flex: 2;
+  }
+  
+  
+  
 
 
 
@@ -595,6 +638,37 @@ header nav ul li{
     margin: 10px 0;
     display: flex;
     justify-content: space-between;
+}
+
+/* Estilo geral do container dos itens */
+.resumo-itens {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Remove bullets, padding e margem da lista */
+.lista-resumo-itens {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo dos itens para alinhar nome à esquerda e quantidade à direita */
+.lista-resumo-itens li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    padding: 4px 0;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+/* Opcional: remove a borda do último item */
+.lista-resumo-itens li:last-child {
+    border-bottom: none;
 }
 
 .finalizar-compra {
@@ -685,6 +759,17 @@ footer .flex {
     color: #333;
     font-size: 16px;
     margin: 2px 0;
+}
+
+.footer-left p a {
+    color: #333;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.footer-left p a:hover {
+    text-decoration: underline;
+    color: #555;
 }
 
 .footer-left a img {

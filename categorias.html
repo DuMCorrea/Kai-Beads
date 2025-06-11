@@ -71,7 +71,7 @@
 
         <div id="interface" class="interface">
             <div class="logo">
-                <a href="#"><img src="./assets/Foto sem fundo.png" alt="Logo da KaiBeads"></a>
+                <a href="#"><img src="./assets/Logo eduardo vetorizado Colorido.svg" alt="Logo da KaiBeads"></a>
             </div>
 
             <nav class="menu-desktop">
@@ -89,15 +89,15 @@
                             </div>
 
                             <div class="submenu-item">
-                                <a href="#todos-btn">Prata 925</a>
+                                <a href="categorias.html#todos-btn" data-target="#todos-btn">Prata 925</a>
                                 <div class="submenu-nested">
-                                    <a href="#anel-btn">Anéis</a>
-                                    <a href="#brinco-btn">Brincos</a>
-                                    <a href="#colar-btn">Colares</a>
-                                    <a href="#corrente-btn">Correntes</a>
-                                    <a href="#pulseira-btn">Pulseiras</a>
-                                    <a href="#piercing-btn">Piercings</a>
-                                    <a href="#limpeza-btn">Limpeza</a>
+                                    <a href="categorias.html#anel-btn" data-target="#anel-btn">Anéis</a>
+                                    <a href="categorias.html#brinco-btn" data-target="#brinco-btn">Brincos</a>
+                                    <a href="categorias.html#colar-btn" data-target="#colar-btn">Colares</a>
+                                    <a href="categorias.html#corrente-btn" data-target="#corrente-btn">Correntes</a>
+                                    <a href="categorias.html#pulseira-btn" data-target="#pulseira-btn">Pulseiras</a>
+                                    <a href="categorias.html#piercing-btn" data-target="#piercing-btn">Piercings</a>
+                                    <a href="categorias.html#limpeza-btn" data-target="#limpeza-btn">Limpeza</a>
                                 </div>
                             </div>
 
@@ -114,11 +114,11 @@
                     <li><a href="home.html#sobre" id="link-sobre">Sobre</a></li>
                     <li>
                         <div class="search-container">
-                          <input type="text" id="searchInput" placeholder="Pesquisar" autocomplete="off">
-                          <i class="bi bi-search"></i>
-                          <ul id="autocomplete-list" class="autocomplete-items"></ul>
+                            <input type="text" id="searchInput" placeholder="Pesquisar" autocomplete="off">
+                            <i class="bi bi-search"></i>
+                            <ul id="autocomplete-list" class="autocomplete-items"></ul>
                         </div>
-                      </li>
+                    </li>
                     <li>
                         <a href="carrinho.html" id="link-carrinho">
                             <i class="bi bi-cart"></i>
@@ -136,6 +136,19 @@
     </header>
 
     <main>
+        <div class="ordenacao">
+            <div class="ordenacao-container">
+                <label for="ordenacao">Ordenar por:</label>
+                <select id="ordenacao">
+                    <option value="">Selecione</option>
+                    <option value="az">A-Z</option>
+                    <option value="za">Z-A</option>
+                    <option value="preco-asc">Preço (menor ao maior)</option>
+                    <option value="preco-desc">Preço (maior ao menor)</option>
+                </select>
+            </div>
+        </div>
+
         <!-- Menu Lateral -->
         <div class="menu-lateral">
             <h3>Filtrar por</h3>
@@ -143,48 +156,52 @@
                 <li>
                     <a href="#" id="categoria-btn">Categoria <span class="toggle-icon">-</span></a>
                     <ul id="categoria-list" class="categoria-list">
-                      <li><a href="#" id="todos-btn">Todos</a></li>
-                      <li><a href="#" id="anel-btn">Anéis</a></li>
-                      <li><a href="#" id="brinco-btn">Brincos</a></li>
-                      <li><a href="#" id="colar-btn">Colares</a></li>
-                      <li><a href="#" id="corrente-btn">Correntes</a></li>
-                      <li><a href="#" id="pulseira-btn">Pulseiras</a></li>
-                      <li><a href="#" id="piercing-btn">Piercings</a></li>
-                      <li><a href="#" id="limpeza-btn">Limpeza</a></li>
+                        <li><a href="#" id="todos-btn">Todos</a></li>
+                        <li><a href="#" id="anel-btn">Anéis</a></li>
+                        <li><a href="#" id="brinco-btn">Brincos</a></li>
+                        <li><a href="#" id="colar-btn">Colares</a></li>
+                        <li><a href="#" id="corrente-btn">Correntes</a></li>
+                        <li><a href="#" id="pulseira-btn">Pulseiras</a></li>
+                        <li><a href="#" id="piercing-btn">Piercings</a></li>
+                        <li><a href="#" id="limpeza-btn">Limpeza</a></li>
+                        <li><a href="#" id="cangas-btn">Canga-toalhas</a></li>
+                        <li><a href="#" id="moletons-btn">Moletons</a></li>
                     </ul>
-                  </li>                  
-                  <li>
+                </li>
+                <li>
                     <a href="#" id="preco-btn">Preço <span class="toggle-icon-preco">-</span></a>
                     <ul id="preco-list" class="preco-list">
                         <li style="list-style: none;">
-                          <div class="range-container">
-                            <input type="range" id="min-price" min="0" max="500" value="0">
-                            <input type="range" id="max-price" min="0" max="500" value="500">
-                            <div class="slider-track"></div>
-                            <div class="price-values">
-                              <span id="min-value">R$ 0</span>
-                              <span id="max-value">R$ 500</span>
+                            <div class="range-container">
+                                <input type="range" id="min-price" min="0" max="500" value="0">
+                                <input type="range" id="max-price" min="0" max="500" value="500">
+                                <div class="slider-track"></div>
+                                <div class="price-values">
+                                    <span id="min-value">R$ 0</span>
+                                    <span id="max-value">R$ 500</span>
+                                </div>
                             </div>
-                          </div>
-                      
-                          <!-- Botão de Filtrar -->
-                          <div class="btn-filtrar-container">
-                            <button id="btn-filtrar" class="btn-filtrar">Filtrar</button>
-                          </div>
+
+                            <!-- Botão de Filtrar -->
+                            <div class="btn-filtrar-container">
+                                <button id="btn-filtrar" class="btn-filtrar">Filtrar</button>
+                            </div>
                         </li>
-                      </ul>                      
-                  </li> 
+                    </ul>
+                </li>
             </ul>
         </div>
 
 
         <section id="produto" class="produto">
-            <div class="interface">                 
-                <div class="produtos-todos" >
+            <div class="interface">
+                <div id="inicio-produtos"></div>
+                <div class="produtos-todos">
                     <div class="flex">
                         <!-- Primeira linha de produtos -->
                         <div class="produto-item">
-                            <a href="produto.html?nome=Pandora&preco=29.99&imagem=./assets/FotoAneis.png" class="link-card-produto">
+                            <a href="produto.html?nome=Pandora&preco=29.99&imagem=./assets/FotoAneis.png"
+                                class="link-card-produto">
                                 <div class="card-produto">
                                     <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                                     <div class="info-produto">
@@ -200,9 +217,10 @@
                                 </div>
                             </a>
                         </div>
-                    
+
                         <div class="produto-item">
-                            <a href="produto.html?nome=Morana&preco=85.99&imagem=./assets/FotoAneis.png" class="link-card-produto">
+                            <a href="produto.html?nome=Morana&preco=85.99&imagem=./assets/FotoAneis.png"
+                                class="link-card-produto">
                                 <div class="card-produto">
                                     <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                                     <div class="info-produto">
@@ -218,9 +236,10 @@
                                 </div>
                             </a>
                         </div>
-                    
+
                         <div class="produto-item">
-                            <a href="produto.html?nome=Swarovski&preco=19.99&imagem=./assets/FotoAneis.png" class="link-card-produto">
+                            <a href="produto.html?nome=Swarovski&preco=19.99&imagem=./assets/FotoAneis.png"
+                                class="link-card-produto">
                                 <div class="card-produto">
                                     <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                                     <div class="info-produto">
@@ -236,10 +255,11 @@
                                 </div>
                             </a>
                         </div>
-                    
+
                         <!-- Segunda linha de produtos -->
                         <div class="produto-item">
-                            <a href="produto.html?nome=Vivara&preco=49.99&imagem=./assets/FotoAneis.png" class="link-card-produto">
+                            <a href="produto.html?nome=Vivara&preco=49.99&imagem=./assets/FotoAneis.png"
+                                class="link-card-produto">
                                 <div class="card-produto">
                                     <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                                     <div class="info-produto">
@@ -255,9 +275,10 @@
                                 </div>
                             </a>
                         </div>
-                    
+
                         <div class="produto-item">
-                            <a href="produto.html?nome=Rommanel&preco=120.99&imagem=./assets/FotoAneis.png" class="link-card-produto">
+                            <a href="produto.html?nome=Rommanel&preco=120.99&imagem=./assets/FotoAneis.png"
+                                class="link-card-produto">
                                 <div class="card-produto">
                                     <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                                     <div class="info-produto">
@@ -273,9 +294,10 @@
                                 </div>
                             </a>
                         </div>
-                    
+
                         <div class="produto-item">
-                            <a href="produto.html?nome=Joias%20Boz&preco=30.99&imagem=./assets/FotoAneis.png" class="link-card-produto">
+                            <a href="produto.html?nome=Joias%20Boz&preco=30.99&imagem=./assets/FotoAneis.png"
+                                class="link-card-produto">
                                 <div class="card-produto">
                                     <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                                     <div class="info-produto">
@@ -291,21 +313,24 @@
                                 </div>
                             </a>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="interface">
                     <div class="produtos-anel" style="display: none;">
                         <div class="flex">
                             <!-- Primeira linha de produtos -->
                             <div class="produto-item">
-                                <a href="produto.html?nome=Pandora&preco=29.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Pandora&preco=29.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Pandora</h3>
                                             <p class="preco">R$ 29,99</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Pandora" data-preco="29.99" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Pandora" data-preco="29.99"
+                                                    data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -314,14 +339,17 @@
                                 </a>
                             </div>
                             <div class="produto-item">
-                                <a href="produto.html?nome=Vivara&preco=150.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Vivara&preco=150.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Vivara</h3>
                                             <p class="preco">R$ 150,99</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Vivara" data-preco="150.99" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Vivara" data-preco="150.99"
+                                                    data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -330,14 +358,17 @@
                                 </a>
                             </div>
                             <div class="produto-item">
-                                <a href="produto.html?nome=Tiffany%20%26%20Co.&preco=69.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Tiffany%20%26%20Co.&preco=69.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Tiffany & Co.</h3>
                                             <p class="preco">R$ 69,99</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Tiffany & Co." data-preco="69.99" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Tiffany & Co."
+                                                    data-preco="69.99" data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -345,17 +376,20 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <!-- Segunda linha de produtos -->
                             <div class="produto-item">
-                                <a href="produto.html?nome=Monte%20Carlo&preco=149.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Monte%20Carlo&preco=149.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Monte Carlo</h3>
                                             <p class="preco">R$ 149,99</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Monte Carlo" data-preco="149.99" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Monte Carlo"
+                                                    data-preco="149.99" data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -364,14 +398,17 @@
                                 </a>
                             </div>
                             <div class="produto-item">
-                                <a href="produto.html?nome=H.Stern&preco=90.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=H.Stern&preco=90.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">H.Stern</h3>
                                             <p class="preco">R$ 90,99</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="H.Stern" data-preco="90.99" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="H.Stern" data-preco="90.99"
+                                                    data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -380,14 +417,17 @@
                                 </a>
                             </div>
                             <div class="produto-item">
-                                <a href="produto.html?nome=Prata%20Fina&preco=19.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Prata%20Fina&preco=19.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Prata Fina</h3>
                                             <p class="preco">R$ 19,99</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Prata Fina" data-preco="19.99" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Prata Fina"
+                                                    data-preco="19.99" data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -397,20 +437,23 @@
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div class="interface">
                     <div class="produtos-brinco" style="display: none;">
                         <div class="flex">
                             <!-- Primeira linha de produtos -->
                             <div class="produto-item">
-                                <a href="produto.html?nome=Morana&preco=59.90&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Morana&preco=59.90&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Morana</h3>
                                             <p class="preco">R$ 59,90</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Morana" data-preco="59.90" data-imagem="./assets/Foto destaque (2).png">
+                                                <button class="btn-add-carrinho" data-nome="Morana" data-preco="59.90"
+                                                    data-imagem="./assets/Foto destaque (2).png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -418,16 +461,19 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <div class="produto-item">
-                                <a href="produto.html?nome=Pandora&preco=149.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Pandora&preco=149.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Pandora</h3>
                                             <p class="preco">R$ 149,99</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Pandora" data-preco="149.99" data-imagem="./assets/Foto destaque (2).png">
+                                                <button class="btn-add-carrinho" data-nome="Pandora" data-preco="149.99"
+                                                    data-imagem="./assets/Foto destaque (2).png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -435,16 +481,19 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <div class="produto-item">
-                                <a href="produto.html?nome=Balenciaga&preco=299.00&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Balenciaga&preco=299.00&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Balenciaga</h3>
                                             <p class="preco">R$ 299,00</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Balenciaga" data-preco="299.00" data-imagem="./assets/Foto destaque (2).png">
+                                                <button class="btn-add-carrinho" data-nome="Balenciaga"
+                                                    data-preco="299.00" data-imagem="./assets/Foto destaque (2).png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -452,17 +501,20 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <!-- Segunda linha de produtos -->
                             <div class="produto-item">
-                                <a href="produto.html?nome=Accessorize&preco=89.50&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Accessorize&preco=89.50&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Accessorize</h3>
                                             <p class="preco">R$ 89,50</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Accessorize" data-preco="89.50" data-imagem="./assets/Foto destaque (2).png">
+                                                <button class="btn-add-carrinho" data-nome="Accessorize"
+                                                    data-preco="89.50" data-imagem="./assets/Foto destaque (2).png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -470,16 +522,19 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <div class="produto-item">
-                                <a href="produto.html?nome=Lança Perfume&preco=119.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Lança Perfume&preco=119.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Lança Perfume</h3>
                                             <p class="preco">R$ 119,99</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Lança Perfume" data-preco="119.99" data-imagem="./assets/Foto destaque (2).png">
+                                                <button class="btn-add-carrinho" data-nome="Lança Perfume"
+                                                    data-preco="119.99" data-imagem="./assets/Foto destaque (2).png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -487,16 +542,19 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <div class="produto-item">
-                                <a href="produto.html?nome=Ana Rocha & Appolinario&preco=134.90&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Ana Rocha & Appolinario&preco=134.90&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Ana Rocha & Appolinario</h3>
                                             <p class="preco">R$ 134,90</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Ana Rocha & Appolinario" data-preco="134.90" data-imagem="./assets/Foto destaque (2).png">
+                                                <button class="btn-add-carrinho" data-nome="Ana Rocha & Appolinario"
+                                                    data-preco="134.90" data-imagem="./assets/Foto destaque (2).png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -506,20 +564,23 @@
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div class="interface">
                     <div class="produtos-colar" style="display: none;">
                         <div class="flex">
                             <!-- Primeira linha de produtos -->
                             <div class="produto-item">
-                                <a href="produto.html?nome=Swarovski&preco=89.90&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Swarovski&preco=89.90&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Swarovski</h3>
                                             <p class="preco">R$ 89,90</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Swarovski" data-preco="89.90" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Swarovski"
+                                                    data-preco="89.90" data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -527,16 +588,19 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <div class="produto-item">
-                                <a href="produto.html?nome=Tiffany%20%26%20Co.&preco=129.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Tiffany%20%26%20Co.&preco=129.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Tiffany & Co.</h3>
                                             <p class="preco">R$ 129,99</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Tiffany & Co." data-preco="129.99" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Tiffany & Co."
+                                                    data-preco="129.99" data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -544,16 +608,19 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <div class="produto-item">
-                                <a href="produto.html?nome=Rommanel&preco=75.00&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Rommanel&preco=75.00&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Rommanel</h3>
                                             <p class="preco">R$ 75,00</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Rommanel" data-preco="75.00" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Rommanel" data-preco="75.00"
+                                                    data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -561,17 +628,20 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <!-- Segunda linha de produtos -->
                             <div class="produto-item">
-                                <a href="produto.html?nome=Pandora&preco=99.90&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Pandora&preco=99.90&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Pandora</h3>
                                             <p class="preco">R$ 99,90</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Pandora" data-preco="99.90" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Pandora" data-preco="99.90"
+                                                    data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -579,16 +649,19 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <div class="produto-item">
-                                <a href="produto.html?nome=The%20Giving%20Keys&preco=67.50&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=The%20Giving%20Keys&preco=67.50&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">The Giving Keys</h3>
                                             <p class="preco">R$ 67,50</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="The Giving Keys" data-preco="67.50" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="The Giving Keys"
+                                                    data-preco="67.50" data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -596,16 +669,19 @@
                                     </div>
                                 </a>
                             </div>
-                
+
                             <div class="produto-item">
-                                <a href="produto.html?nome=Loewe&preco=110.00&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
+                                <a href="produto.html?nome=Loewe&preco=110.00&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
                                     <div class="card-produto">
-                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
                                         <div class="info-produto">
                                             <h3 class="produto-nome">Loewe</h3>
                                             <p class="preco">R$ 110,00</p>
                                             <div class="btn-comprar">
-                                                <button class="btn-add-carrinho" data-nome="Loewe" data-preco="110.00" data-imagem="./assets/FotoAneis.png">
+                                                <button class="btn-add-carrinho" data-nome="Loewe" data-preco="110.00"
+                                                    data-imagem="./assets/FotoAneis.png">
                                                     ADICIONAR AO CARRINHO
                                                 </button>
                                             </div>
@@ -615,554 +691,907 @@
                             </div>
                         </div>
                     </div>
-                </div>                
-                    <div class="interface">
-                        <div class="produtos-corrente" style="display: none;">
-                            <div class="flex">
-                                <!-- Primeira linha de produtos -->
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Prata%20Rara&preco=92.50&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Prata Rara</h3>
-                                                <p class="preco">R$ 92,50</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Prata Rara" data-preco="92.50" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
+                </div>
+                <div class="interface">
+                    <div class="produtos-corrente" style="display: none;">
+                        <div class="flex">
+                            <!-- Primeira linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Prata%20Rara&preco=92.50&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Prata Rara</h3>
+                                            <p class="preco">R$ 92,50</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Prata Rara"
+                                                    data-preco="92.50" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Vivara&preco=134.90&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Vivara</h3>
-                                                <p class="preco">R$ 134,90</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Vivara" data-preco="134.90" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Vivara&preco=134.90&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Vivara</h3>
+                                            <p class="preco">R$ 134,90</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Vivara" data-preco="134.90"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Prata%20Fina&preco=88.00&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Prata Fina</h3>
-                                                <p class="preco">R$ 88,00</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Prata Fina" data-preco="88.00" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Prata%20Fina&preco=88.00&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Prata Fina</h3>
+                                            <p class="preco">R$ 88,00</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Prata Fina"
+                                                    data-preco="88.00" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
-                    
-                                <!-- Segunda linha de produtos -->
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=H.Stern&preco=115.75&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">H.Stern</h3>
-                                                <p class="preco">R$ 115,75</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="H.Stern" data-preco="115.75" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Segunda linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=H.Stern&preco=115.75&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">H.Stern</h3>
+                                            <p class="preco">R$ 115,75</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="H.Stern" data-preco="115.75"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Monte%20Carlo&preco=99.90&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Monte Carlo</h3>
-                                                <p class="preco">R$ 99,90</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Monte Carlo" data-preco="99.90" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Monte%20Carlo&preco=99.90&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Monte Carlo</h3>
+                                            <p class="preco">R$ 99,90</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Monte Carlo"
+                                                    data-preco="99.90" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Tiffany%20%26%20Co.&preco=142.30&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Tiffany & Co.</h3>
-                                                <p class="preco">R$ 142,30</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Tiffany & Co." data-preco="142.30" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Tiffany%20%26%20Co.&preco=142.30&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Tiffany & Co.</h3>
+                                            <p class="preco">R$ 142,30</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Tiffany & Co."
+                                                    data-preco="142.30" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                    </div>                    
-                    <div class="interface">
-                        <div class="produtos-pulseira" style="display: none;">
-                            <div class="flex">
-                                <!-- Primeira linha de produtos -->
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Nina%20Bruni&preco=89.90&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Nina Bruni</h3>
-                                                <p class="preco">R$ 89,90</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Nina Bruni" data-preco="89.90" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Prata%20Pura&preco=74.50&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Prata Pura</h3>
-                                                <p class="preco">R$ 74,50</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Prata Pura" data-preco="74.50" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Tragus%20Store&preco=92.30&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Tragus Store</h3>
-                                                <p class="preco">R$ 92,30</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Tragus Store" data-preco="92.30" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <!-- Segunda linha de produtos -->
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Joias%20Boz&preco=68.75&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Joias Boz</h3>
-                                                <p class="preco">R$ 68,75</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Joias Boz" data-preco="68.75" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Urban%20Piercing&preco=81.10&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Urban Piercing</h3>
-                                                <p class="preco">R$ 81,10</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Urban Piercing" data-preco="81.10" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Lilac%20Piercings&preco=95.60&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Lilac Piercings</h3>
-                                                <p class="preco">R$ 95,60</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Lilac Piercings" data-preco="95.60" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                    <div class="interface">
-                        <div class="produtos-pulseira" style="display: none;">
-                            <div class="flex">
-                                <!-- Primeira linha de produtos -->
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Nina%20Bruni&preco=89.90&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Nina Bruni</h3>
-                                                <p class="preco">R$ 89,90</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Nina Bruni" data-preco="89.90" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Prata%20Pura&preco=74.50&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Prata Pura</h3>
-                                                <p class="preco">R$ 74,50</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Prata Pura" data-preco="74.50" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Tragus%20Store&preco=92.30&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Tragus Store</h3>
-                                                <p class="preco">R$ 92,30</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Tragus Store" data-preco="92.30" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <!-- Segunda linha de produtos -->
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Joias%20Boz&preco=68.75&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Joias Boz</h3>
-                                                <p class="preco">R$ 68,75</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Joias Boz" data-preco="68.75" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Urban%20Piercing&preco=81.10&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Urban Piercing</h3>
-                                                <p class="preco">R$ 81,10</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Urban Piercing" data-preco="81.10" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Lilac%20Piercings&preco=95.60&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Lilac Piercings</h3>
-                                                <p class="preco">R$ 95,60</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Lilac Piercings" data-preco="95.60" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                    <div class="interface">
-                        <div class="produtos-piercing" style="display: none;">
-                            <div class="flex">
-                                <!-- Primeira linha de produtos -->
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Nina Bruni&preco=180.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Nina Bruni</h3>
-                                                <p class="preco">R$ 180,99</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Nina Bruni" data-preco="180.99" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Prata Pura&preco=39.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Prata Pura</h3>
-                                                <p class="preco">R$ 39,99</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Prata Pura" data-preco="39.99" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Tragus Store&preco=200.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Tragus Store</h3>
-                                                <p class="preco">R$ 200,99</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Tragus Store" data-preco="200.99" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                    
-                                <!-- Segunda linha de produtos -->
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Joias Boz&preco=500.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Joias Boz</h3>
-                                                <p class="preco">R$ 500,99</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Joias Boz" data-preco="500.99" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Urban Piercing&preco=70.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Urban Piercing</h3>
-                                                <p class="preco">R$ 70,99</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Urban Piercing" data-preco="70.99" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="produto-item">
-                                    <a href="produto.html?nome=Lilac Piercings&preco=120.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                        <div class="card-produto">
-                                            <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                            <div class="info-produto">
-                                                <h3 class="produto-nome">Lilac Piercings</h3>
-                                                <p class="preco">R$ 120,99</p>
-                                                <div class="btn-comprar">
-                                                    <button class="btn-add-carrinho" data-nome="Lilac Piercings" data-preco="120.99" data-imagem="./assets/FotoAneis.png">
-                                                        ADICIONAR AO CARRINHO
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                        <div class="interface">
-                            <div class="produtos-limpeza" style="display: none;">
-                                <div class="flex">
-                                    <!-- Primeira linha de produtos -->
-                                    <div class="produto-item">
-                                        <a href="produto.html?nome=Brilho%20Fácil&preco=40.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                            <div class="card-produto">
-                                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                                <div class="info-produto">
-                                                    <h3 class="produto-nome">Brilho Fácil</h3>
-                                                    <p class="preco">R$ 40,99</p>
-                                                    <div class="btn-comprar">
-                                                        <button class="btn-add-carrinho" data-nome="Brilho Fácil" data-preco="40.99" data-imagem="./assets/FotoAneis.png">
-                                                            ADICIONAR AO CARRINHO
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                            
-                                    <div class="produto-item">
-                                        <a href="produto.html?nome=Flanela%20Mágica&preco=19.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                            <div class="card-produto">
-                                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                                <div class="info-produto">
-                                                    <h3 class="produto-nome">Flanela Mágica</h3>
-                                                    <p class="preco">R$ 19,99</p>
-                                                    <div class="btn-comprar">
-                                                        <button class="btn-add-carrinho" data-nome="Flanela Mágica da Prata Fina" data-preco="19.99" data-imagem="./assets/FotoAneis.png">
-                                                            ADICIONAR AO CARRINHO
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                            
-                                    <div class="produto-item">
-                                        <a href="produto.html?nome=Monzi&preco=55.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                            <div class="card-produto">
-                                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                                <div class="info-produto">
-                                                    <h3 class="produto-nome">Monzi</h3>
-                                                    <p class="preco">R$ 55,99</p>
-                                                    <div class="btn-comprar">
-                                                        <button class="btn-add-carrinho" data-nome="Monzi (líquido de limpeza)" data-preco="55.99" data-imagem="./assets/FotoAneis.png">
-                                                            ADICIONAR AO CARRINHO
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                            
-                                    <!-- Segunda linha de produtos -->
-                                    <div class="produto-item">
-                                        <a href="produto.html?nome=Flanela%20Limpa%20Prata&preco=19.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                            <div class="card-produto">
-                                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                                <div class="info-produto">
-                                                    <h3 class="produto-nome">Flanela Limpa Prata</h3>
-                                                    <p class="preco">R$ 19,99</p>
-                                                    <div class="btn-comprar">
-                                                        <button class="btn-add-carrinho" data-nome="Flanela Limpa Prata (Asflon)" data-preco="19.99" data-imagem="./assets/FotoAneis.png">
-                                                            ADICIONAR AO CARRINHO
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                            
-                                    <div class="produto-item">
-                                        <a href="produto.html?nome=Connoisseurs%20Jewelry&preco=15.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                            <div class="card-produto">
-                                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                                <div class="info-produto">
-                                                    <h3 class="produto-nome">Connoisseurs Jewelry</h3>
-                                                    <p class="preco">R$ 15,99</p>
-                                                    <div class="btn-comprar">
-                                                        <button class="btn-add-carrinho" data-nome="Connoisseurs Jewelry Cleaner" data-preco="15.99" data-imagem="./assets/FotoAneis.png">
-                                                            ADICIONAR AO CARRINHO
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                            
-                                    <div class="produto-item">
-                                        <a href="produto.html?nome=Hagerty%20Jewelry&preco=29.99&imagem=./assets/FotoAneis.png" class="link-card-produto" style="text-decoration: none;">
-                                            <div class="card-produto">
-                                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
-                                                <div class="info-produto">
-                                                    <h3 class="produto-nome">Hagerty Jewelry</h3>
-                                                    <p class="preco">R$ 29,99</p>
-                                                    <div class="btn-comprar">
-                                                        <button class="btn-add-carrinho" data-nome="Hagerty Jewelry Cleaner" data-preco="29.99" data-imagem="./assets/FotoAneis.png">
-                                                            ADICIONAR AO CARRINHO
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!--flex-->
                     </div>
-                </div><!--interface-->
+                </div>
+                <div class="interface">
+                    <div class="produtos-pulseira" style="display: none;">
+                        <div class="flex">
+                            <!-- Primeira linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Nina%20Bruni&preco=89.90&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Nina Bruni</h3>
+                                            <p class="preco">R$ 89,90</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Nina Bruni"
+                                                    data-preco="89.90" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Prata%20Pura&preco=74.50&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Prata Pura</h3>
+                                            <p class="preco">R$ 74,50</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Prata Pura"
+                                                    data-preco="74.50" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Tragus%20Store&preco=92.30&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Tragus Store</h3>
+                                            <p class="preco">R$ 92,30</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Tragus Store"
+                                                    data-preco="92.30" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Segunda linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Joias%20Boz&preco=68.75&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Joias Boz</h3>
+                                            <p class="preco">R$ 68,75</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Joias Boz"
+                                                    data-preco="68.75" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Urban%20Piercing&preco=81.10&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Urban Piercing</h3>
+                                            <p class="preco">R$ 81,10</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Urban Piercing"
+                                                    data-preco="81.10" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Lilac%20Piercings&preco=95.60&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Lilac Piercings</h3>
+                                            <p class="preco">R$ 95,60</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Lilac Piercings"
+                                                    data-preco="95.60" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface">
+                    <div class="produtos-pulseira" style="display: none;">
+                        <div class="flex">
+                            <!-- Primeira linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Nina%20Bruni&preco=89.90&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Nina Bruni</h3>
+                                            <p class="preco">R$ 89,90</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Nina Bruni"
+                                                    data-preco="89.90" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Prata%20Pura&preco=74.50&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Prata Pura</h3>
+                                            <p class="preco">R$ 74,50</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Prata Pura"
+                                                    data-preco="74.50" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Tragus%20Store&preco=92.30&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Tragus Store</h3>
+                                            <p class="preco">R$ 92,30</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Tragus Store"
+                                                    data-preco="92.30" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Segunda linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Joias%20Boz&preco=68.75&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Joias Boz</h3>
+                                            <p class="preco">R$ 68,75</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Joias Boz"
+                                                    data-preco="68.75" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Urban%20Piercing&preco=81.10&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Urban Piercing</h3>
+                                            <p class="preco">R$ 81,10</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Urban Piercing"
+                                                    data-preco="81.10" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Lilac%20Piercings&preco=95.60&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Lilac Piercings</h3>
+                                            <p class="preco">R$ 95,60</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Lilac Piercings"
+                                                    data-preco="95.60" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface">
+                    <div class="produtos-piercing" style="display: none;">
+                        <div class="flex">
+                            <!-- Primeira linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Nina Bruni&preco=180.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Nina Bruni</h3>
+                                            <p class="preco">R$ 180,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Nina Bruni"
+                                                    data-preco="180.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Prata Pura&preco=39.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Prata Pura</h3>
+                                            <p class="preco">R$ 39,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Prata Pura"
+                                                    data-preco="39.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Tragus Store&preco=200.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Tragus Store</h3>
+                                            <p class="preco">R$ 200,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Tragus Store"
+                                                    data-preco="200.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Segunda linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Joias Boz&preco=500.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Joias Boz</h3>
+                                            <p class="preco">R$ 500,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Joias Boz"
+                                                    data-preco="500.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Urban Piercing&preco=70.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Urban Piercing</h3>
+                                            <p class="preco">R$ 70,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Urban Piercing"
+                                                    data-preco="70.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Lilac Piercings&preco=120.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Lilac Piercings</h3>
+                                            <p class="preco">R$ 120,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Lilac Piercings"
+                                                    data-preco="120.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface">
+                    <div class="produtos-limpeza" style="display: none;">
+                        <div class="flex">
+                            <!-- Primeira linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Brilho%20Fácil&preco=40.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Brilho Fácil</h3>
+                                            <p class="preco">R$ 40,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Brilho Fácil"
+                                                    data-preco="40.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Flanela%20Mágica&preco=19.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Flanela Mágica</h3>
+                                            <p class="preco">R$ 19,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho"
+                                                    data-nome="Flanela Mágica da Prata Fina" data-preco="19.99"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Monzi&preco=55.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Monzi</h3>
+                                            <p class="preco">R$ 55,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Monzi (líquido de limpeza)"
+                                                    data-preco="55.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Segunda linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Flanela%20Limpa%20Prata&preco=19.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Flanela Limpa Prata</h3>
+                                            <p class="preco">R$ 19,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho"
+                                                    data-nome="Flanela Limpa Prata (Asflon)" data-preco="19.99"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Connoisseurs%20Jewelry&preco=15.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Connoisseurs Jewelry</h3>
+                                            <p class="preco">R$ 15,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho"
+                                                    data-nome="Connoisseurs Jewelry Cleaner" data-preco="15.99"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Hagerty%20Jewelry&preco=29.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Hagerty Jewelry</h3>
+                                            <p class="preco">R$ 29,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Hagerty Jewelry Cleaner"
+                                                    data-preco="29.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--flex-->
+                <div class="interface">
+                    <div class="produtos-cangas" style="display: none;">
+                        <div class="flex">
+                            <!-- Primeira linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Brilho%20Fácil&preco=40.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Brilho Fácil</h3>
+                                            <p class="preco">R$ 40,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Brilho Fácil"
+                                                    data-preco="40.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Flanela%20Mágica&preco=19.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Flanela Mágica</h3>
+                                            <p class="preco">R$ 19,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho"
+                                                    data-nome="Flanela Mágica da Prata Fina" data-preco="19.99"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Monzi&preco=55.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Monzi</h3>
+                                            <p class="preco">R$ 55,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Monzi (líquido de limpeza)"
+                                                    data-preco="55.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Segunda linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Flanela%20Limpa%20Prata&preco=19.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Flanela Limpa Prata</h3>
+                                            <p class="preco">R$ 19,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho"
+                                                    data-nome="Flanela Limpa Prata (Asflon)" data-preco="19.99"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Connoisseurs%20Jewelry&preco=15.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Connoisseurs Jewelry</h3>
+                                            <p class="preco">R$ 15,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho"
+                                                    data-nome="Connoisseurs Jewelry Cleaner" data-preco="15.99"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=b&preco=19.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">b</h3>
+                                            <p class="preco">R$ 19,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="b"
+                                                    data-preco="19.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--flex-->
+                <div class="interface">
+                    <div class="produtos-moletons" style="display: none;">
+                        <div class="flex">
+                            <!-- Primeira linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Brilho%20Fácil&preco=40.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Brilho Fácil</h3>
+                                            <p class="preco">R$ 40,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Brilho Fácil"
+                                                    data-preco="40.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Flanela%20Mágica&preco=19.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Flanela Mágica</h3>
+                                            <p class="preco">R$ 19,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho"
+                                                    data-nome="Flanela Mágica da Prata Fina" data-preco="19.99"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Monzi&preco=55.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Monzi</h3>
+                                            <p class="preco">R$ 55,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="Monzi (líquido de limpeza)"
+                                                    data-preco="55.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Segunda linha de produtos -->
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Flanela%20Limpa%20Prata&preco=19.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Flanela Limpa Prata</h3>
+                                            <p class="preco">R$ 19,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho"
+                                                    data-nome="Flanela Limpa Prata (Asflon)" data-preco="19.99"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=Connoisseurs%20Jewelry&preco=15.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">Connoisseurs Jewelry</h3>
+                                            <p class="preco">R$ 15,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho"
+                                                    data-nome="Connoisseurs Jewelry Cleaner" data-preco="15.99"
+                                                    data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="produto-item">
+                                <a href="produto.html?nome=a&preco=19.99&imagem=./assets/FotoAneis.png"
+                                    class="link-card-produto" style="text-decoration: none;">
+                                    <div class="card-produto">
+                                        <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);">
+                                        </div>
+                                        <div class="info-produto">
+                                            <h3 class="produto-nome">a</h3>
+                                            <p class="preco">R$ 19,99</p>
+                                            <div class="btn-comprar">
+                                                <button class="btn-add-carrinho" data-nome="a"
+                                                    data-preco="19.99" data-imagem="./assets/FotoAneis.png">
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--flex-->
+            </div>
+            </div><!--interface-->
         </section><!--produto-->
     </main>
 
-   
+
 
 
 
@@ -1174,13 +1603,13 @@
                     <div class="footer-left">
                         <h3>Loja</h3>
                         <ul>
-                            <li><a href="categorias.html">Todos os produtos</a></li>
-                            <li><a href="#sobre">Quem somos</a></li>
-                            <li><a href="#duvidas">Perguntas frequentes</a></li>
+                            <li><a href="#" id="link-todos-produtos">Todos os produtos</a></li>
+                            <li><a href="home.html" id="link-quem-somos">Quem somos</a></li>
+                            <li><a href="#" id="link-duvidas">Perguntas frequentes</a></li>
                             <li><a href="#">Políticas da Loja</a></li>
                         </ul>
                         <h3>Fale Conosco</h3>
-                        <p>kaibeads@gmail.com</p>
+                        <p><a href="#" id="link-email">kaibeads@gmail.com</a></p> 
                         <p>(51) 99373-6553</p>
                         <p>@kai.beads</p>
                         <div class="social-icons">
@@ -1189,6 +1618,9 @@
                             </a>
                             <a href="https://www.tiktok.com/@kai.beads" target="_blank">
                                 <i class="fa-brands fa-tiktok"></i>
+                            </a>
+                            <a href="https://wa.me/5551986470637" target="_blank">
+                                <i class="fa-brands fa-whatsapp"></i>
                             </a>
                         </div>
                     </div>

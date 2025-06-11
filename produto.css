@@ -72,6 +72,11 @@ body{
     transition: .2s;
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-behavior: smooth 800ms ease-in-out; 
+}
+
 h2.titulo{
     color: white;
     font-size: 38px;
@@ -189,10 +194,21 @@ button:hover, form .btn-enviar input:hover{
 
 
 
+.logo {
+    width: 220px;          /* largura fixa para o contêiner da logo */
+    height: 80px;          /* altura fixa para manter o layout estável */
+    display: flex;
+    align-items: center;   /* centraliza a logo verticalmente */
+    justify-content: center;
+    flex-shrink: 0;        /* impede que a logo encolha */
+     margin-top: 25px;
+}
+
 .logo img {
-    width: 220px;  /* Ajuste conforme o tamanho desejado */
+    width: 150px;  /* Ajuste conforme o tamanho desejado */
     height: auto;   /* Mantém a proporção da imagem */
-    margin-top: 25px;
+    margin-top: 0px;
+    margin-bottom: 40px;
 }
 
 header > .interface {
@@ -201,7 +217,9 @@ header > .interface {
     justify-content: space-between;
     padding: 30px;
     margin-left: 50px; /* Move os itens para a direita */
-    margin-top: -50px; /* Move os itens para a direita */
+    margin-bottom: 60px;
+    margin-top: 30px;
+    
 }
 header a{
     color: #5c5c5c;
@@ -309,6 +327,20 @@ header nav ul li{
 .autocomplete-items li:hover {
     background-color: #f0f0f0;
 }
+
+.autocomplete-item {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre a imagem e o nome */
+}
+
+.autocomplete-img {
+    width: 40px; /* Tamanho pequeno e retangular */
+    height: 30px;
+    object-fit: cover;
+    border-radius: 4px; /* borda arredondada opcional */
+}
+
 
 
 .menu-desktop input[type="text"]::placeholder {
@@ -507,6 +539,17 @@ footer .flex {
     color: #333;
     font-size: 16px;
     margin: 2px 0;
+}
+
+.footer-left p a {
+    color: #333;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.footer-left p a:hover {
+    text-decoration: underline;
+    color: #555;
 }
 
 .footer-left a img {

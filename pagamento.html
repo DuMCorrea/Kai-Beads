@@ -165,17 +165,13 @@
             <div class="info-pagamento">
               <span>🏦 Pagamento Offline</span>
               <span class="descricao">
-                Pagamento via PIX para a chave CNPJ: 42.173.599/0001-05
-              </span>
-              <span class="descricao-extra">
-                Enviar comprovante via WhatsApp (51) 99373-6553 ou email anandapratass@gmail.com
+                Após clicar em "Fazer pedido e pagar" finalizaremos seu pedido e entraremos em contato, só aguardar!
               </span>
             </div>
           </label>
         </div>
       </form>
-      
-    
+  
       <!-- Sessão finalização -->
       <div class="finalizar-pedido">
         <h3>Reveja e finalize o pedido</h3>
@@ -186,14 +182,30 @@
         <button type="button" id="botaoFinalizarPedido" disabled>Fazer pedido e pagar</button>
       </div>
     </section>
-    
-    
-    
-    
-
-    
   </div>
 
-  <script src="pagamento.js"></script>
+  <aside class="resumo-carrinho">
+    <h2>Resumo do pedido</h2>
+    <p>Subtotal: <span id="valor-total">R$ 0,00</span></p>
+    <p>Frete: <span id="frete-valor">A calcular</span></p>
+    <p>Descontos: <span>-</span></p>
+    <div id="resumo-itens" class="resumo-itens"></div>
+    <p>Total a pagar: <span id="total-geral">R$ 0,00</span></p>
+    <a href="carrinho.html" class="botao-editar-carrinho">Editar carrinho</a>
+  </aside>
+  
+
+ <script src="pagamento.js"></script>
+ <form id="form-pedido" action="https://formsubmit.co/eduardomassicorrea@gmail.com" method="POST" style="display:none;">
+  <input type="hidden" name="Nome do Cliente" id="pedido-nome">
+  <input type="hidden" name="Telefone" id="pedido-telefone">
+  <input type="hidden" name="Email" id="pedido-email">
+  <input type="hidden" name="Valor Total do Pedido" id="pedido-total">
+  <input type="hidden" name="_subject" value="Novo pedido via PIX!">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_captcha" value="false">
+</form>
+
+
 </body>
 </html>

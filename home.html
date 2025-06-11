@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -73,7 +74,7 @@
 
         <div id="interface" class="interface">
             <div class="logo">
-                <a href="#"><img src="./assets/Foto sem fundo.png" alt="Logo da KaiBeads"></a>
+                <a href="#"><img src="./assets/Logo eduardo vetorizado Colorido.svg" alt="Logo da KaiBeads"></a>
             </div>
 
             <nav class="menu-desktop">
@@ -83,7 +84,7 @@
                         <a href="categorias.html" id="link-categorias">Categorias</a>
                         <div class="submenu">
                             <div class="submenu-item">
-                                <a href="#">Canga-toalha</a>
+                                <a href="categorias.html#cangas-btn">Canga-toalha</a>
                                 <div class="submenu-nestedC">
                                     <a href="#">Básicas</a>
                                     <a href="#">Sofisticadas</a>
@@ -91,22 +92,23 @@
                             </div>
 
                             <div class="submenu-item">
-                                <a href="categorias.html#todos-btn">Prata 925</a>
+                                <a href="categorias.html#todos-btn" data-target="#todos-btn">Prata 925</a>
                                 <div class="submenu-nested">
-                                    <a href="categorias.html#anel-btn">Anéis</a>
-                                    <a href="categorias.html#brinco-btn">Brincos</a>
-                                    <a href="categorias.html#colar-btn">Colares</a>
-                                    <a href="categorias.html#corrente-btn">Correntes</a>
-                                    <a href="categorias.html#pulseira-btn">Pulseiras</a>
-                                    <a href="categorias.html#piercing-btn">Piercings</a>
-                                    <a href="categorias.html#limpeza-btn">Limpeza</a>
+                                    <a href="categorias.html#anel-btn" data-target="#anel-btn">Anéis</a>
+                                    <a href="categorias.html#brinco-btn" data-target="#brinco-btn">Brincos</a>
+                                    <a href="categorias.html#colar-btn" data-target="#colar-btn">Colares</a>
+                                    <a href="categorias.html#corrente-btn" data-target="#corrente-btn">Correntes</a>
+                                    <a href="categorias.html#pulseira-btn" data-target="#pulseira-btn">Pulseiras</a>
+                                    <a href="categorias.html#piercing-btn" data-target="#piercing-btn">Piercings</a>
+                                    <a href="categorias.html#limpeza-btn" data-target="#limpeza-btn">Limpeza</a>
                                 </div>
                             </div>
 
 
 
+
                             <div class="submenu-item">
-                                <a href="#">Moletons</a>
+                                <a href="categorias.html#moletons-btn">Moletons</a>
                                 <div class="submenu-nestedM">
                                     <a href="#">Finos</a>
                                     <a href="#">Grossos</a>
@@ -118,12 +120,12 @@
                     <li><a href="#sobre" id="link-sobre">Sobre</a></li>
                     <li>
                         <div class="search-container">
-                          <input type="text" id="searchInput" placeholder="Pesquisar" autocomplete="off">
-                          <i class="bi bi-search"></i>
-                          <ul id="autocomplete-list" class="autocomplete-items"></ul>
+                            <input type="text" id="searchInput" placeholder="Pesquisar" autocomplete="off">
+                            <i class="bi bi-search"></i>
+                            <ul id="autocomplete-list" class="autocomplete-items"></ul>
                         </div>
-                      </li>
-                     
+                    </li>
+
                     <li>
                         <a href="carrinho.html" id="link-carrinho">
                             <i class="bi bi-cart"></i>
@@ -150,16 +152,16 @@
                         <img src="assets/Foto 1.JPG" alt="Imagem 1">
                     </div>
                     <div class="slide">
-                        <img src="assets/Foto 3.JPG" alt="Imagem 2">
+                        <img src="assets/Foto 2.JPG" alt="Imagem 2">
                     </div>
                     <div class="slide">
-                        <img src="assets/Foto 1.JPG" alt="Imagem 3">
+                        <img src="assets/Foto 3.JPG" alt="Imagem 3">
                     </div>
                     <div class="slide">
-                        <img src="assets/Foto 3.JPG" alt="Imagem 4">
+                        <img src="assets/Foto 1.JPG" alt="Imagem 4">
                     </div>
                     <div class="slide">
-                        <img src="assets/Foto 1.JPG" alt="Imagem 5">
+                        <img src="assets/Foto 2.JPG" alt="Imagem 5">
                     </div>
                     <div class="slide">
                         <img src="assets/Foto 3.JPG" alt="Imagem 5">
@@ -167,6 +169,12 @@
                 </div>
                 <button class="next" onclick="moveSlide(1)">&#10095;</button>
             </div>
+           <div class="dots">
+  <span class="dot" onclick="goToSlide(0)"></span>
+  <span class="dot" onclick="goToSlide(1)"></span>
+  <span class="dot" onclick="goToSlide(2)"></span>
+  <span class="dot" onclick="goToSlide(3)"></span>
+</div>
         </section>
 
 
@@ -200,12 +208,14 @@
                         <div class="card-produto">
                             <a href="produto.html?nome=Lilac%20Piercings&preco=120.99&imagem=./assets/FotoAneis.png">
                                 <div class="img-produ" style="background-image: url('./assets/FotoAneis.png');"></div>
-                            </a>                            
+                            </a>
                             <div class="info-produto">
-                                <a href="produto.html?nome=Lilac%20Piercings&preco=120.99&imagem=./assets/FotoAneis.png">
+                                <a
+                                    href="produto.html?nome=Lilac%20Piercings&preco=120.99&imagem=./assets/FotoAneis.png">
                                     <h3 class="produto-nome">Lilac Piercings</h3>
                                 </a>
-                                <a href="produto.html?nome=Lilac%20Piercings&preco=120.99&imagem=./assets/FotoAneis.png">
+                                <a
+                                    href="produto.html?nome=Lilac%20Piercings&preco=120.99&imagem=./assets/FotoAneis.png">
                                     <p class="preco">R$ 120,99</p>
                                 </a>
                                 <div class="btn-comprar">
@@ -216,11 +226,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="produto-item">
                         <div class="card-produto">
                             <a href="produto.html?nome=Joias%20Boz&preco=68.75&imagem=./assets/FotoAneis.png">
-                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                             </a>
                             <div class="info-produto">
                                 <a href="produto.html?nome=Joias%20Boz&preco=68.75&imagem=./assets/FotoAneis.png">
@@ -238,11 +248,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="produto-item">
                         <div class="card-produto">
                             <a href="produto.html?nome=Balenciaga&preco=299.00&imagem=./assets/FotoAneis.png">
-                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                             </a>
                             <div class="info-produto">
                                 <a href="produto.html?nome=Balenciaga&preco=299.00&imagem=./assets/FotoAneis.png">
@@ -260,11 +270,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="produto-item">
                         <div class="card-produto">
                             <a href="produto.html?nome=Vivara&preco=134.90&imagem=./assets/FotoAneis.png">
-                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                             </a>
                             <div class="info-produto">
                                 <a href="produto.html?nome=Vivara&preco=134.90&imagem=./assets/FotoAneis.png">
@@ -282,11 +292,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="produto-item">
                         <div class="card-produto">
                             <a href="produto.html?nome=Rommanel&preco=75.00&imagem=./assets/FotoAneis.png">
-                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                             </a>
                             <div class="info-produto">
                                 <a href="produto.html?nome=Rommanel&preco=75.00&imagem=./assets/FotoAneis.png">
@@ -304,11 +314,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="produto-item">
                         <div class="card-produto">
                             <a href="produto.html?nome=Nina%20Bruni&preco=89.90&imagem=./assets/FotoAneis.png">
-                                <div  class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
+                                <div class="img-produ" style="background-image: url(./assets/FotoAneis.png);"></div>
                             </a>
                             <div class="info-produto">
                                 <a href="produto.html?nome=Nina%20Bruni&preco=89.90&imagem=./assets/FotoAneis.png">
@@ -325,7 +335,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div><!--flex-->
             </div><!--interface-->
         </section><!--produto-->
@@ -338,7 +348,7 @@
             <div class="interface">
                 <div class="flex">
                     <div class="img-sobre">
-                        <img src="./assets/Logo.JPG" alt="logo com fundo">
+                        <img src="./assets/Logo eduardo vetorizado Colorido.svg" alt="logo com fundo">
                     </div><!--img-sobre-->
                     <div class="txt-sobre">
                         <h2>MUITO PRAZER, <span>SOMOS A KAI BEADS</span></h2>
@@ -356,7 +366,7 @@
                             <a href="https://www.instagram.com/lre_digitalagency/"><button><i
                                         class="bi bi-instagram"></i></button></a>
                             <a href="#"><button><i class="bi bi-tiktok"></i></button></a>
-                            <a href="#"><button><i class="bi bi-linkedin"></i></button></a>
+                            <a href="https://wa.me/5551986470637"><button><i class="bi bi-whatsapp"></i></button></a>
 
                         </div> <!--BTN-SOCIAL-->
                     </div><!--txt-sobre-->
@@ -479,13 +489,14 @@
                     <div class="footer-left">
                         <h3>Loja</h3>
                         <ul>
-                            <li><a href="categorias.html">Todos os produtos</a></li>
-                            <li><a href="#sobre">Quem somos</a></li>
-                            <li><a href="#duvidas">Perguntas frequentes</a></li>
+                            <li><a href="#" id="link-todos-produtos">Todos os produtos</a></li>
+                            <li><a href="#" id="link-quem-somos">Quem somos</a></li>
+                            <li><a href="#" id="link-duvidas">Perguntas frequentes</a></li>
                             <li><a href="#">Políticas da Loja</a></li>
                         </ul>
+
                         <h3>Fale Conosco</h3>
-                        <p>kaibeads@gmail.com</p>
+                        <p><a href="#" id="link-email">kaibeads@gmail.com</a></p>
                         <p>(51) 99373-6553</p>
                         <p>@kai.beads</p>
                         <div class="social-icons">
@@ -495,7 +506,11 @@
                             <a href="https://www.tiktok.com/@kai.beads" target="_blank">
                                 <i class="fa-brands fa-tiktok"></i>
                             </a>
+                            <a href="https://wa.me/5551986470637" target="_blank">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
                         </div>
+
                     </div>
 
                     <!-- Parte Central (Pagamentos e Envio) -->
