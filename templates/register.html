@@ -104,7 +104,7 @@
     </style>
 </head>
 <body>
-    <a href="/home.html" class="close-icon">✖</a>
+    <a href="/index.html" class="close-icon">✖</a>
     <div class="container">
         <h1>Registre-se</h1>
         <p>Já é membro? <a href="login.html">Login</a></p>
@@ -235,7 +235,7 @@
                             return firebase.auth().createUserWithEmailAndPassword(email, password)
                                 .then(() => {
                                     alert("Cadastro realizado com sucesso!");
-                                    window.location.href = "/home.html";
+                                    window.location.href = "/index.html";
                                 });
                         }
                     })
@@ -249,7 +249,7 @@
                 firebase.auth().signInWithPopup(provider)
                     .then(() => {
                         alert("Login com Google realizado com sucesso!");
-                        window.location.href = "/home.html";
+                        window.location.href = "/index.html";
                     })
                     .catch((error) => {
                         alert(error.message);
@@ -261,7 +261,7 @@
                 firebase.auth().signInWithPopup(facebookProvider)
                     .then(() => {
                         alert("Login com Facebook realizado com sucesso!");
-                        window.location.href = "/home.html";
+                        window.location.href = "/index.html";
                     })
                     .catch((error) => {
                         alert(error.message);

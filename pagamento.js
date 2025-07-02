@@ -314,7 +314,7 @@ document.getElementById('botaoFinalizarPedido').addEventListener('click', async 
       localStorage.removeItem('carrinho');
 
       // Redireciona para home
-      window.location.href = 'home.html';
+      window.location.href = 'index.html';
 
     } else {
       alert('Erro ao enviar o pedido. Tente novamente.');

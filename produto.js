@@ -279,7 +279,7 @@ document.getElementById("contact-form").addEventListener("submit", function (eve
 
                 // Espera 3 segundos e então rola para o footer
                 setTimeout(() => {
-                    window.location.href = "home.html#footer";
+                    window.location.href = "index.html#footer";
                 }, 3000);
             } else {
                 alert("Erro ao enviar mensagem. Tente novamente.");
@@ -332,7 +332,7 @@ document.getElementById("link-todos-produtos").addEventListener("click", functio
 document.getElementById("link-quem-somos").addEventListener("click", function (e) {
     e.preventDefault();
     sessionStorage.setItem("scrollToSobre", "true");
-    window.location.href = "home.html";
+    window.location.href = "index.html";
 });
 
 
@@ -352,7 +352,7 @@ document.getElementById("link-duvidas").addEventListener("click", function (e) {
 document.getElementById("link-duvidas").addEventListener("click", function (e) {
     e.preventDefault();
     sessionStorage.setItem("scrollToDuvidas", "true");
-    window.location.href = "home.html";
+    window.location.href = "index.html";
 });
 
 

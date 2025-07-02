@@ -522,7 +522,7 @@ document.getElementById("contact-form").addEventListener("submit", function (eve
                 successMessage.style.display = "block";
                 form.reset();
                 setTimeout(() => {
-                    window.location.href = "home.html#footer";
+                    window.location.href = "index.html#footer";
                 }, 3000);
             } else {
                 alert("Erro ao enviar mensagem. Tente novamente.");
@@ -565,7 +565,7 @@ document.getElementById("link-todos-produtos").addEventListener("click", functio
 document.getElementById("link-quem-somos").addEventListener("click", function (e) {
     e.preventDefault();
     sessionStorage.setItem("scrollToSobre", "true");
-    window.location.href = "home.html";
+    window.location.href = "index.html";
 });
 
 // Rolagem para perguntas frequentes
@@ -582,7 +582,7 @@ document.getElementById("link-duvidas").addEventListener("click", function (e) {
 document.getElementById("link-duvidas").addEventListener("click", function (e) {
     e.preventDefault();
     sessionStorage.setItem("scrollToDuvidas", "true");
-    window.location.href = "home.html";
+    window.location.href = "index.html";
 });
 
 // ================= OVERLAY (opcional para UX) ===============

@@ -309,7 +309,7 @@ document.getElementById("contact-form").addEventListener("submit", function (eve
 
         // Espera 3 segundos e então rola para o footer
         setTimeout(() => {
-          window.location.href = "home.html#footer";
+          window.location.href = "index.html#footer";
         }, 3000);
       } else {
         alert("Erro ao enviar mensagem. Tente novamente.");
