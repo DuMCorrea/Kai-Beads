@@ -128,32 +128,88 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const firebaseConfig = {
-      apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
-      authDomain: "kaibeads-2ab98.firebaseapp.com",
-      projectId: "kaibeads-2ab98",
-      storageBucket: "kaibeads-2ab98.appspot.com",
-      messagingSenderId: "405735155633",
-      appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
-      measurementId: "G-N2NDBL58J7"
-    };
+                apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+                authDomain: "kaibeads-2ab98.firebaseapp.com",
+                projectId: "kaibeads-2ab98",
+                storageBucket: "kaibeads-2ab98.appspot.com",
+                messagingSenderId: "405735155633",
+                appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+                measurementId: "G-N2NDBL58J7"
+            };
             firebase.initializeApp(firebaseConfig);
 
+            // Elementos
             const emailBtn = document.querySelector('.email-btn');
             const emailForm = document.querySelector('.email-form');
             const emailInput = document.getElementById('email');
             const passwordInput = document.getElementById('password');
             const registerBtn = document.querySelector('.register-btn');
             const googleBtn = document.querySelector('.google-btn');
+            const facebookBtn = document.querySelector('.facebook-btn');
 
             emailBtn.addEventListener('click', () => {
                 emailForm.style.display = 'block';
             });
 
+            // --------- FUNÇÃO PARA CHECAR SEQUÊNCIA DE NÚMEROS ----------
+            function hasNumericSequence(password, seqLength = 3) {
+                for (let i = 0; i <= password.length - seqLength; i++) {
+                    let isSeqAsc = true;
+                    let isSeqDesc = true;
+                    for (let j = 0; j < seqLength - 1; j++) {
+                        let current = password.charCodeAt(i + j);
+                        let next = password.charCodeAt(i + j + 1);
+                        if (!(current >= 48 && current <= 57 && next >= 48 && next <= 57)) {
+                            isSeqAsc = false;
+                            isSeqDesc = false;
+                            break;
+                        }
+                        if (next !== current + 1) isSeqAsc = false;
+                        if (next !== current - 1) isSeqDesc = false;
+                    }
+                    if (isSeqAsc || isSeqDesc) return true;
+                }
+                return false;
+            }
+
+            // --------- FUNÇÃO PARA VALIDAR SENHA ---------
+            function validatePassword(password) {
+                if (password.length < 7) {
+                    return "A senha deve ter pelo menos 7 caracteres.";
+                }
+                if (!/[a-z]/.test(password)) {
+                    return "A senha deve conter pelo menos 1 letra minúscula.";
+                }
+                if (!/[A-Z]/.test(password)) {
+                    return "A senha deve conter pelo menos 1 letra maiúscula.";
+                }
+                if (!/[0-9]/.test(password)) {
+                    return "A senha deve conter pelo menos 1 número.";
+                }
+                if (hasNumericSequence(password, 3)) {
+                    return "A senha não pode conter sequência de números.";
+                }
+                return "";
+            }
+
             function validateForm() {
                 const emailValid = emailInput.value.includes("@") && emailInput.value.includes(".");
-                const passwordValid = passwordInput.value.length >= 6;
-                registerBtn.disabled = !(emailValid && passwordValid);
-                registerBtn.classList.toggle("active", emailValid && passwordValid);
+                const password = passwordInput.value;
+                const passwordError = validatePassword(password);
+
+                registerBtn.disabled = !(emailValid && !passwordError);
+                registerBtn.classList.toggle("active", emailValid && !passwordError);
+
+                let alertElement = document.getElementById("password-alert");
+                if (!alertElement) {
+                    alertElement = document.createElement("div");
+                    alertElement.id = "password-alert";
+                    alertElement.style.color = "red";
+                    alertElement.style.fontSize = "0.95rem";
+                    alertElement.style.marginTop = "4px";
+                    passwordInput.insertAdjacentElement("afterend", alertElement);
+                }
+                alertElement.textContent = passwordError;
             }
 
             emailInput.addEventListener('input', validateForm);
@@ -163,6 +219,13 @@
                 const email = emailInput.value;
                 const password = passwordInput.value;
 
+                // Recheca para garantir
+                const passwordError = validatePassword(password);
+                if (passwordError) {
+                    alert(passwordError);
+                    return;
+                }
+
                 firebase.auth().fetchSignInMethodsForEmail(email)
                     .then((signInMethods) => {
                         if (signInMethods.length > 0) {
@@ -170,7 +233,7 @@
                             window.location.href = "login.html";
                         } else {
                             return firebase.auth().createUserWithEmailAndPassword(email, password)
-                                .then((userCredential) => {
+                                .then(() => {
                                     alert("Cadastro realizado com sucesso!");
                                     window.location.href = "/home.html";
                                 });
@@ -184,8 +247,20 @@
             googleBtn.addEventListener('click', () => {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider)
-                    .then((result) => {
+                    .then(() => {
                         alert("Login com Google realizado com sucesso!");
+                        window.location.href = "/home.html";
+                    })
+                    .catch((error) => {
+                        alert(error.message);
+                    });
+            });
+
+            facebookBtn.addEventListener('click', () => {
+                const facebookProvider = new firebase.auth.FacebookAuthProvider();
+                firebase.auth().signInWithPopup(facebookProvider)
+                    .then(() => {
+                        alert("Login com Facebook realizado com sucesso!");
                         window.location.href = "/home.html";
                     })
                     .catch((error) => {

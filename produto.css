@@ -37,23 +37,30 @@ body{
 .btn-logout,
 .btn-create-account,
 .btn-login {
-    padding: 5px 10px;
-    margin: 0 10px;              /* Adiciona um espaçamento entre os botões */
-    background-color: #94b9ff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    align-items: center;
+    gap: 8px; /* Espaço entre o ícone e o texto */
+    padding: 7px 22px;
+    margin: 0 8px;
+    background: linear-gradient(90deg, #2eb3e9 0%, #94b9ff 100%);
     color: #fff;
     border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
+    border-radius: 20px;
+    font-size: 17px;
+    box-shadow: 0 2px 12px rgba(46,179,233,0.07);
     cursor: pointer;
-    transition: background-color 0.3s;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
-.btn-logout,
+.btn-logout:hover,
 .btn-create-account:hover,
 .btn-login:hover {
-    background-color: #87cefa;
+    background: linear-gradient(90deg, #0084b8 0%, #2eb3e9 100%);
+    color: #fff;
+    transform: scale(1.07);
+    box-shadow: 0 6px 24px rgba(46,179,233,0.16);
 }
 
 
@@ -419,6 +426,8 @@ header nav ul li{
 }
 
 .info {
+    position: relative;
+    right: 220px;
     flex: 1;
     min-width: 280px;
 }
@@ -442,7 +451,7 @@ header nav ul li{
     border-radius: 8px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s, box-shadow 0.3s;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #quantidade:focus {
@@ -453,15 +462,21 @@ header nav ul li{
 
 
 #adicionar-carrinho {
+    height: 50px;
+    width: 200px;
     display: block;
-    padding: 10px 20px;
+    padding: 2px 6px; /* padding reduzido */
     background-color: #ADD8E6;
     color: #fff;
     border: none;
+    font-size: 15px;
     border-radius: 6px;
     cursor: pointer;
-    margin-bottom: 20px;
+    position: relative;
+    top: 70px;
+    right: 10px;
 }
+
 
 #adicionar-carrinho:hover {
     background-color: #ADD8E6;
@@ -469,13 +484,53 @@ header nav ul li{
 
 .observacoes {
     margin-top: 20px;
+    position: relative;
+    left: 250px;
+    bottom: 220px;
 }
 
 .observacoes h3 {
     margin-bottom: 5px;
 }
 
+.miniaturas {
+    display: flex;
+    gap: 10px;
+    margin-top: 305px;
+}
 
+.miniatura {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border 0.3s;
+}
+
+.miniatura:hover {
+    border: 2px solid #ADD8E6;
+}
+
+.quantidade-wrapper {
+    display: flex;
+    align-items: center; /* mantém alinhamento vertical */
+    gap: 10px; /* espaço entre o label e o input */
+    position: relative;
+    top: 10px;
+}
+
+
+.especificacoes {
+    position: relative;
+    left: 230px;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #eee;
+}
 
 
 

@@ -37,23 +37,30 @@ body{
 .btn-logout,
 .btn-create-account,
 .btn-login {
-    padding: 5px 10px;
-    margin: 0 10px;              /* Adiciona um espaçamento entre os botões */
-    background-color: #94b9ff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    align-items: center;
+    gap: 8px; /* Espaço entre o ícone e o texto */
+    padding: 7px 22px;
+    margin: 0 8px;
+    background: linear-gradient(90deg, #2eb3e9 0%, #94b9ff 100%);
     color: #fff;
     border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
+    border-radius: 20px;
+    font-size: 17px;
+    box-shadow: 0 2px 12px rgba(46,179,233,0.07);
     cursor: pointer;
-    transition: background-color 0.3s;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
-.btn-logout,
+.btn-logout:hover,
 .btn-create-account:hover,
 .btn-login:hover {
-    background-color: #87cefa;
+    background: linear-gradient(90deg, #0084b8 0%, #2eb3e9 100%);
+    color: #fff;
+    transform: scale(1.07);
+    box-shadow: 0 6px 24px rgba(46,179,233,0.16);
 }
 
 
@@ -414,13 +421,23 @@ header nav ul li{
 .carrinho-container h1::after {
     content: "";
     display: block;
-    width: 150%;   /* Reduzi a largura para evitar que vá muito para a direita */
-    height: 1px;  /* Ajustei a altura para ficar mais visível */
-    background-color: #A9A9A9; /* Cor cinza */
+    width: 150%;   /* largura padrão */
+    height: 1.3px; /* altura padrão */
+    background-color: #A9A9A9;
     position: absolute;
     bottom: 0;
-    left: 185px; /* Agora começa exatamente no início do título */
-    
+    left: 185px;
+    transition: all 0.4s;
+    z-index: 1;
+}
+
+/* LINHA DESTACADA quando o carrinho está vazio */
+.carrinho-container h1.linha-grande::after {
+    width: 200%;         /* Largura grande */
+    left: 185px;          /* Ajuste de alinhamento */
+    height: 1.3x;       /* Mesma espessura da linha normal */
+    background: #A9A9A9; /* Cor cinza igual à linha normal */
+    transition: all 0.4s;
 }
 
 .mensagem-carrinho {
@@ -516,88 +533,113 @@ header nav ul li{
 }
 
 .info-produto h3 {
-    font-size: 14px;
-    margin-bottom: 4px;
+    font-size: 1.1rem;     /* antes 14px, agora ~18.5px */
+    margin-bottom: 6px;
+    font-weight: 700;
+    color: #383a3a;
+    letter-spacing: 0.5px;
 }
 
 .info-produto .preco {
-    font-size: 12px;
-    margin-bottom: 8px;
-}
-
-/* Botão de remover produto */
-.btn-remover {
-    padding: 6px 18px;
-    font-size: 12px;
-    background-color: #ff4d4d; /* Vermelho para remover */
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-remover:hover {
-    background-color: #ff1a1a;
+    font-size: 0.8rem;     /* antes 12px, agora ~17px */
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #2eb3e9;
+    letter-spacing: 0.2px;
 }
 
 
+/* ====== NOVOS BOTÕES E INPUT DO CARRINHO ====== */
 
-/* Botões de + e - */
+/* Centraliza os controles de quantidade */
+.quantidade-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+/* Botões "+" e "-" estilosos e menores */
 .btn-incrementar,
 .btn-decrementar {
-    background-color: #ADD8E6;
-    color: white;
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2eb3e9 0%, #94b9ff 100%);
+    color: #fff;
     border: none;
-    padding: 6px 12px;
-    font-size: 16px;
-    border-radius: 4px;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(46,179,233,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.16s;
+    outline: none;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
-
 .btn-incrementar:hover,
 .btn-decrementar:hover {
-    background-color: #ADD8E6;
+    background: linear-gradient(135deg, #0084b8 0%, #2eb3e9 100%);
+    transform: scale(1.10);
+    box-shadow: 0 6px 14px rgba(46,179,233,0.12);
 }
 
-/* Input de quantidade */
 .input-quantidade {
-    width: 50px;
-    padding: 6px;
-    font-size: 16px;
+    width: 32px;
+    height: 28px;
+    font-size: 1.07rem;
+    font-weight: bold;
     text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 2px solid #b9e0fc;
+    border-radius: 8px;
+    background: #f8fbfe;
+    color: #2eb3e9;
+    margin: 0 2px;
+    outline: none;
+    transition: border 0.2s;
+    /* Centralização vertical */
+    padding: 0;
+    line-height: 28px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    appearance: textfield; /* remove up/down arrows no Chrome */
 }
 
-/* Remove setinhas do input de número (Chrome, Safari, Edge, Opera) */
-.input-quantidade::-webkit-inner-spin-button,
-.input-quantidade::-webkit-outer-spin-button {
+.input-quantidade[type="number"]::-webkit-input-placeholder { line-height: 28px; }
+.input-quantidade[type="number"]::-webkit-outer-spin-button,
+.input-quantidade[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
-/* Firefox */
-.input-quantidade[type=number] {
-    -moz-appearance: textfield;
+.input-quantidade[type="number"] {
+    -moz-appearance: textfield; /* remove setas no Firefox */
 }
 
-/* Botão de remover */
+
+
+/* Botão Remover elegante e menor */
 .btn-remover {
-    margin-top: 8px;
-    background-color: #f44336;
-    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin: 8px auto 0 auto;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #fd5d5d 20%, #fa8383 80%);
+    color: #fff;
     border: none;
-    padding: 6px 12px;
-    font-size: 14px;
-    border-radius: 4px;
+    border-radius: 18px;
+    box-shadow: 0 2px 6px rgba(253,93,93,0.09);
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background 0.22s, transform 0.17s;
 }
-
 .btn-remover:hover {
-    background-color: #d32f2f;
+    background: linear-gradient(90deg, #d32f2f 0%, #ff4d4d 100%);
+    transform: scale(1.08);
 }
 .conteudo-principal {
     display: flex;

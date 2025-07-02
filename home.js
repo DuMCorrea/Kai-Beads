@@ -1,39 +1,14 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const contadorCarrinho = document.getElementById("contador-carrinho");
+function adicionarAoCarrinho(nome, preco, imagem) {
+  let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+  carrinho.push({ nome, preco, imagem });
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+  alert("Produto adicionado ao carrinho!");
+  window.dispatchEvent(new Event("atualizarCarrinho"));
+}
 
-  function atualizarContadorCarrinho() {
-    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-    contadorCarrinho.textContent = carrinho.length;
-    contadorCarrinho.style.display = carrinho.length > 0 ? "block" : "none";
-  }
 
-  // Atualiza o contador quando a página carrega
-  atualizarContadorCarrinho();
 
-  // Escuta o evento "atualizarCarrinho" para atualizar o contador em tempo real
-  window.addEventListener("atualizarCarrinho", atualizarContadorCarrinho);
 
-  // Adicionando produtos ao carrinho
-  const botoesAdicionar = document.querySelectorAll(".btn-add-carrinho");
-
-  botoesAdicionar.forEach((botao) => {
-    botao.addEventListener("click", function () {
-      const nome = botao.getAttribute("data-nome");
-      const preco = botao.getAttribute("data-preco");
-      const imagem = botao.getAttribute("data-imagem");
-
-      let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-
-      carrinho.push({ nome, preco, imagem });
-      localStorage.setItem("carrinho", JSON.stringify(carrinho));
-
-      alert("Produto adicionado ao carrinho!");
-
-      // Dispara o evento para atualizar o contador do carrinho em todas as páginas
-      window.dispatchEvent(new Event("atualizarCarrinho"));
-    });
-  });
-});
 
 document.addEventListener("DOMContentLoaded", function () {
   const linksProduto = document.querySelectorAll(".link-produto");
@@ -50,6 +25,77 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    const container = document.getElementById("produtos-destaque");
+    const secoes = [
+  "aneis", "brincos", "colares", "correntes", "pulseiras",
+  "piercings", "limpeza", "canga-toalhas", "moletons"
+];
+
+let favoritos = [];
+
+secoes.forEach(sessao => {
+  const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
+  const destacados = produtosSessao.filter(p => p.favorito);
+  favoritos = favoritos.concat(destacados);
+});
+
+const destaque = favoritos.slice(0, 6); // até 6 produtos em destaque
+
+
+    destaque.forEach(produto => {
+        const div = document.createElement("div");
+        div.classList.add("produto-item");
+
+        const card = document.createElement("div");
+        card.className = "card-produto";
+
+        const link = document.createElement("a");
+        link.href = `produto.html?nome=${encodeURIComponent(produto.nome)}&preco=${produto.preco}&imagem=${encodeURIComponent(produto.imagem)}&observacoes=${encodeURIComponent(produto.observacao || "")}&especificacao=${encodeURIComponent(produto.especificacao || "")}`;
+
+        const imgDiv = document.createElement("div");
+        imgDiv.className = "img-produ";
+        imgDiv.style.backgroundImage = `url(${produto.imagem})`;
+
+        const infoDiv = document.createElement("div");
+        infoDiv.className = "info-produto";
+
+        const h3 = document.createElement("h3");
+        h3.className = "produto-nome";
+        h3.textContent = produto.nome;
+
+        const p = document.createElement("p");
+        p.className = "preco";
+        p.textContent = `R$ ${parseFloat(produto.preco).toFixed(2).replace('.', ',')}`;
+
+        const btnDiv = document.createElement("div");
+        btnDiv.className = "btn-comprar";
+
+        const button = document.createElement("button");
+        button.className = "btn-add-carrinho";
+        button.setAttribute("data-nome", produto.nome);
+        button.setAttribute("data-preco", produto.preco);
+        button.setAttribute("data-imagem", produto.imagem);
+        button.textContent = "ADICIONAR AO CARRINHO";
+
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            adicionarAoCarrinho(produto.nome, produto.preco, produto.imagem);
+        });
+
+        btnDiv.appendChild(button);
+        infoDiv.appendChild(h3);
+        infoDiv.appendChild(p);
+        infoDiv.appendChild(btnDiv);
+        link.appendChild(imgDiv);
+        card.appendChild(link);
+        card.appendChild(infoDiv);
+        div.appendChild(card);
+        container.appendChild(div);
+    });
+});
 
 
 let index = 0;
@@ -94,110 +140,101 @@ function updateCarousel() {
 
 
 
-
-// CAMPO PESQUISAR
-
+  // CAMPO PESQUISAR //
 
 
-document.addEventListener('DOMContentLoaded', async function () {
-  const input = document.getElementById('searchInput');
-  const autocompleteList = document.getElementById('autocomplete-list');
 
-  let produtos = [];
-
-  // Função para extrair nomes de produtos da página atual
-  function getProdutosDaPaginaAtual() {
-    return Array.from(document.querySelectorAll('.card-produto')).map(card => {
-      const nome = card.querySelector('.produto-nome')?.textContent.trim() || '';
-      const preco = card.querySelector('.preco')?.textContent.replace('R$ ', '').replace(',', '.') || '';
-      const imagem = card.querySelector('.img-produ')?.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1] || '';
-      return { nome, preco, imagem };
-    });
-  }
-
-  async function getProdutosDeOutraPagina(url) {
-    try {
-      const response = await fetch(url);
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-
-      return Array.from(doc.querySelectorAll('.card-produto')).map(card => {
-        const nome = card.querySelector('.produto-nome')?.textContent.trim() || '';
-        const preco = card.querySelector('.preco')?.textContent.replace('R$ ', '').replace(',', '.') || '';
-        const imagem = card.querySelector('.img-produ')?.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1] || '';
-        return { nome, preco, imagem };
-      });
-    } catch (error) {
-      console.error('Erro ao carregar a outra página:', error);
-      return [];
+  // ==== ATUALIZAR CONTADOR CARRINHO (DESKTOP E MOBILE) ==== //
+function atualizarContadorCarrinhoGeral() {
+    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    // Desktop
+    const contadorDesktop = document.getElementById("contador-carrinho");
+    if (contadorDesktop) {
+        contadorDesktop.textContent = carrinho.length;
+        contadorDesktop.style.display = carrinho.length > 0 ? "flex" : "none";
     }
-  }
-
-
-  // Verifica se está na home ou categorias e define a outra página
-  const paginaAtual = window.location.pathname.includes('home.html') ? 'home' : 'categorias';
-  const outraPagina = paginaAtual === 'home' ? 'categorias.html' : 'home.html';
-
-  // Coleta os produtos da página atual
-  const produtosAtuais = getProdutosDaPaginaAtual();
-
-  // Coleta os produtos da outra página
-  const produtosDaOutraPagina = await getProdutosDeOutraPagina(outraPagina);
-
-  // Junta tudo
-  produtos = [...produtosAtuais, ...produtosDaOutraPagina];
-
-  // Evento de digitação no campo de busca
-  input.addEventListener('input', function () {
-    const valor = this.value.toLowerCase();
-    autocompleteList.innerHTML = '';
-
-    if (!valor) return;
-
-    const sugestões = produtos.filter(p => p.nome.toLowerCase().includes(valor));
-
-    sugestões.forEach(produto => {
-      const li = document.createElement('li');
-
-      // Cria o container do conteúdo
-      const itemContainer = document.createElement('div');
-      itemContainer.classList.add('autocomplete-item');
-
-      // Cria a imagem
-      const img = document.createElement('img');
-      img.src = produto.imagem;
-      img.alt = produto.nome;
-      img.classList.add('autocomplete-img');
-
-      // Cria o span com o nome
-      const nomeSpan = document.createElement('span');
-      nomeSpan.textContent = produto.nome;
-
-      // Junta imagem + texto
-      itemContainer.appendChild(img);
-      itemContainer.appendChild(nomeSpan);
-
-      li.appendChild(itemContainer);
-
-      li.addEventListener('click', () => {
-        const nome = encodeURIComponent(produto.nome);
-        const preco = encodeURIComponent(produto.preco);
-        const imagem = encodeURIComponent(produto.imagem);
-        window.location.href = `produto.html?nome=${nome}&preco=${preco}&imagem=${imagem}`;
-      });
-
-      autocompleteList.appendChild(li);
-    });
-  });
-
-
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('.search-container')) {
-      autocompleteList.innerHTML = '';
+    // Mobile
+    const contadorMobile = document.getElementById("contador-carrinho-mobile");
+    if (contadorMobile) {
+        contadorMobile.textContent = carrinho.length;
+        contadorMobile.style.display = carrinho.length > 0 ? "flex" : "none";
     }
-  });
+}
+document.addEventListener("DOMContentLoaded", () => {
+    atualizarContadorCarrinhoGeral();
+    window.addEventListener("atualizarCarrinho", atualizarContadorCarrinhoGeral);
 });
+
+// ==== PESQUISA/ AUTOCOMPLETE TANTO DESKTOP QUANTO MOBILE ==== //
+function autocompleteBusca(inputId, listId) {
+    const input = document.getElementById(inputId);
+    const autocompleteList = document.getElementById(listId);
+
+    if (!input || !autocompleteList) return;
+
+    // Carregar todos os produtos do localStorage (igual sua função)
+    function carregarProdutosDoLocalStorage() {
+        const secoes = [
+            "aneis", "brincos", "colares", "correntes", "pulseiras",
+            "piercings", "limpeza", "canga-toalhas", "moletons"
+        ];
+        let todos = [];
+        secoes.forEach(sessao => {
+            const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
+            todos = todos.concat(produtosSessao);
+        });
+        // Remover duplicatas
+        const nomesVistos = new Set();
+        return todos.filter(p => {
+            if (nomesVistos.has(p.nome)) return false;
+            nomesVistos.add(p.nome);
+            return true;
+        });
+    }
+    const produtos = carregarProdutosDoLocalStorage();
+
+    input.addEventListener('input', function () {
+        const valor = this.value.toLowerCase();
+        autocompleteList.innerHTML = '';
+        if (!valor) return;
+
+        const sugestões = produtos.filter(p => p.nome.toLowerCase().includes(valor));
+        sugestões.forEach(produto => {
+            const li = document.createElement('li');
+            const itemContainer = document.createElement('div');
+            itemContainer.classList.add('autocomplete-item');
+            const img = document.createElement('img');
+            img.src = produto.imagem;
+            img.alt = produto.nome;
+            img.classList.add('autocomplete-img');
+            const nomeSpan = document.createElement('span');
+            nomeSpan.textContent = produto.nome;
+            itemContainer.appendChild(img);
+            itemContainer.appendChild(nomeSpan);
+            li.appendChild(itemContainer);
+            li.addEventListener('click', () => {
+                const nome = encodeURIComponent(produto.nome);
+                const preco = encodeURIComponent(produto.preco);
+                const imagem = encodeURIComponent(produto.imagem);
+                const observacoes = encodeURIComponent(produto.observacao || "");
+                const especificacao = encodeURIComponent(produto.especificacao || "");
+                window.location.href = `produto.html?nome=${nome}&preco=${preco}&imagem=${imagem}&observacoes=${observacoes}&especificacao=${especificacao}`;
+            });
+            autocompleteList.appendChild(li);
+        });
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${listId}`)) {
+            autocompleteList.innerHTML = '';
+        }
+    });
+}
+document.addEventListener("DOMContentLoaded", () => {
+    autocompleteBusca('searchInput', 'autocomplete-list'); // Desktop
+    autocompleteBusca('searchInputMobile', 'autocomplete-list-mobile'); // Mobile
+});
+
 
 
 
@@ -417,4 +454,127 @@ window.addEventListener("load", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   updateCarousel();
+});
+
+
+
+// FIREBASE
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Configuração do Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+        authDomain: "kaibeads-2ab98.firebaseapp.com",
+        projectId: "kaibeads-2ab98",
+        storageBucket: "kaibeads-2ab98.appspot.com",
+        messagingSenderId: "405735155633",
+        appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+        measurementId: "G-N2NDBL58J7"
+    };
+    // Inicializa Firebase só se ainda não foi inicializado
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    const authButtons = document.getElementById("auth-buttons");
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            authButtons.innerHTML = `
+  <button class="btn-logout">
+    <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair
+  </button>
+`;
+            document.querySelector(".btn-logout").addEventListener("click", () => {
+                firebase.auth().signOut().then(() => {
+                    window.location.reload();
+                }).catch((error) => {
+                    alert("Erro ao sair: " + error.message);
+                });
+            });
+        } else {
+            authButtons.innerHTML = `
+    <a href="templates/register.html" class="btn-create-account">
+        <i class="fa-solid fa-user-plus"></i> Criar conta
+    </a>
+    <a href="templates/login.html" class="btn-login">
+        <i class="fa-solid fa-right-to-bracket"></i> Entrar
+    </a>
+`;
+
+        }
+
+        // Agora que a verificação terminou, exibe os botões corretamente
+        authButtons.style.display = "block";
+    });
+});
+
+
+
+
+// Responsividade
+
+// Info-bar e cabeçalho(hamburguer)
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Abre o menu lateral
+    document.getElementById("open-menu").onclick = function () {
+      document.getElementById("mobile-menu").classList.add("open");
+      document.body.style.overflow = "hidden";
+    };
+    // Fecha o menu lateral
+    document.getElementById("close-menu").onclick = function () {
+      document.getElementById("mobile-menu").classList.remove("open");
+      document.body.style.overflow = "";
+    };
+    // Fecha ao clicar em qualquer link
+    document.querySelectorAll('.mobile-link').forEach(link => {
+  link.onclick = function () {
+    // Só fecha se NÃO for o botão "Categorias"
+    document.getElementById("mobile-menu").classList.remove("open");
+    document.body.style.overflow = "";
+  };
+});
+
+    // Fecha ao clicar fora do menu (opcional)
+    document.getElementById("mobile-menu").addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('open');
+        document.body.style.overflow = "";
+      }
+    });
+  });
+
+const catBtn = document.querySelector('.mobile-categorias');
+const catSubmenu = document.getElementById('submenu-categorias-mobile');
+let catOpen = false;
+
+catBtn.onclick = function(e) {
+  e.stopPropagation();
+  catOpen = !catOpen;
+  catSubmenu.style.display = catOpen ? 'block' : 'none';
+  catBtn.querySelector('span').innerHTML = catOpen ? '&#x25B2;' : '&#x25BC;';
+  // Adiciona classe open para cor preta
+  if (catOpen) {
+    catBtn.classList.add('open');
+    catSubmenu.classList.add('open');
+  } else {
+    catBtn.classList.remove('open');
+    catSubmenu.classList.remove('open');
+  }
+};
+
+// Se clicar em outro link, fecha submenu
+document.querySelectorAll('.mobile-link:not(.mobile-categorias)').forEach(link => {
+  link.onclick = function () {
+    catSubmenu.style.display = 'none';
+    catOpen = false;
+    catBtn.querySelector('span').innerHTML = '&#x25BC;';
+    catBtn.classList.remove('open');
+    catSubmenu.classList.remove('open');
+  };
 });

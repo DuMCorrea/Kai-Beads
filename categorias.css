@@ -37,23 +37,30 @@ body{
 .btn-logout,
 .btn-create-account,
 .btn-login {
-    padding: 5px 10px;
-    margin: 0 10px;              /* Adiciona um espaçamento entre os botões */
-    background-color: #94b9ff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    align-items: center;
+    gap: 8px; /* Espaço entre o ícone e o texto */
+    padding: 7px 22px;
+    margin: 0 8px;
+    background: linear-gradient(90deg, #2eb3e9 0%, #94b9ff 100%);
     color: #fff;
     border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
+    border-radius: 20px;
+    font-size: 17px;
+    box-shadow: 0 2px 12px rgba(46,179,233,0.07);
     cursor: pointer;
-    transition: background-color 0.3s;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
-.btn-logout,
+.btn-logout:hover,
 .btn-create-account:hover,
 .btn-login:hover {
-    background-color: #87cefa;
+    background: linear-gradient(90deg, #0084b8 0%, #2eb3e9 100%);
+    color: #fff;
+    transform: scale(1.07);
+    box-shadow: 0 6px 24px rgba(46,179,233,0.16);
 }
 
 
@@ -395,6 +402,31 @@ header nav ul li{
 
 /* MENU LATERAL */
 
+#overlay-scroll-fix {
+  position: fixed;
+  inset: 0;
+  background: white; /* Ou a cor do seu fundo */
+  z-index: 99999;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+#overlay-scroll-fix.oculto {
+  opacity: 0;
+  pointer-events: none;
+}
+.fadein {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition:
+    opacity 0.5s cubic-bezier(.61,.01,.59,.99),
+    transform 0.7s cubic-bezier(.61,.01,.59,.99);
+}
+
+.fadein.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 .menu-lateral {
     width: 200px; /* Menor largura para deixar o menu mais enxuto */
     position: relative; /* Fixando o menu na tela */
@@ -405,6 +437,7 @@ header nav ul li{
     padding-left: 20px;
     color: white;
     font-family: 'Poppins', sans-serif;
+    margin-bottom: 100px;
   
 }
 
@@ -454,6 +487,7 @@ header nav ul li{
 
 main {
     display: flex; /* Alinha os elementos lado a lado */
+    margin-top: 100px;
 }
 
 .toggle-icon,
@@ -541,10 +575,33 @@ main {
 
 /* ESTILOS EM CATEGORIAS */
 
+
+.mensagem-sem-produtos {
+    grid-column: 1 / -1;
+    text-align: right;
+    color: #ADD8E6;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 40px 0;
+    opacity: 0.9;
+    width: 100%;
+    justify-self: end;
+    align-self: center;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 200px;
+    position: relative;    /* Adiciona o position relative */
+    left: 150px;  
+    top: 70px;         /* Ajusta esse valor conforme o quanto tu quer pra direita */
+    padding-right: 0;      /* Pode tirar se for usar só o left */
+}
+
+
 /* Mantém o posicionamento original */
-.ordenacao {
+.ordenacao  {
   position: absolute;
-  top: 260px;
+  top: 295px;
   right: 340px;
   z-index: 10;
   padding: 10px;
@@ -903,40 +960,6 @@ footer .flex {
     margin-top: -75px; /* Ajuste para aproximar as imagens */
     margin-bottom: 55px; /* Ajuste para aproximar as imagens */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

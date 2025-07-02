@@ -61,6 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const resumoCarrinho = document.getElementById("resumo-carrinho");
         resumoCarrinho.style.display = carrinho.length === 0 ? "none" : "block";
 
+        
+
         carrinhoContainer.innerHTML = "";
         carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
@@ -137,6 +139,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
         }
+        const h1Carrinho = document.querySelector(".carrinho-container h1");
+if (carrinho.length === 0) {
+    mensagemVazio.style.display = "block";
+    resumoCarrinho.style.display = "none";
+    h1Carrinho.classList.add("linha-grande");
+} else {
+    mensagemVazio.style.display = "none";
+    resumoCarrinho.style.display = "block";
+    h1Carrinho.classList.remove("linha-grande");
+}
 
         atualizarContadorCarrinho();
         atualizarValorTotal();
@@ -209,33 +221,37 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   let produtos = [];
 
-  // Função para extrair produtos de outra página
-  async function getProdutosDeOutraPagina(url) {
-    try {
-      const response = await fetch(url);
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
+  // Carrega todos os produtos de todas as sessões salvas no localStorage
+  function carregarProdutosDoLocalStorage() {
+    const secoes = [
+      "aneis", "brincos", "colares", "correntes", "pulseiras",
+      "piercings", "limpeza", "canga-toalhas", "moletons"
+    ];
 
-      return Array.from(doc.querySelectorAll('.card-produto')).map(card => {
-        const nome = card.querySelector('.produto-nome')?.textContent.trim() || '';
-        const preco = card.querySelector('.preco')?.textContent.replace('R$ ', '').replace(',', '.') || '';
-        const imagem = card.querySelector('.img-produ')?.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1] || '';
-        return { nome, preco, imagem };
-      });
-    } catch (error) {
-      console.error('Erro ao carregar a página:', error);
-      return [];
-    }
+    let todos = [];
+
+    secoes.forEach(sessao => {
+      const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
+      todos = todos.concat(produtosSessao);
+    });
+
+    return todos;
   }
 
-  // Coletar produtos de todas as páginas principais
-  const produtosHome = await getProdutosDeOutraPagina('home.html');
-  const produtosCategorias = await getProdutosDeOutraPagina('categorias.html');
+  // Remove produtos com nomes duplicados
+  function removerDuplicatas(lista) {
+    const nomesVistos = new Set();
+    return lista.filter(p => {
+      if (nomesVistos.has(p.nome)) return false;
+      nomesVistos.add(p.nome);
+      return true;
+    });
+  }
 
-  produtos = [...produtosHome, ...produtosCategorias];
+  // Carregar produtos e remover duplicatas
+  produtos = removerDuplicatas(carregarProdutosDoLocalStorage());
 
-  // Evento de input
+  // Evento de digitação no campo de busca
   input.addEventListener('input', function () {
     const valor = this.value.toLowerCase();
     autocompleteList.innerHTML = '';
@@ -246,6 +262,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     sugestões.forEach(produto => {
       const li = document.createElement('li');
+
       const itemContainer = document.createElement('div');
       itemContainer.classList.add('autocomplete-item');
 
@@ -262,16 +279,19 @@ document.addEventListener('DOMContentLoaded', async function () {
       li.appendChild(itemContainer);
 
       li.addEventListener('click', () => {
-        const nome = encodeURIComponent(produto.nome);
-        const preco = encodeURIComponent(produto.preco);
-        const imagem = encodeURIComponent(produto.imagem);
-        window.location.href = `produto.html?nome=${nome}&preco=${preco}&imagem=${imagem}`;
-      });
+    const nome = encodeURIComponent(produto.nome);
+    const preco = encodeURIComponent(produto.preco);
+    const imagem = encodeURIComponent(produto.imagem);
+    const observacoes = encodeURIComponent(produto.observacao || "");
+    const especificacao = encodeURIComponent(produto.especificacao || "");
+    window.location.href = `produto.html?nome=${nome}&preco=${preco}&imagem=${imagem}&observacoes=${observacoes}&especificacao=${especificacao}`;
+});
 
       autocompleteList.appendChild(li);
     });
   });
 
+  // Fecha o autocomplete se clicar fora
   document.addEventListener('click', function (e) {
     if (!e.target.closest('.search-container')) {
       autocompleteList.innerHTML = '';
@@ -406,4 +426,60 @@ document.getElementById("link-duvidas").addEventListener("click", function (e) {
     e.preventDefault();
     sessionStorage.setItem("scrollToDuvidas", "true");
     window.location.href = "home.html";
+});
+
+
+
+// FIREBASE
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Configuração do Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+        authDomain: "kaibeads-2ab98.firebaseapp.com",
+        projectId: "kaibeads-2ab98",
+        storageBucket: "kaibeads-2ab98.appspot.com",
+        messagingSenderId: "405735155633",
+        appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+        measurementId: "G-N2NDBL58J7"
+    };
+    // Inicializa Firebase só se ainda não foi inicializado
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    const authButtons = document.getElementById("auth-buttons");
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            authButtons.innerHTML = `
+  <button class="btn-logout">
+    <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair
+  </button>
+`;
+            document.querySelector(".btn-logout").addEventListener("click", () => {
+                firebase.auth().signOut().then(() => {
+                    window.location.reload();
+                }).catch((error) => {
+                    alert("Erro ao sair: " + error.message);
+                });
+            });
+        } else {
+            authButtons.innerHTML = `
+    <a href="templates/register.html" class="btn-create-account">
+        <i class="fa-solid fa-user-plus"></i> Criar conta
+    </a>
+    <a href="templates/login.html" class="btn-login">
+        <i class="fa-solid fa-right-to-bracket"></i> Entrar
+    </a>
+`;
+
+        }
+
+        // Agora que a verificação terminou, exibe os botões corretamente
+        authButtons.style.display = "block";
+    });
 });

@@ -14,7 +14,6 @@
             font-family: Arial, sans-serif;
             margin: 0;
         }
-
         .close-icon {
             position: absolute;
             top: 40px;
@@ -24,7 +23,6 @@
             text-decoration: none;
             cursor: pointer;
         }
-
         .container {
             text-align: center;
             background-color: #fff;
@@ -33,22 +31,18 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: relative;
         }
-
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-
         p {
             color: #777;
         }
-
         a {
             color: #FF8A65;
             text-decoration: none;
             font-weight: bold;
         }
-
         button {
             width: 100%;
             padding: 10px;
@@ -58,45 +52,37 @@
             font-size: 1rem;
             cursor: pointer;
         }
-
         .google-btn {
             background-color: #fff;
             border: 1px solid #ccc;
             color: #000;
         }
-
         .facebook-btn {
             background-color: #1877f2;
             color: #fff;
         }
-
         .divider {
             display: flex;
             align-items: center;
             margin: 20px 0;
         }
-
         .divider span {
             flex: 1;
             height: 1px;
             background-color: #ccc;
         }
-
         .divider p {
             margin: 0 10px;
             color: #777;
         }
-
         .email-btn {
             background-color: #fff;
             border: 1px solid #ccc;
         }
-
         .email-form {
             display: none;
             margin-top: 15px;
         }
-
         input {
             width: 95%;
             padding: 10px;
@@ -104,7 +90,6 @@
             border: 1px solid #ccc;
             border-radius: 6px;
         }
-
         .login-btn {
             background-color: #FF8A65;
             color: white;
@@ -117,16 +102,13 @@
     <div class="container">
         <h1>Login</h1>
         <p>Não tem uma conta? <a href="register.html">Cadastre-se aqui</a></p>
-        
         <button class="google-btn">Login com Google</button>
         <button class="facebook-btn">Login com Facebook</button>
-        
         <div class="divider">
             <span></span>
             <p>ou</p>
             <span></span>
         </div>
-        
         <button class="email-btn">Login com email</button>
         <div class="email-form">
             <input type="email" id="email" placeholder="Digite seu email">
@@ -140,14 +122,14 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const firebaseConfig = {
-      apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
-      authDomain: "kaibeads-2ab98.firebaseapp.com",
-      projectId: "kaibeads-2ab98",
-      storageBucket: "kaibeads-2ab98.appspot.com",
-      messagingSenderId: "405735155633",
-      appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
-      measurementId: "G-N2NDBL58J7"
-    };
+                apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+                authDomain: "kaibeads-2ab98.firebaseapp.com",
+                projectId: "kaibeads-2ab98",
+                storageBucket: "kaibeads-2ab98.appspot.com",
+                messagingSenderId: "405735155633",
+                appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+                measurementId: "G-N2NDBL58J7"
+            };
             firebase.initializeApp(firebaseConfig);
 
             const emailBtn = document.querySelector('.email-btn');
@@ -156,6 +138,7 @@
             const passwordInput = document.getElementById('password');
             const loginBtn = document.querySelector('.login-btn');
             const googleBtn = document.querySelector('.google-btn');
+            const facebookBtn = document.querySelector('.facebook-btn');
 
             emailBtn.addEventListener('click', () => {
                 emailForm.style.display = 'block';
@@ -175,15 +158,56 @@
                     });
             });
 
+            // LOGIN COM GOOGLE COM VERIFICAÇÃO SE A CONTA JÁ EXISTE
             googleBtn.addEventListener('click', () => {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider)
-                    .then(() => {
-                        alert("Login com Google realizado com sucesso!");
-                        window.location.href = "/home.html";
+                    .then((result) => {
+                        const user = result.user;
+                        const email = user.email;
+
+                        return firebase.auth().fetchSignInMethodsForEmail(email)
+                            .then((methods) => {
+                                // Se só existe google.com, conta foi criada agora
+                                if (methods.length === 1 && methods[0] === 'google.com') {
+                                    user.delete().then(() => {
+                                        firebase.auth().signOut();
+                                        alert('Não foi possível fazer login, pois essa conta ainda não foi registrada. Registre-se primeiro.');
+                                    });
+                                } else {
+                                    alert("Login com Google realizado com sucesso!");
+                                    window.location.href = "/home.html";
+                                }
+                            });
                     })
                     .catch((error) => {
                         alert("Erro ao autenticar com Google: " + error.message);
+                    });
+            });
+
+            // LOGIN COM FACEBOOK COM VERIFICAÇÃO SE A CONTA JÁ EXISTE
+            facebookBtn.addEventListener('click', () => {
+                const provider = new firebase.auth.FacebookAuthProvider();
+                firebase.auth().signInWithPopup(provider)
+                    .then((result) => {
+                        const user = result.user;
+                        const email = user.email;
+
+                        return firebase.auth().fetchSignInMethodsForEmail(email)
+                            .then((methods) => {
+                                if (methods.length === 1 && methods[0] === 'facebook.com') {
+                                    user.delete().then(() => {
+                                        firebase.auth().signOut();
+                                        alert('Não foi possível fazer login, pois essa conta ainda não foi registrada. Registre-se primeiro.');
+                                    });
+                                } else {
+                                    alert("Login com Facebook realizado com sucesso!");
+                                    window.location.href = "/home.html";
+                                }
+                            });
+                    })
+                    .catch((error) => {
+                        alert("Erro ao autenticar com Facebook: " + error.message);
                     });
             });
         });
