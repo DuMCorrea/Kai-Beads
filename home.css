@@ -365,6 +365,8 @@ header nav ul li{
     margin-right: -1000px;  /* Alinha melhor com os elementos da direita */
     border-radius: 5px;   /* Bordas arredondadas */
     transition: background-color 0.3s, color 0.3s;
+    position: relative;
+    display: inline-block;
 }
 
 #link-carrinho:hover {
@@ -374,24 +376,25 @@ header nav ul li{
 
 #contador-carrinho {
     position: absolute;
-    top: 14px; /* Ajusta a posição dentro do ícone do carrinho */
-    right: 5px;
-    color:  black;
+    top: -7px;      /* sobe a bolinha */
+    right: -7px;    /* cola na borda */
+    background: #ADD8E6;
+    color: black;
     font-size: 12px;
     font-weight: bold;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    border: 1.5px solid #fff;
+    box-shadow: 0 1px 5px rgba(46,179,233,0.12);
+    z-index: 2;
+    transition: background 0.3s;
 }
 
-/* Garante que o contador esteja sempre dentro do ícone do carrinho */
-#link-carrinho {
-    position: relative;
-    display: inline-block;
-}
+
 
 
 
@@ -1322,11 +1325,7 @@ footer .flex {
     max-width: 96vw;
     padding: 0 2vw;
   }
-  section.produto .flex {
-    margin-left: 0;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
+  
   section.produto h2 {
     margin-left: 0;
   }
@@ -1353,18 +1352,66 @@ footer .flex {
     padding: 22px 0;
     margin-bottom: 40px;
   }
-  section.produto .flex {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    margin-bottom: 60px;
+
+
+@media (max-width: 600px) {
+ section.produto .flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+    gap: 58px;
+    margin-bottom: 40px;
   }
   .card-produto {
-    width: 95%;
-    min-width: 0;
+    width: 93vw;              /* ocupa menos da largura total */
+    max-width: 210px;         /* limite máximo! */
+    min-width: 160px;         /* nunca fica apertado demais */
+    margin: 0 auto;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    overflow: hidden;
   }
   .img-produ {
-    height: 100px;
+    width: 100%;               /* sempre 100% do card */
+    max-width: 210px;          /* igual ao max do card */
+    height: 140px;             /* levemente menor */
+    background-color: #ADD8E6;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
+    transition: background-image 0.5s ease-in-out;
   }
+  .info-produto {
+    padding: 8px;
+  }
+  .info-produto h3 {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .info-produto .preco {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .btn-comprar button {
+    padding: 6px 18px;
+    font-size: 12px;
+    background-color: #ADD8E6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .btn-comprar button:hover {
+    background-color: #87cefa;
+  }
+}
+
   .logo {
     width: 100px;
     height: 50px;

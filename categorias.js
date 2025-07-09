@@ -391,8 +391,21 @@ updateMinPrice();
 updateMaxPrice();
 const btnFiltrar = document.getElementById("btn-filtrar");
 btnFiltrar.addEventListener("click", () => {
-    const min = parseInt(minRange.value);
-    const max = parseInt(maxRange.value);
+    // Verifica se está no mobile (ajuste o valor do maxWidth se quiser para 600px)
+    const isMobile = window.matchMedia("(max-width: 800px)").matches;
+
+    let min, max;
+    if (isMobile) {
+        // Mobile: lê dos inputs
+        min = parseFloat(document.getElementById("preco-min").value) || 0;
+        max = parseFloat(document.getElementById("preco-max").value) || 500;
+    } else {
+        // Desktop: lê dos sliders
+        min = parseInt(minRange.value);
+        max = parseInt(maxRange.value);
+    }
+
+    // Filtra os produtos
     const produtos = document.querySelectorAll(".produto-item");
     produtos.forEach(produto => {
         const precoTexto = produto.querySelector(".preco").textContent;
@@ -404,14 +417,43 @@ btnFiltrar.addEventListener("click", () => {
         }
     });
     const container = document.querySelector(ultimoSelecionado + ' .flex');
-mostrarMensagemSemProdutos(container)
+    mostrarMensagemSemProdutos(container);
 });
 
-// ============== BUSCA AUTOCOMPLETE =======================
-document.addEventListener('DOMContentLoaded', async function () {
-    const input = document.getElementById('searchInput');
-    const autocompleteList = document.getElementById('autocomplete-list');
-    let produtos = [];
+
+ // CAMPO PESQUISAR //
+
+
+
+  // ==== ATUALIZAR CONTADOR CARRINHO (DESKTOP E MOBILE) ==== //
+function atualizarContadorCarrinhoGeral() {
+    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    // Desktop
+    const contadorDesktop = document.getElementById("contador-carrinho");
+    if (contadorDesktop) {
+        contadorDesktop.textContent = carrinho.length;
+        contadorDesktop.style.display = carrinho.length > 0 ? "flex" : "none";
+    }
+    // Mobile
+    const contadorMobile = document.getElementById("contador-carrinho-mobile");
+    if (contadorMobile) {
+        contadorMobile.textContent = carrinho.length;
+        contadorMobile.style.display = carrinho.length > 0 ? "flex" : "none";
+    }
+}
+document.addEventListener("DOMContentLoaded", () => {
+    atualizarContadorCarrinhoGeral();
+    window.addEventListener("atualizarCarrinho", atualizarContadorCarrinhoGeral);
+});
+
+// ==== PESQUISA/ AUTOCOMPLETE TANTO DESKTOP QUANTO MOBILE ==== //
+function autocompleteBusca(inputId, listId) {
+    const input = document.getElementById(inputId);
+    const autocompleteList = document.getElementById(listId);
+
+    if (!input || !autocompleteList) return;
+
+    // Carregar todos os produtos do localStorage (igual sua função)
     function carregarProdutosDoLocalStorage() {
         const secoes = [
             "aneis", "brincos", "colares", "correntes", "pulseiras",
@@ -422,23 +464,23 @@ document.addEventListener('DOMContentLoaded', async function () {
             const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
             todos = todos.concat(produtosSessao);
         });
-        return todos;
-    }
-    function removerDuplicatas(lista) {
+        // Remover duplicatas
         const nomesVistos = new Set();
-        return lista.filter(p => {
+        return todos.filter(p => {
             if (nomesVistos.has(p.nome)) return false;
             nomesVistos.add(p.nome);
             return true;
         });
     }
-    produtos = removerDuplicatas(carregarProdutosDoLocalStorage());
+    const produtos = carregarProdutosDoLocalStorage();
+
     input.addEventListener('input', function () {
         const valor = this.value.toLowerCase();
         autocompleteList.innerHTML = '';
         if (!valor) return;
-        const sugestoes = produtos.filter(p => p.nome.toLowerCase().includes(valor));
-        sugestoes.forEach(produto => {
+
+        const sugestões = produtos.filter(p => p.nome.toLowerCase().includes(valor));
+        sugestões.forEach(produto => {
             const li = document.createElement('li');
             const itemContainer = document.createElement('div');
             itemContainer.classList.add('autocomplete-item');
@@ -462,11 +504,16 @@ document.addEventListener('DOMContentLoaded', async function () {
             autocompleteList.appendChild(li);
         });
     });
+
     document.addEventListener('click', function (e) {
-        if (!e.target.closest('.search-container')) {
+        if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${listId}`)) {
             autocompleteList.innerHTML = '';
         }
     });
+}
+document.addEventListener("DOMContentLoaded", () => {
+    autocompleteBusca('searchInput', 'autocomplete-list'); // Desktop
+    autocompleteBusca('searchInputMobile', 'autocomplete-list-mobile'); // Mobile
 });
 
 // ============== ORDENAÇÃO ================================
@@ -720,3 +767,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+// Responsividade
+
+// Info-bar e cabeçalho(hamburguer)
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Abre o menu lateral
+    document.getElementById("open-menu").onclick = function () {
+      document.getElementById("mobile-menu").classList.add("open");
+      document.body.style.overflow = "hidden";
+    };
+    // Fecha o menu lateral
+    document.getElementById("close-menu").onclick = function () {
+      document.getElementById("mobile-menu").classList.remove("open");
+      document.body.style.overflow = "";
+    };
+    // Fecha ao clicar em qualquer link
+    document.querySelectorAll('.mobile-link').forEach(link => {
+  link.onclick = function () {
+    // Só fecha se NÃO for o botão "Categorias"
+    document.getElementById("mobile-menu").classList.remove("open");
+    document.body.style.overflow = "";
+  };
+});
+
+    // Fecha ao clicar fora do menu (opcional)
+    document.getElementById("mobile-menu").addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('open');
+        document.body.style.overflow = "";
+      }
+    });
+  });
+
+const catBtn = document.querySelector('.mobile-categorias');
+const catSubmenu = document.getElementById('submenu-categorias-mobile');
+let catOpen = false;
+
+catBtn.onclick = function(e) {
+  e.stopPropagation();
+  catOpen = !catOpen;
+  catSubmenu.style.display = catOpen ? 'block' : 'none';
+  catBtn.querySelector('span').innerHTML = catOpen ? '&#x25B2;' : '&#x25BC;';
+  // Adiciona classe open para cor preta
+  if (catOpen) {
+    catBtn.classList.add('open');
+    catSubmenu.classList.add('open');
+  } else {
+    catBtn.classList.remove('open');
+    catSubmenu.classList.remove('open');
+  }
+};
+
+// Se clicar em outro link, fecha submenu
+document.querySelectorAll('.mobile-link:not(.mobile-categorias)').forEach(link => {
+  link.onclick = function () {
+    catSubmenu.style.display = 'none';
+    catOpen = false;
+    catBtn.querySelector('span').innerHTML = '&#x25BC;';
+    catBtn.classList.remove('open');
+    catSubmenu.classList.remove('open');
+  };
+});

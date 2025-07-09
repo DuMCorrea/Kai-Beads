@@ -13,40 +13,47 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 </head>
-
 
 <body>
     <div id="overlay-scroll-fix"></div>
 
-
     <header>
         <div class="info-bar">
-    <div class="btn-container" id="auth-buttons" style="display: flex;">
-        <a href="templates/register.html" class="btn-create-account">
-            <i class="fa-solid fa-user-plus"></i> Criar conta
-        </a>
-        <a href="templates/login.html" class="btn-login">
-            <i class="fa-solid fa-right-to-bracket"></i> Entrar
-        </a>
-    </div>
-</div>
-
+            <div class="btn-container" id="auth-buttons" style="display: flex;">
+                <a href="templates/register.html" class="btn-create-account">
+                    <i class="fa-solid fa-user-plus"></i> Criar conta
+                </a>
+                <a href="templates/login.html" class="btn-login">
+                    <i class="fa-solid fa-right-to-bracket"></i> Entrar
+                </a>
+            </div>
+            <div class="hamburger" id="open-menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
 
         <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-        
-
 
         <div id="interface" class="interface">
             <div class="logo">
                 <a href="#"><img src="./assets/Logo eduardo vetorizado Colorido.svg" alt="Logo da KaiBeads"></a>
+            </div>
+
+            <!-- Campo de pesquisa + Carrinho mobile -->
+            <div class="search-cart-mobile">
+                <div class="search-container">
+                    <input type="text" id="searchInputMobile" placeholder="Pesquisar" autocomplete="off">
+                    <i class="bi bi-search"></i>
+                    <ul id="autocomplete-list-mobile" class="autocomplete-items"></ul>
+                </div>
+                <a href="carrinho.html" id="link-carrinho-mobile">
+                    <i class="bi bi-cart"></i>
+                    <span id="contador-carrinho-mobile">0</span>
+                </a>
             </div>
 
             <nav class="menu-desktop">
@@ -62,7 +69,6 @@
                                     <a href="#">Sofisticadas</a>
                                 </div>
                             </div>
-
                             <div class="submenu-item">
                                 <a href="categorias.html#todos-btn" data-target="#todos-btn">Prata 925</a>
                                 <div class="submenu-nested">
@@ -75,7 +81,6 @@
                                     <a href="categorias.html#limpeza-btn" data-target="#limpeza-btn">Limpeza</a>
                                 </div>
                             </div>
-
                             <div class="submenu-item">
                                 <a href="categorias.html#moletons-btn">Moletons</a>
                                 <div class="submenu-nestedM">
@@ -85,7 +90,6 @@
                             </div>
                         </div>
                     </li>
-
                     <li><a href="index.html#sobre" id="link-sobre">Sobre</a></li>
                     <li>
                         <div class="search-container">
@@ -106,7 +110,6 @@
             <div class="btn-contato">
                 <a href="#footer"><button>Contato</button></a>
             </div>
-
         </div>
     </header>
 
@@ -147,7 +150,8 @@
                     <a href="#" id="preco-btn">Preço <span class="toggle-icon-preco">-</span></a>
                     <ul id="preco-list" class="preco-list">
                         <li style="list-style: none;">
-                            <div class="range-container">
+                            <!-- FILTRO DE PREÇO DESKTOP (slider) -->
+                            <div class="range-container filtro-preco-desktop">
                                 <input type="range" id="min-price" min="0" max="500" value="0">
                                 <input type="range" id="max-price" min="0" max="500" value="500">
                                 <div class="slider-track"></div>
@@ -157,7 +161,18 @@
                                 </div>
                             </div>
 
-                            <!-- Botão de Filtrar -->
+                            <!-- FILTRO DE PREÇO MOBILE (inputs) -->
+                            <div class="filtro-preco-mobile">
+                                <div class="campo-preco">
+                                    <label for="preco-min">Mín:</label>
+                                    <input type="number" id="preco-min" min="0" max="500" value="0" />
+                                </div>
+                                <div class="campo-preco">
+                                    <label for="preco-max">Máx:</label>
+                                    <input type="number" id="preco-max" min="0" max="500" value="500" />
+                                </div>
+                            </div>
+
                             <div class="btn-filtrar-container">
                                 <button id="btn-filtrar" class="btn-filtrar">Filtrar</button>
                             </div>
@@ -167,97 +182,57 @@
             </ul>
         </div>
 
-
         <section id="produto" class="produto fadein">
-    <div class="interface">
-        <div id="inicio-produtos"></div>
-        <div class="produtos-todos">
-            <div class="flex" id="container-todos-produtos">
-                <!-- Todos os produtos de todas as categorias serão inseridos aqui dinamicamente -->
+            <div class="interface">
+                <div id="inicio-produtos"></div>
+                <div class="produtos-todos">
+                    <div class="flex" id="container-todos-produtos">
+                        <!-- Todos os produtos de todas as categorias serão inseridos aqui dinamicamente -->
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-                <!-- categorias.html -->
-                <div class="interface">
-                    <div class="produtos-anel" style="display: none;">
-                        <div class="flex" id="container-aneis">
-                            <!-- Os produtos adicionados via admin aparecerão aqui -->
-                        </div>
-                    </div>
+            <!-- categorias.html -->
+            <div class="interface">
+                <div class="produtos-anel" style="display: none;">
+                    <div class="flex" id="container-aneis"></div>
                 </div>
-
-                <div class="interface">
-                    <div class="produtos-brinco" style="display: block;">
-                        <div class="flex" id="container-brincos">
-                            <!-- Os produtos da sessão "brincos" serão inseridos dinamicamente aqui -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="interface">
-                    <div class="produtos-aneis" style="display: none;">
-                        <div class="flex" id="container-aneis">
-                            <!-- Produtos da sessão "Anéis" serão inseridos aqui -->
-                        </div>
-                    </div>
-
-                    <div class="produtos-brinco" style="display: none;">
-                        <div class="flex" id="container-brincos">
-                            <!-- Produtos da sessão "Brincos" serão inseridos aqui -->
-                        </div>
-                    </div>
-
-                    <div class="produtos-colar" style="display: none;">
-                        <div class="flex" id="container-colares">
-                            <!-- Produtos da sessão "Colares" serão inseridos aqui -->
-                        </div>
-                    </div>
-
-                    <div class="produtos-corrente" style="display: none;">
-                        <div class="flex" id="container-correntes">
-                            <!-- Produtos da sessão "Correntes" serão inseridos aqui -->
-                        </div>
-                    </div>
-
-                    <div class="produtos-pulseira" style="display: none;">
-                        <div class="flex" id="container-pulseiras">
-                            <!-- Produtos da sessão "Pulseiras" serão inseridos aqui -->
-                        </div>
-                    </div>
-
-                    <div class="produtos-piercing" style="display: none;">
-                        <div class="flex" id="container-piercings">
-                            <!-- Produtos da sessão "Piercings" serão inseridos aqui -->
-                        </div>
-                    </div>
-
-                    <div class="produtos-limpeza" style="display: none;">
-                        <div class="flex" id="container-limpeza">
-                            <!-- Produtos da sessão "Limpeza" serão inseridos aqui -->
-                        </div>
-                    </div>
-
-                    <div class="produtos-cangas" style="display: none;">
-                        <div class="flex" id="container-cangas">
-                            <!-- Produtos da sessão "Canga-toalhas" serão inseridos aqui -->
-                        </div>
-                    </div>
-
-                    <div class="produtos-moletons" style="display: none;">
-                        <div class="flex" id="container-moletons">
-                            <!-- Produtos da sessão "Moletons" serão inseridos aqui -->
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            </div><!--interface-->
-        </section><!--produto-->
+            <div class="interface">
+                <div class="produtos-brinco" style="display: block;">
+                    <div class="flex" id="container-brincos"></div>
+                </div>
+            </div>
+            <div class="interface">
+                <div class="produtos-aneis" style="display: none;">
+                    <div class="flex" id="container-aneis"></div>
+                </div>
+                <div class="produtos-brinco" style="display: none;">
+                    <div class="flex" id="container-brincos"></div>
+                </div>
+                <div class="produtos-colar" style="display: none;">
+                    <div class="flex" id="container-colares"></div>
+                </div>
+                <div class="produtos-corrente" style="display: none;">
+                    <div class="flex" id="container-correntes"></div>
+                </div>
+                <div class="produtos-pulseira" style="display: none;">
+                    <div class="flex" id="container-pulseiras"></div>
+                </div>
+                <div class="produtos-piercing" style="display: none;">
+                    <div class="flex" id="container-piercings"></div>
+                </div>
+                <div class="produtos-limpeza" style="display: none;">
+                    <div class="flex" id="container-limpeza"></div>
+                </div>
+                <div class="produtos-cangas" style="display: none;">
+                    <div class="flex" id="container-cangas"></div>
+                </div>
+                <div class="produtos-moletons" style="display: none;">
+                    <div class="flex" id="container-moletons"></div>
+                </div>
+            </div>
+        </section>
     </main>
-
-
-
-
 
     <footer id="footer">
         <div class="interface">
@@ -301,20 +276,14 @@
                         <h3>Ficou com alguma dúvida? Entre em contato com a gente!</h3>
                         <form id="contact-form" action="https://formsubmit.co/eduardomassicorrea@gmail.com"
                             method="POST">
-                            <!-- Campos do formulário -->
                             <input type="text" name="name" placeholder="Seu Nome" required>
                             <input type="email" name="email" placeholder="Seu E-mail" required>
                             <input type="tel" name="phone" placeholder="Seu Telefone">
                             <textarea name="message" placeholder="Sua Mensagem" required></textarea>
-
-                            <!-- Extras para melhorar o formulário -->
                             <input type="hidden" name="_captcha" value="false">
                             <input type="hidden" name="_subject" value="Nova mensagem do site!">
-
                             <button type="submit">Enviar</button>
                         </form>
-
-                        <!-- Mensagem de sucesso -->
                         <p id="success-message"
                             style="display: none; color: #ADD8E6; font-weight: bold; margin-top: 10px;">
                             Mensagem enviada com sucesso! Entraremos em contato em breve.
@@ -325,8 +294,51 @@
         </div>
     </footer>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!-- MENU LATERAL MOBILE -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="mobile-menu-content">
+            <span class="close-mobile-menu" id="close-menu">&times;</span>
+            <a href="index.html" class="mobile-link">Início</a>
+            <div class="mobile-categorias" style="cursor:pointer;">
+                Categorias <span style="font-size:1.1em;vertical-align:middle;">&#x25BC;</span>
+            </div>
+            <div id="submenu-categorias-mobile" class="mobile-submenu" style="display:none;">
+                <!-- Canga-toalha -->
+                <div class="mobile-subitem">
+                    <a href="categorias.html#cangas-btn" class="mobile-link">Canga-toalha</a>
+                    <div class="mobile-nested">
+                        <a href="#" class="mobile-link-nested">Básicas</a>
+                        <a href="#" class="mobile-link-nested">Sofisticadas</a>
+                    </div>
+                </div>
+                <!-- Prata 925 -->
+                <div class="mobile-subitem">
+                    <a href="categorias.html#todos-btn" class="mobile-link">Prata 925</a>
+                    <div class="mobile-nested">
+                        <a href="categorias.html#anel-btn" class="mobile-link-nested">Anéis</a>
+                        <a href="categorias.html#brinco-btn" class="mobile-link-nested">Brincos</a>
+                        <a href="categorias.html#colar-btn" class="mobile-link-nested">Colares</a>
+                        <a href="categorias.html#corrente-btn" class="mobile-link-nested">Correntes</a>
+                        <a href="categorias.html#pulseira-btn" class="mobile-link-nested">Pulseiras</a>
+                        <a href="categorias.html#piercing-btn" class="mobile-link-nested">Piercings</a>
+                        <a href="categorias.html#limpeza-btn" class="mobile-link-nested">Limpeza</a>
+                    </div>
+                </div>
+                <!-- Moletons -->
+                <div class="mobile-subitem">
+                    <a href="categorias.html#moletons-btn" class="mobile-link">Moletons</a>
+                    <div class="mobile-nested">
+                        <a href="#" class="mobile-link-nested">Finos</a>
+                        <a href="#" class="mobile-link-nested">Grossos</a>
+                    </div>
+                </div>
+            </div>
+            <a href="index.html#sobre" class="mobile-link">Sobre</a>
+            <a href="#footer" class="mobile-link">Contato</a>
+        </div>
+    </div>
     <script src="categorias.js"></script>
 </body>
-
 
 </html>

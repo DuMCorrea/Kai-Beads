@@ -162,92 +162,99 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-// CAMPO PESQUISAR
+// CAMPO PESQUISAR //
 
 
 
-document.addEventListener('DOMContentLoaded', async function () {
-  const input = document.getElementById('searchInput');
-  const autocompleteList = document.getElementById('autocomplete-list');
-
-  let produtos = [];
-
-  // Carrega todos os produtos de todas as sessões salvas no localStorage
-  function carregarProdutosDoLocalStorage() {
-    const secoes = [
-      "aneis", "brincos", "colares", "correntes", "pulseiras",
-      "piercings", "limpeza", "canga-toalhas", "moletons"
-    ];
-
-    let todos = [];
-
-    secoes.forEach(sessao => {
-      const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
-      todos = todos.concat(produtosSessao);
-    });
-
-    return todos;
-  }
-
-  // Remove produtos com nomes duplicados
-  function removerDuplicatas(lista) {
-    const nomesVistos = new Set();
-    return lista.filter(p => {
-      if (nomesVistos.has(p.nome)) return false;
-      nomesVistos.add(p.nome);
-      return true;
-    });
-  }
-
-  // Carregar produtos e remover duplicatas
-  produtos = removerDuplicatas(carregarProdutosDoLocalStorage());
-
-  // Evento de digitação no campo de busca
-  input.addEventListener('input', function () {
-    const valor = this.value.toLowerCase();
-    autocompleteList.innerHTML = '';
-
-    if (!valor) return;
-
-    const sugestões = produtos.filter(p => p.nome.toLowerCase().includes(valor));
-
-    sugestões.forEach(produto => {
-      const li = document.createElement('li');
-
-      const itemContainer = document.createElement('div');
-      itemContainer.classList.add('autocomplete-item');
-
-      const img = document.createElement('img');
-      img.src = produto.imagem;
-      img.alt = produto.nome;
-      img.classList.add('autocomplete-img');
-
-      const nomeSpan = document.createElement('span');
-      nomeSpan.textContent = produto.nome;
-
-      itemContainer.appendChild(img);
-      itemContainer.appendChild(nomeSpan);
-      li.appendChild(itemContainer);
-
-      li.addEventListener('click', () => {
-    const nome = encodeURIComponent(produto.nome);
-    const preco = encodeURIComponent(produto.preco);
-    const imagem = encodeURIComponent(produto.imagem);
-    const observacoes = encodeURIComponent(produto.observacao || "");
-    const especificacao = encodeURIComponent(produto.especificacao || "");
-    window.location.href = `produto.html?nome=${nome}&preco=${preco}&imagem=${imagem}&observacoes=${observacoes}&especificacao=${especificacao}`;
+  // ==== ATUALIZAR CONTADOR CARRINHO (DESKTOP E MOBILE) ==== //
+function atualizarContadorCarrinhoGeral() {
+    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    // Desktop
+    const contadorDesktop = document.getElementById("contador-carrinho");
+    if (contadorDesktop) {
+        contadorDesktop.textContent = carrinho.length;
+        contadorDesktop.style.display = carrinho.length > 0 ? "flex" : "none";
+    }
+    // Mobile
+    const contadorMobile = document.getElementById("contador-carrinho-mobile");
+    if (contadorMobile) {
+        contadorMobile.textContent = carrinho.length;
+        contadorMobile.style.display = carrinho.length > 0 ? "flex" : "none";
+    }
+}
+document.addEventListener("DOMContentLoaded", () => {
+    atualizarContadorCarrinhoGeral();
+    window.addEventListener("atualizarCarrinho", atualizarContadorCarrinhoGeral);
 });
 
-      autocompleteList.appendChild(li);
-    });
-  });
+// ==== PESQUISA/ AUTOCOMPLETE TANTO DESKTOP QUANTO MOBILE ==== //
+function autocompleteBusca(inputId, listId) {
+    const input = document.getElementById(inputId);
+    const autocompleteList = document.getElementById(listId);
 
-  // Fecha o autocomplete se clicar fora
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('.search-container')) {
-      autocompleteList.innerHTML = '';
+    if (!input || !autocompleteList) return;
+
+    // Carregar todos os produtos do localStorage (igual sua função)
+    function carregarProdutosDoLocalStorage() {
+        const secoes = [
+            "aneis", "brincos", "colares", "correntes", "pulseiras",
+            "piercings", "limpeza", "canga-toalhas", "moletons"
+        ];
+        let todos = [];
+        secoes.forEach(sessao => {
+            const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
+            todos = todos.concat(produtosSessao);
+        });
+        // Remover duplicatas
+        const nomesVistos = new Set();
+        return todos.filter(p => {
+            if (nomesVistos.has(p.nome)) return false;
+            nomesVistos.add(p.nome);
+            return true;
+        });
     }
-  });
+    const produtos = carregarProdutosDoLocalStorage();
+
+    input.addEventListener('input', function () {
+        const valor = this.value.toLowerCase();
+        autocompleteList.innerHTML = '';
+        if (!valor) return;
+
+        const sugestões = produtos.filter(p => p.nome.toLowerCase().includes(valor));
+        sugestões.forEach(produto => {
+            const li = document.createElement('li');
+            const itemContainer = document.createElement('div');
+            itemContainer.classList.add('autocomplete-item');
+            const img = document.createElement('img');
+            img.src = produto.imagem;
+            img.alt = produto.nome;
+            img.classList.add('autocomplete-img');
+            const nomeSpan = document.createElement('span');
+            nomeSpan.textContent = produto.nome;
+            itemContainer.appendChild(img);
+            itemContainer.appendChild(nomeSpan);
+            li.appendChild(itemContainer);
+            li.addEventListener('click', () => {
+                const nome = encodeURIComponent(produto.nome);
+                const preco = encodeURIComponent(produto.preco);
+                const imagem = encodeURIComponent(produto.imagem);
+                const observacoes = encodeURIComponent(produto.observacao || "");
+                const especificacao = encodeURIComponent(produto.especificacao || "");
+                window.location.href = `produto.html?nome=${nome}&preco=${preco}&imagem=${imagem}&observacoes=${observacoes}&especificacao=${especificacao}`;
+            });
+            autocompleteList.appendChild(li);
+        });
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${listId}`)) {
+            autocompleteList.innerHTML = '';
+        }
+    });
+}
+document.addEventListener("DOMContentLoaded", () => {
+    autocompleteBusca('searchInput', 'autocomplete-list'); // Desktop
+    autocompleteBusca('searchInputMobile', 'autocomplete-list-mobile'); // Mobile
 });
 
 
@@ -413,5 +420,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+// Responsividade
 
+// Info-bar e cabeçalho(hamburguer)
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Abre o menu lateral
+    document.getElementById("open-menu").onclick = function () {
+      document.getElementById("mobile-menu").classList.add("open");
+      document.body.style.overflow = "hidden";
+    };
+    // Fecha o menu lateral
+    document.getElementById("close-menu").onclick = function () {
+      document.getElementById("mobile-menu").classList.remove("open");
+      document.body.style.overflow = "";
+    };
+    // Fecha ao clicar em qualquer link
+    document.querySelectorAll('.mobile-link').forEach(link => {
+  link.onclick = function () {
+    // Só fecha se NÃO for o botão "Categorias"
+    document.getElementById("mobile-menu").classList.remove("open");
+    document.body.style.overflow = "";
+  };
+});
+
+    // Fecha ao clicar fora do menu (opcional)
+    document.getElementById("mobile-menu").addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('open');
+        document.body.style.overflow = "";
+      }
+    });
+  });
+
+const catBtn = document.querySelector('.mobile-categorias');
+const catSubmenu = document.getElementById('submenu-categorias-mobile');
+let catOpen = false;
+
+catBtn.onclick = function(e) {
+  e.stopPropagation();
+  catOpen = !catOpen;
+  catSubmenu.style.display = catOpen ? 'block' : 'none';
+  catBtn.querySelector('span').innerHTML = catOpen ? '&#x25B2;' : '&#x25BC;';
+  // Adiciona classe open para cor preta
+  if (catOpen) {
+    catBtn.classList.add('open');
+    catSubmenu.classList.add('open');
+  } else {
+    catBtn.classList.remove('open');
+    catSubmenu.classList.remove('open');
+  }
+};
+
+// Se clicar em outro link, fecha submenu
+document.querySelectorAll('.mobile-link:not(.mobile-categorias)').forEach(link => {
+  link.onclick = function () {
+    catSubmenu.style.display = 'none';
+    catOpen = false;
+    catBtn.querySelector('span').innerHTML = '&#x25BC;';
+    catBtn.classList.remove('open');
+    catSubmenu.classList.remove('open');
+  };
+});
 

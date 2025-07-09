@@ -9,41 +9,49 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-<link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 
-
 <body>
+    <div id="overlay-scroll-fix"></div>
 
     <header>
         <div class="info-bar">
-    <div class="btn-container" id="auth-buttons" style="display: flex;">
-        <a href="templates/register.html" class="btn-create-account">
-            <i class="fa-solid fa-user-plus"></i> Criar conta
-        </a>
-        <a href="templates/login.html" class="btn-login">
-            <i class="fa-solid fa-right-to-bracket"></i> Entrar
-        </a>
-    </div>
-</div>
+            <div class="btn-container" id="auth-buttons" style="display: flex;">
+                <a href="templates/register.html" class="btn-create-account">
+                    <i class="fa-solid fa-user-plus"></i> Criar conta
+                </a>
+                <a href="templates/login.html" class="btn-login">
+                    <i class="fa-solid fa-right-to-bracket"></i> Entrar
+                </a>
+            </div>
+            <div class="hamburger" id="open-menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
 
         <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-        
-
 
         <div id="interface" class="interface">
             <div class="logo">
                 <a href="#"><img src="./assets/Logo eduardo vetorizado Colorido.svg" alt="Logo da KaiBeads"></a>
+            </div>
+
+            <!-- Campo de pesquisa + Carrinho mobile -->
+            <div class="search-cart-mobile">
+                <div class="search-container">
+                    <input type="text" id="searchInputMobile" placeholder="Pesquisar" autocomplete="off">
+                    <i class="bi bi-search"></i>
+                    <ul id="autocomplete-list-mobile" class="autocomplete-items"></ul>
+                </div>
+                <a href="carrinho.html" id="link-carrinho-mobile">
+                    <i class="bi bi-cart"></i>
+                    <span id="contador-carrinho-mobile">0</span>
+                </a>
             </div>
 
             <nav class="menu-desktop">
@@ -59,30 +67,18 @@
                                     <a href="#">Sofisticadas</a>
                                 </div>
                             </div>
-
                             <div class="submenu-item">
-                                <a href="categorias.html#todos-btn" data-target="#anel-btn" class="scroll-link">Prata
-                                    925</a>
+                                <a href="categorias.html#todos-btn" data-target="#todos-btn">Prata 925</a>
                                 <div class="submenu-nested">
-                                    <a href="categorias.html#anel-btn" data-target="#anel-btn"
-                                        class="scroll-link">Anéis</a>
-                                    <a href="categorias.html#brinco-btn" data-target="#anel-btn"
-                                        class="scroll-link">Brincos</a>
-                                    <a href="categorias.html#colar-btn" data-target="#anel-btn"
-                                        class="scroll-link">Colares</a>
-                                    <a href="categorias.html#corrente-btn" data-target="#anel-btn"
-                                        class="scroll-link">Correntes</a>
-                                    <a href="categorias.html#pulseira-btn" data-target="#anel-btn"
-                                        class="scroll-link">Pulseiras</a>
-                                    <a href="categorias.html#piercing-btn" data-target="#anel-btn"
-                                        class="scroll-link">Piercings</a>
-                                    <a href="categorias.html#limpeza-btn" data-target="#anel-btn"
-                                        class="scroll-link">Limpeza</a>
+                                    <a href="categorias.html#anel-btn" data-target="#anel-btn">Anéis</a>
+                                    <a href="categorias.html#brinco-btn" data-target="#brinco-btn">Brincos</a>
+                                    <a href="categorias.html#colar-btn" data-target="#colar-btn">Colares</a>
+                                    <a href="categorias.html#corrente-btn" data-target="#corrente-btn">Correntes</a>
+                                    <a href="categorias.html#pulseira-btn" data-target="#pulseira-btn">Pulseiras</a>
+                                    <a href="categorias.html#piercing-btn" data-target="#piercing-btn">Piercings</a>
+                                    <a href="categorias.html#limpeza-btn" data-target="#limpeza-btn">Limpeza</a>
                                 </div>
                             </div>
-
-
-
                             <div class="submenu-item">
                                 <a href="categorias.html#moletons-btn">Moletons</a>
                                 <div class="submenu-nestedM">
@@ -92,7 +88,6 @@
                             </div>
                         </div>
                     </li>
-
                     <li><a href="index.html#sobre" id="link-sobre">Sobre</a></li>
                     <li>
                         <div class="search-container">
@@ -101,7 +96,6 @@
                             <ul id="autocomplete-list" class="autocomplete-items"></ul>
                         </div>
                     </li>
-
                     <li>
                         <a href="carrinho.html" id="link-carrinho">
                             <i class="bi bi-cart"></i>
@@ -114,7 +108,6 @@
             <div class="btn-contato">
                 <a href="#footer"><button>Contato</button></a>
             </div>
-
         </div>
     </header>
 
@@ -211,11 +204,52 @@
                 </div>
             </div>
         </div>
-    </footer>
-
-
-
+     </footer>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!-- MENU LATERAL MOBILE -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="mobile-menu-content">
+            <span class="close-mobile-menu" id="close-menu">&times;</span>
+            <a href="index.html" class="mobile-link">Início</a>
+            <div class="mobile-categorias" style="cursor:pointer;">
+                Categorias <span style="font-size:1.1em;vertical-align:middle;">&#x25BC;</span>
+            </div>
+            <div id="submenu-categorias-mobile" class="mobile-submenu" style="display:none;">
+                <!-- Canga-toalha -->
+                <div class="mobile-subitem">
+                    <a href="categorias.html#cangas-btn" class="mobile-link">Canga-toalha</a>
+                    <div class="mobile-nested">
+                        <a href="#" class="mobile-link-nested">Básicas</a>
+                        <a href="#" class="mobile-link-nested">Sofisticadas</a>
+                    </div>
+                </div>
+                <!-- Prata 925 -->
+                <div class="mobile-subitem">
+                    <a href="categorias.html#todos-btn" class="mobile-link">Prata 925</a>
+                    <div class="mobile-nested">
+                        <a href="categorias.html#anel-btn" class="mobile-link-nested">Anéis</a>
+                        <a href="categorias.html#brinco-btn" class="mobile-link-nested">Brincos</a>
+                        <a href="categorias.html#colar-btn" class="mobile-link-nested">Colares</a>
+                        <a href="categorias.html#corrente-btn" class="mobile-link-nested">Correntes</a>
+                        <a href="categorias.html#pulseira-btn" class="mobile-link-nested">Pulseiras</a>
+                        <a href="categorias.html#piercing-btn" class="mobile-link-nested">Piercings</a>
+                        <a href="categorias.html#limpeza-btn" class="mobile-link-nested">Limpeza</a>
+                    </div>
+                </div>
+                <!-- Moletons -->
+                <div class="mobile-subitem">
+                    <a href="categorias.html#moletons-btn" class="mobile-link">Moletons</a>
+                    <div class="mobile-nested">
+                        <a href="#" class="mobile-link-nested">Finos</a>
+                        <a href="#" class="mobile-link-nested">Grossos</a>
+                    </div>
+                </div>
+            </div>
+            <a href="index.html#sobre" class="mobile-link">Sobre</a>
+            <a href="#footer" class="mobile-link">Contato</a>
+        </div>
+    </div>
     <script src="produto.js"></script>
 </body>
 
