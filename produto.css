@@ -1078,3 +1078,110 @@ footer .flex {
     display: none !important;
   }
 }
+
+
+/* ===================== PRODUTO.HTML - RESPONSIVO (max-width: 600px) ===================== */
+@media (max-width: 600px) {
+  .container {
+    max-width: 99vw;
+    padding: 12px 4vw 30px 4vw;
+    margin: 0 auto 22vw auto;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .produto-detalhe {
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    margin-top: 40px;
+  }
+
+  .produto-detalhe img {
+    max-width: 62vw;
+    width: 100%;
+    border-radius: 10px;
+    margin: 0 auto 12px auto;
+    display: block;
+  }
+
+  .miniaturas {
+    margin-top: -20px;
+    gap: 7px;
+    justify-content: center;
+  }
+  .miniatura {
+    width: 48px;
+    height: 48px;
+  }
+
+  .info {
+    position: static;
+    min-width: 0;
+    width: 100%;
+    right: 0;
+    margin-top: 8px;
+  }
+
+  #nome-produto {
+    font-size: 1.3em;
+    margin-bottom: 7px;
+    text-align: center;
+    word-break: break-word;
+  }
+  #preco-produto {
+    font-size: 1.1em;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .quantidade-wrapper {
+    flex-direction: row;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 8px;
+    position: static;
+    top: 0;
+  }
+  #quantidade {
+    width: 65px;
+    font-size: 15px;
+    padding: 7px 8px;
+  }
+
+  #adicionar-carrinho {
+    position: static;
+    margin: 14px auto 0 auto;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 340px;
+    font-size: 1em;
+    height: 44px;
+  }
+
+  .observacoes,
+  .especificacoes {
+    position: static;
+    left: 0;
+    bottom: 0;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 12px 6vw;
+    box-shadow: none;
+    border-radius: 7px;
+    font-size: 1em;
+  }
+  .observacoes h3,
+  .especificacoes h3 {
+    margin-bottom: 5px;
+    font-size: 1.07em;
+  }
+  .especificacoes ul {
+    padding-left: 20px;
+    margin-top: 7px;
+    font-size: 1em;
+  }
+}
+

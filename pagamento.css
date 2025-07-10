@@ -343,3 +343,87 @@ body {
 
 
   
+
+/* ===================== RESPONSIVIDADE PAGAMENTO ===================== */
+@media (max-width: 600px) {
+  .container {
+    margin: 0 auto;
+    max-width: 99vw;
+    padding: 5vw 2vw 24vw 2vw;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  h1 {
+    font-size: 2.1em !important;
+    text-align: center;
+  }
+  h2 {
+    font-size: 1.37em !important;
+    text-align: center;
+  }
+  h3 {
+    font-size: 1.13em !important;
+    text-align: center;
+  }
+
+  form, #resumo {
+    gap: 12px !important;
+  }
+
+  .campo-duplo {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .metodo-entrega, .pagamento {
+    padding-top: 8px;
+    margin-top: 16px;
+  }
+
+  .opcoes-entrega, .opcoes-pagamento {
+    margin-left: 0;
+    gap: 10px;
+  }
+
+  .finalizar-pedido {
+    padding-top: 10px;
+    margin-top: 15px;
+  }
+
+  .resumo-carrinho {
+    position: static !important;
+    width: 96vw;
+    max-width: 330px;
+    min-width: 0;
+    margin: 20px auto 30px auto;
+    padding: 8px 2vw 12px 2vw;
+    border-radius: 6px;
+    box-shadow: none;
+    box-sizing: border-box;
+  }
+  .botao-editar-carrinho {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: 0;
+  margin-top: 18px;
+  font-size: 1em;
+  padding: 10px 0;
+  background-color: #ADD8E6;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.botao-editar-carrinho:hover {
+  background-color: #9dcbe1;
+  transform: scale(1.10);
+}
+}
+
+
