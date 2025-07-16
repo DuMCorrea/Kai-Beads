@@ -1,3 +1,99 @@
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Configuração do Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+        authDomain: "kaibeads-2ab98.firebaseapp.com",
+        projectId: "kaibeads-2ab98",
+        storageBucket: "kaibeads-2ab98.appspot.com",
+        messagingSenderId: "405735155633",
+        appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+        measurementId: "G-N2NDBL58J7"
+    };
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    // 2. Lógica de autenticação (opcional)
+    const authButtons = document.getElementById("auth-buttons");
+    firebase.auth().onAuthStateChanged((user) => {
+        // ... seu código do auth ...
+    });
+
+    // 3. CARREGAR PRODUTOS EM DESTAQUE
+    const container = document.getElementById("produtos-destaque");
+    firebase.firestore().collection("produtos")
+        .where("destaque", "==", true)
+        .get()
+        .then(snapshot => {
+            container.innerHTML = "";
+            if (snapshot.empty) {
+                container.innerHTML = "<p>Nenhum produto em destaque ainda.</p>";
+                return;
+            }
+            snapshot.forEach(doc => {
+                const produto = doc.data();
+
+                const div = document.createElement("div");
+                div.classList.add("produto-item");
+
+                const card = document.createElement("div");
+                card.className = "card-produto";
+
+                const link = document.createElement("a");
+                link.href = `produto.html?nome=${encodeURIComponent(produto.nome)}&preco=${produto.preco}&imagem=${encodeURIComponent(produto.imagem)}&observacoes=${encodeURIComponent(produto.observacao || "")}&especificacao=${encodeURIComponent(produto.especificacao || "")}`;
+
+                const imgDiv = document.createElement("div");
+                imgDiv.className = "img-produ";
+                imgDiv.style.backgroundImage = `url(${produto.imagem})`;
+
+                const infoDiv = document.createElement("div");
+                infoDiv.className = "info-produto";
+
+                const h3 = document.createElement("h3");
+                h3.className = "produto-nome";
+                h3.textContent = produto.nome;
+
+                const p = document.createElement("p");
+                p.className = "preco";
+                let precoValor = Number(produto.preco);
+                p.textContent = isNaN(precoValor) ? "Preço não definido" : `R$ ${precoValor.toFixed(2).replace('.', ',')}`;
+
+                const btnDiv = document.createElement("div");
+                btnDiv.className = "btn-comprar";
+
+                const button = document.createElement("button");
+                button.className = "btn-add-carrinho";
+                button.setAttribute("data-nome", produto.nome);
+                button.setAttribute("data-preco", produto.preco);
+                button.setAttribute("data-imagem", produto.imagem);
+                button.textContent = "ADICIONAR AO CARRINHO";
+                button.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    adicionarAoCarrinho(produto.nome, produto.preco, produto.imagem);
+                });
+
+                btnDiv.appendChild(button);
+                infoDiv.appendChild(h3);
+                infoDiv.appendChild(p);
+                infoDiv.appendChild(btnDiv);
+                link.appendChild(imgDiv);
+                card.appendChild(link);
+                card.appendChild(infoDiv);
+                div.appendChild(card);
+
+                container.appendChild(div);
+            });
+        })
+        .catch(error => {
+            container.innerHTML = "<p>Erro ao carregar produtos em destaque!</p>";
+            console.error(error);
+        });
+});
+
+
+
 function adicionarAoCarrinho(nome, preco, imagem) {
   let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
   carrinho.push({ nome, preco, imagem });
@@ -26,76 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const container = document.getElementById("produtos-destaque");
-    const secoes = [
-  "aneis", "brincos", "colares", "correntes", "pulseiras",
-  "piercings", "limpeza", "canga-toalhas", "moletons"
-];
 
-let favoritos = [];
-
-secoes.forEach(sessao => {
-  const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
-  const destacados = produtosSessao.filter(p => p.favorito);
-  favoritos = favoritos.concat(destacados);
-});
-
-const destaque = favoritos.slice(0, 6); // até 6 produtos em destaque
-
-
-    destaque.forEach(produto => {
-        const div = document.createElement("div");
-        div.classList.add("produto-item");
-
-        const card = document.createElement("div");
-        card.className = "card-produto";
-
-        const link = document.createElement("a");
-        link.href = `produto.html?nome=${encodeURIComponent(produto.nome)}&preco=${produto.preco}&imagem=${encodeURIComponent(produto.imagem)}&observacoes=${encodeURIComponent(produto.observacao || "")}&especificacao=${encodeURIComponent(produto.especificacao || "")}`;
-
-        const imgDiv = document.createElement("div");
-        imgDiv.className = "img-produ";
-        imgDiv.style.backgroundImage = `url(${produto.imagem})`;
-
-        const infoDiv = document.createElement("div");
-        infoDiv.className = "info-produto";
-
-        const h3 = document.createElement("h3");
-        h3.className = "produto-nome";
-        h3.textContent = produto.nome;
-
-        const p = document.createElement("p");
-        p.className = "preco";
-        p.textContent = `R$ ${parseFloat(produto.preco).toFixed(2).replace('.', ',')}`;
-
-        const btnDiv = document.createElement("div");
-        btnDiv.className = "btn-comprar";
-
-        const button = document.createElement("button");
-        button.className = "btn-add-carrinho";
-        button.setAttribute("data-nome", produto.nome);
-        button.setAttribute("data-preco", produto.preco);
-        button.setAttribute("data-imagem", produto.imagem);
-        button.textContent = "ADICIONAR AO CARRINHO";
-
-        button.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            adicionarAoCarrinho(produto.nome, produto.preco, produto.imagem);
-        });
-
-        btnDiv.appendChild(button);
-        infoDiv.appendChild(h3);
-        infoDiv.appendChild(p);
-        infoDiv.appendChild(btnDiv);
-        link.appendChild(imgDiv);
-        card.appendChild(link);
-        card.appendChild(infoDiv);
-        div.appendChild(card);
-        container.appendChild(div);
-    });
-});
 
 
 let index = 0;
@@ -151,13 +178,13 @@ function atualizarContadorCarrinhoGeral() {
     const contadorDesktop = document.getElementById("contador-carrinho");
     if (contadorDesktop) {
         contadorDesktop.textContent = carrinho.length;
-        contadorDesktop.style.display = carrinho.length > 0 ? "flex" : "none";
+        contadorDesktop.style.display = "flex"; // SEMPRE EXIBE
     }
     // Mobile
     const contadorMobile = document.getElementById("contador-carrinho-mobile");
     if (contadorMobile) {
         contadorMobile.textContent = carrinho.length;
-        contadorMobile.style.display = carrinho.length > 0 ? "flex" : "none";
+        contadorMobile.style.display = "flex"; // SEMPRE EXIBE
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
@@ -172,32 +199,23 @@ function autocompleteBusca(inputId, listId) {
 
     if (!input || !autocompleteList) return;
 
-    // Carregar todos os produtos do localStorage (igual sua função)
-    function carregarProdutosDoLocalStorage() {
-        const secoes = [
-            "aneis", "brincos", "colares", "correntes", "pulseiras",
-            "piercings", "limpeza", "canga-toalhas", "moletons"
-        ];
-        let todos = [];
-        secoes.forEach(sessao => {
-            const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
-            todos = todos.concat(produtosSessao);
+    // Busca produtos do Firestore e guarda localmente para uso no filtro
+    let produtos = [];
+    firebase.firestore().collection("produtos")
+        .get()
+        .then(snapshot => {
+            produtos = [];
+            snapshot.forEach(doc => {
+                produtos.push(doc.data());
+            });
         });
-        // Remover duplicatas
-        const nomesVistos = new Set();
-        return todos.filter(p => {
-            if (nomesVistos.has(p.nome)) return false;
-            nomesVistos.add(p.nome);
-            return true;
-        });
-    }
-    const produtos = carregarProdutosDoLocalStorage();
 
     input.addEventListener('input', function () {
         const valor = this.value.toLowerCase();
         autocompleteList.innerHTML = '';
         if (!valor) return;
 
+        // Só filtra os produtos do Firestore agora!
         const sugestões = produtos.filter(p => p.nome.toLowerCase().includes(valor));
         sugestões.forEach(produto => {
             const li = document.createElement('li');
@@ -230,6 +248,7 @@ function autocompleteBusca(inputId, listId) {
         }
     });
 }
+
 document.addEventListener("DOMContentLoaded", () => {
     autocompleteBusca('searchInput', 'autocomplete-list'); // Desktop
     autocompleteBusca('searchInputMobile', 'autocomplete-list-mobile'); // Mobile

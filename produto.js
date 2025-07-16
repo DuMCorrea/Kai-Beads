@@ -1,3 +1,7 @@
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const targetId = localStorage.getItem('scrollToTarget');
     if (targetId) {
@@ -173,13 +177,13 @@ function atualizarContadorCarrinhoGeral() {
     const contadorDesktop = document.getElementById("contador-carrinho");
     if (contadorDesktop) {
         contadorDesktop.textContent = carrinho.length;
-        contadorDesktop.style.display = carrinho.length > 0 ? "flex" : "none";
+        contadorDesktop.style.display = "flex"; // SEMPRE EXIBE
     }
     // Mobile
     const contadorMobile = document.getElementById("contador-carrinho-mobile");
     if (contadorMobile) {
         contadorMobile.textContent = carrinho.length;
-        contadorMobile.style.display = carrinho.length > 0 ? "flex" : "none";
+        contadorMobile.style.display = "flex"; // SEMPRE EXIBE
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
@@ -194,64 +198,60 @@ function autocompleteBusca(inputId, listId) {
 
     if (!input || !autocompleteList) return;
 
-    // Carregar todos os produtos do localStorage (igual sua função)
-    function carregarProdutosDoLocalStorage() {
-        const secoes = [
-            "aneis", "brincos", "colares", "correntes", "pulseiras",
-            "piercings", "limpeza", "canga-toalhas", "moletons"
-        ];
-        let todos = [];
-        secoes.forEach(sessao => {
-            const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
-            todos = todos.concat(produtosSessao);
-        });
-        // Remover duplicatas
-        const nomesVistos = new Set();
-        return todos.filter(p => {
-            if (nomesVistos.has(p.nome)) return false;
-            nomesVistos.add(p.nome);
-            return true;
-        });
-    }
-    const produtos = carregarProdutosDoLocalStorage();
-
-    input.addEventListener('input', function () {
-        const valor = this.value.toLowerCase();
-        autocompleteList.innerHTML = '';
-        if (!valor) return;
-
-        const sugestões = produtos.filter(p => p.nome.toLowerCase().includes(valor));
-        sugestões.forEach(produto => {
-            const li = document.createElement('li');
-            const itemContainer = document.createElement('div');
-            itemContainer.classList.add('autocomplete-item');
-            const img = document.createElement('img');
-            img.src = produto.imagem;
-            img.alt = produto.nome;
-            img.classList.add('autocomplete-img');
-            const nomeSpan = document.createElement('span');
-            nomeSpan.textContent = produto.nome;
-            itemContainer.appendChild(img);
-            itemContainer.appendChild(nomeSpan);
-            li.appendChild(itemContainer);
-            li.addEventListener('click', () => {
-                const nome = encodeURIComponent(produto.nome);
-                const preco = encodeURIComponent(produto.preco);
-                const imagem = encodeURIComponent(produto.imagem);
-                const observacoes = encodeURIComponent(produto.observacao || "");
-                const especificacao = encodeURIComponent(produto.especificacao || "");
-                window.location.href = `produto.html?nome=${nome}&preco=${preco}&imagem=${imagem}&observacoes=${observacoes}&especificacao=${especificacao}`;
+    // Busca produtos do Firestore e só ativa o evento depois de carregar!
+    firebase.firestore().collection("produtos")
+        .get()
+        .then(snapshot => {
+            const produtos = [];
+            snapshot.forEach(doc => {
+                produtos.push(doc.data());
             });
-            autocompleteList.appendChild(li);
-        });
-    });
 
-    document.addEventListener('click', function (e) {
-        if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${listId}`)) {
-            autocompleteList.innerHTML = '';
-        }
-    });
+            // Só ativa o input agora!
+            input.addEventListener('input', function () {
+                const valor = this.value.toLowerCase();
+                autocompleteList.innerHTML = '';
+                if (!valor) return;
+
+                const sugestões = produtos.filter(p => p.nome && p.nome.toLowerCase().includes(valor));
+                sugestões.forEach(produto => {
+                    const li = document.createElement('li');
+                    const itemContainer = document.createElement('div');
+                    itemContainer.classList.add('autocomplete-item');
+                    const img = document.createElement('img');
+                    img.src = produto.imagem;
+                    img.alt = produto.nome;
+                    img.classList.add('autocomplete-img');
+                    const nomeSpan = document.createElement('span');
+                    nomeSpan.textContent = produto.nome;
+                    itemContainer.appendChild(img);
+                    itemContainer.appendChild(nomeSpan);
+                    li.appendChild(itemContainer);
+                    li.addEventListener('click', () => {
+                        const nome = encodeURIComponent(produto.nome);
+                        const preco = encodeURIComponent(produto.preco);
+                        const imagem = encodeURIComponent(produto.imagem);
+                        const observacoes = encodeURIComponent(produto.observacao || "");
+                        const especificacao = encodeURIComponent(produto.especificacao || "");
+                        window.location.href = `produto.html?nome=${nome}&preco=${preco}&imagem=${imagem}&observacoes=${observacoes}&especificacao=${especificacao}`;
+                    });
+                    autocompleteList.appendChild(li);
+                });
+            });
+
+            // Fecha sugestões ao clicar fora
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${listId}`)) {
+                    autocompleteList.innerHTML = '';
+                }
+            });
+        })
+        .catch(error => {
+            console.error("Erro ao carregar produtos para o autocomplete:", error);
+        });
 }
+
+
 document.addEventListener("DOMContentLoaded", () => {
     autocompleteBusca('searchInput', 'autocomplete-list'); // Desktop
     autocompleteBusca('searchInputMobile', 'autocomplete-list-mobile'); // Mobile
@@ -418,6 +418,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    autocompleteBusca('searchInput', 'autocomplete-list');
+    autocompleteBusca('searchInputMobile', 'autocomplete-list-mobile');
+});
 
 
 // Responsividade

@@ -1,3 +1,4 @@
+
 function mostrarMensagemSemProdutos(container) {
     // Remove qualquer mensagem antiga antes de adicionar outra
     let msgAntiga = container.querySelector('.mensagem-sem-produtos');
@@ -16,11 +17,52 @@ function mostrarMensagemSemProdutos(container) {
 }
 
 
+// ====================== FIREBASE CONFIG =========================
+const firebaseConfig = {
+    apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+    authDomain: "kaibeads-2ab98.firebaseapp.com",
+    projectId: "kaibeads-2ab98",
+    storageBucket: "kaibeads-2ab98.appspot.com",
+    messagingSenderId: "405735155633",
+    appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+    measurementId: "G-N2NDBL58J7"
+};
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 
+// ====================== AUTENTICAÇÃO ===========================
+document.addEventListener("DOMContentLoaded", function () {
+    const authButtons = document.getElementById("auth-buttons");
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            authButtons.innerHTML = `
+                <button class="btn-logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair
+                </button>
+            `;
+            document.querySelector(".btn-logout").addEventListener("click", () => {
+                firebase.auth().signOut().then(() => {
+                    window.location.reload();
+                }).catch((error) => {
+                    alert("Erro ao sair: " + error.message);
+                });
+            });
+        } else {
+            authButtons.innerHTML = `
+                <a href="templates/register.html" class="btn-create-account">
+                    <i class="fa-solid fa-user-plus"></i> Criar conta
+                </a>
+                <a href="templates/login.html" class="btn-login">
+                    <i class="fa-solid fa-right-to-bracket"></i> Entrar
+                </a>
+            `;
+        }
+        authButtons.style.display = "block";
+    });
+});
 
-
-
-// ====================== ADICIONAR AO CARRINHO ===========================
+// ====================== CARRINHO (LOCALSTORAGE) ===========================
 function adicionarAoCarrinho(nome, preco, imagem) {
     let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
     carrinho.push({ nome, preco, imagem });
@@ -28,120 +70,31 @@ function adicionarAoCarrinho(nome, preco, imagem) {
     alert("Produto adicionado ao carrinho!");
     window.dispatchEvent(new Event("atualizarCarrinho"));
 }
-
-// ====================== PRODUTOS - CARREGAMENTO DINÂMICO ===============
 document.addEventListener("DOMContentLoaded", function () {
-    const contadorCarrinho = document.getElementById("contador-carrinho");
-
     function atualizarContadorCarrinho() {
         let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-        contadorCarrinho.textContent = carrinho.length;
-        contadorCarrinho.style.display = carrinho.length > 0 ? "block" : "none";
+        const contadorCarrinho = document.getElementById("contador-carrinho");
+        if (contadorCarrinho) {
+            contadorCarrinho.textContent = carrinho.length;
+            contadorCarrinho.style.display = carrinho.length > 0 ? "block" : "none";
+        }
+        const contadorMobile = document.getElementById("contador-carrinho-mobile");
+        if (contadorMobile) {
+            contadorMobile.textContent = carrinho.length;
+            contadorMobile.style.display = carrinho.length > 0 ? "flex" : "none";
+        }
     }
-
     atualizarContadorCarrinho();
     window.addEventListener("atualizarCarrinho", atualizarContadorCarrinho);
-
-    const secoes = [
-        { chave: "aneis", id: "container-aneis" },
-        { chave: "brincos", id: "container-brincos" },
-        { chave: "colares", id: "container-colares" },
-        { chave: "correntes", id: "container-correntes" },
-        { chave: "pulseiras", id: "container-pulseiras" },
-        { chave: "piercings", id: "container-piercings" },
-        { chave: "limpeza", id: "container-limpeza" },
-        { chave: "canga-toalhas", id: "container-cangas" },
-        { chave: "moletons", id: "container-moletons" }
-    ];
-
-    secoes.forEach(secao => {
-        carregarProdutosPorSessao(secao.chave, secao.id);
-    });
 });
 
-function carregarProdutosPorSessao(sessao, containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    const produtos = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
-    produtos.forEach(produto => {
-        const div = document.createElement("div");
-        div.classList.add("produto-item");
-
-        const link = document.createElement("a");
-        link.href = `produto.html?nome=${encodeURIComponent(produto.nome)}&preco=${produto.preco}&imagem=${encodeURIComponent(produto.imagem)}&observacoes=${encodeURIComponent(produto.observacao || "")}&especificacao=${encodeURIComponent(produto.especificacao || "")}`;
-        link.className = "link-card-produto";
-        link.style.textDecoration = "none";
-
-        const card = document.createElement("div");
-        card.className = "card-produto";
-
-        const imgDiv = document.createElement("div");
-        imgDiv.className = "img-produ";
-        imgDiv.style.backgroundImage = `url(${produto.imagem})`;
-
-        const infoDiv = document.createElement("div");
-        infoDiv.className = "info-produto";
-
-        const h3 = document.createElement("h3");
-        h3.className = "produto-nome";
-        h3.textContent = produto.nome;
-
-        const p = document.createElement("p");
-        p.className = "preco";
-        p.textContent = `R$ ${parseFloat(produto.preco).toFixed(2).replace('.', ',')}`;
-
-        const btnDiv = document.createElement("div");
-        btnDiv.className = "btn-comprar";
-
-        const button = document.createElement("button");
-        button.className = "btn-add-carrinho";
-        button.setAttribute("data-nome", produto.nome);
-        button.setAttribute("data-preco", produto.preco);
-        button.setAttribute("data-imagem", produto.imagem);
-        button.textContent = "ADICIONAR AO CARRINHO";
-        button.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            adicionarAoCarrinho(produto.nome, produto.preco, produto.imagem);
-        });
-
-        btnDiv.appendChild(button);
-        infoDiv.appendChild(h3);
-        infoDiv.appendChild(p);
-        infoDiv.appendChild(btnDiv);
-        card.appendChild(imgDiv);
-        card.appendChild(infoDiv);
-        link.appendChild(card);
-        div.appendChild(link);
-        container.appendChild(div);
-    });
-    mostrarMensagemSemProdutos(container)
-}
-
-function carregarTodosProdutos() {
-    const categorias = [
-        "aneis", "brincos", "colares", "correntes", "pulseiras", "piercings", "limpeza", "cangas", "moletons"
-    ];
-    const containerTodos = document.getElementById('container-todos-produtos');
-    categorias.forEach(categoria => {
-        const dados = localStorage.getItem(`produtos-${categoria}`);
-        if (dados) {
-            const produtos = JSON.parse(dados);
-            produtos.forEach(produto => {
-                const card = criarCardProduto(produto);
-                containerTodos.appendChild(card);
-            });
-        }
-    });
-}
-
+// ====================== CRIAR CARD DE PRODUTO ===========================
 function criarCardProduto(produto) {
     const div = document.createElement("div");
     div.classList.add("produto-item");
 
     const link = document.createElement("a");
-    link.href = `produto.html?nome=${encodeURIComponent(produto.nome)}&preco=${produto.preco}&imagem=${encodeURIComponent(produto.imagem)}&observacoes=${encodeURIComponent(produto.observacao || "")}&especificacao=${encodeURIComponent(produto.especificacao || "")}`;
+    link.href = `produto.html?nome=${encodeURIComponent(produto.nome)}&preco=${produto.preco}&imagem=${encodeURIComponent(produto.imagem)}&observacoes=${encodeURIComponent(produto.observacao || "")}&especificacao=${encodeURIComponent(produto.especificacoes || "")}`;
     link.className = "link-card-produto";
 
     const card = document.createElement("div");
@@ -160,7 +113,12 @@ function criarCardProduto(produto) {
 
     const p = document.createElement("p");
     p.className = "preco";
-    p.textContent = `R$ ${parseFloat(produto.preco).toFixed(2).replace('.', ',')}`;
+    let precoValor = Number(produto.preco);
+    p.textContent = isNaN(precoValor) ? "Preço não definido" : `R$ ${precoValor.toFixed(2).replace('.', ',')}`;
+
+    // Remover observação e especificação dos cards!
+    // if(produto.observacao) { ... }
+    // if(produto.especificacoes) { ... }
 
     const btnDiv = document.createElement("div");
     btnDiv.className = "btn-comprar";
@@ -189,8 +147,77 @@ function criarCardProduto(produto) {
     return div;
 }
 
-// Chama ao carregar a página:
-carregarTodosProdutos();
+
+
+
+// ====================== CARREGAR PRODUTOS FIRESTORE ===========================
+
+// "TODOS" os produtos na seção principal
+function carregarTodosProdutosFirestore() {
+    const containerTodos = document.getElementById('container-todos-produtos');
+    if (!containerTodos) return;
+     containerTodos.innerHTML = "";
+
+    firebase.firestore().collection("produtos").get()
+        .then(snapshot => {
+            containerTodos.innerHTML = "";
+            if (snapshot.empty) {
+                containerTodos.innerHTML = "<p>Nenhum produto cadastrado ainda.</p>";
+                return;
+            }
+            snapshot.forEach(doc => {
+                const produto = doc.data();
+                const card = criarCardProduto(produto);
+                containerTodos.appendChild(card);
+            });
+        })
+        .catch(error => {
+            containerTodos.innerHTML = "<p>Erro ao carregar produtos!</p>";
+            console.error(error);
+        });
+}
+document.addEventListener("DOMContentLoaded", carregarTodosProdutosFirestore);
+
+// POR SESSÃO/CATEGORIA (quando seus produtos tiverem o campo "sessao" preenchido)
+function carregarProdutosPorSessaoFirestore(sessao, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = "";
+
+    firebase.firestore().collection("produtos").where("sessao", "==", sessao).get()
+        .then(snapshot => {
+            container.innerHTML = "";
+            if (snapshot.empty) {
+    mostrarMensagemSemProdutos(container);
+    return;
+}
+            snapshot.forEach(doc => {
+                const produto = doc.data();
+                const card = criarCardProduto(produto);
+                container.appendChild(card);
+            });
+        })
+        .catch(error => {
+            container.innerHTML = "<p>Erro ao carregar produtos!</p>";
+            console.error(error);
+        });
+}
+
+// ====================== MENSAGEM SEM PRODUTOS ===========================
+function mostrarMensagemSemProdutos(container) {
+    let msgAntiga = container.querySelector('.mensagem-sem-produtos');
+    if (msgAntiga) msgAntiga.remove();
+
+    const produtosVisiveis = Array.from(container.children).filter(el => 
+        el.classList.contains('produto-item') && el.style.display !== 'none'
+    );
+    if (produtosVisiveis.length === 0) {
+        const msg = document.createElement('div');
+        msg.className = 'mensagem-sem-produtos';
+        msg.textContent = "Não há produtos a serem exibidos";
+        container.appendChild(msg);
+    }
+}
 
 // ====================== MENU LATERAL E HASH SCROLL ======================
 let ultimoSelecionado = '.produtos-todos';
@@ -280,35 +307,42 @@ document.querySelectorAll('#categoria-list li a').forEach(function (link) {
 
 window.addEventListener('DOMContentLoaded', function () {
     function ativarCategoriaPorHash() {
-        if (window.location.hash) {
-            const btn = document.querySelector(window.location.hash);
-            if (btn) btn.click();
-            setTimeout(() => {
+    if (window.location.hash) {
+        const hash = window.location.hash;
+        const btn = document.querySelector(hash);
+        if (btn) btn.click();
+
+        setTimeout(() => {
+            // Se o elemento da hash existe na tela, rola até ele com offset
+            const id = hash.replace('#', '');
+            const destino = document.getElementById(id);
+            if (destino) {
+                const y = destino.getBoundingClientRect().top + window.scrollY - 80; // ajuste para seu header
+                window.scrollTo({ top: y, behavior: "smooth" });
+            } else {
+                // fallback: rola até o início da sessão de produtos
                 const target = document.getElementById('inicio-produtos');
                 if (target) {
-                    const y = target.getBoundingClientRect().top + window.scrollY - 65;
+                    const y = target.getBoundingClientRect().top + window.scrollY - 80;
                     window.scrollTo({ top: y, behavior: "smooth" });
                 }
+            }
 
-                // --- EFEITO FADEIN NOS PRODUTOS DA SESSÃO ATUAL ---
-                // 1. Remove fade anterior
-                document.querySelectorAll('.fadein').forEach(el => el.classList.remove('show'));
-                // 2. Aplica fadein nos elementos visíveis
-                setTimeout(() => {
-                    // Só aplica em produtos visíveis
-                    document.querySelectorAll('.fadein').forEach((el, i) => {
-                        // Só faz o fade nos que estão visíveis (display diferente de 'none')
-                        if (el.offsetParent !== null) {
-                            setTimeout(() => {
-                                el.classList.add('show');
-                            }, i * 80);
-                        }
-                    });
-                }, 20);
-                // --- FIM DO FADEIN ---
-            }, 250);
-        }
+            // Efeito fadein (já está certo)
+            document.querySelectorAll('.fadein').forEach(el => el.classList.remove('show'));
+            setTimeout(() => {
+                document.querySelectorAll('.fadein').forEach((el, i) => {
+                    if (el.offsetParent !== null) {
+                        setTimeout(() => {
+                            el.classList.add('show');
+                        }, i * 80);
+                    }
+                });
+            }, 20);
+        }, 250);
     }
+}
+
     ativarCategoriaPorHash();
     window.addEventListener('hashchange', ativarCategoriaPorHash);
 });
@@ -432,15 +466,16 @@ function atualizarContadorCarrinhoGeral() {
     const contadorDesktop = document.getElementById("contador-carrinho");
     if (contadorDesktop) {
         contadorDesktop.textContent = carrinho.length;
-        contadorDesktop.style.display = carrinho.length > 0 ? "flex" : "none";
+        contadorDesktop.style.display = "flex"; // SEMPRE EXIBE
     }
     // Mobile
     const contadorMobile = document.getElementById("contador-carrinho-mobile");
     if (contadorMobile) {
         contadorMobile.textContent = carrinho.length;
-        contadorMobile.style.display = carrinho.length > 0 ? "flex" : "none";
+        contadorMobile.style.display = "flex"; // SEMPRE EXIBE
     }
 }
+
 document.addEventListener("DOMContentLoaded", () => {
     atualizarContadorCarrinhoGeral();
     window.addEventListener("atualizarCarrinho", atualizarContadorCarrinhoGeral);
@@ -453,32 +488,23 @@ function autocompleteBusca(inputId, listId) {
 
     if (!input || !autocompleteList) return;
 
-    // Carregar todos os produtos do localStorage (igual sua função)
-    function carregarProdutosDoLocalStorage() {
-        const secoes = [
-            "aneis", "brincos", "colares", "correntes", "pulseiras",
-            "piercings", "limpeza", "canga-toalhas", "moletons"
-        ];
-        let todos = [];
-        secoes.forEach(sessao => {
-            const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
-            todos = todos.concat(produtosSessao);
+    // Busca produtos do Firestore e guarda localmente para uso no filtro
+    let produtos = [];
+    firebase.firestore().collection("produtos")
+        .get()
+        .then(snapshot => {
+            produtos = [];
+            snapshot.forEach(doc => {
+                produtos.push(doc.data());
+            });
         });
-        // Remover duplicatas
-        const nomesVistos = new Set();
-        return todos.filter(p => {
-            if (nomesVistos.has(p.nome)) return false;
-            nomesVistos.add(p.nome);
-            return true;
-        });
-    }
-    const produtos = carregarProdutosDoLocalStorage();
 
     input.addEventListener('input', function () {
         const valor = this.value.toLowerCase();
         autocompleteList.innerHTML = '';
         if (!valor) return;
 
+        // Só filtra os produtos do Firestore agora!
         const sugestões = produtos.filter(p => p.nome.toLowerCase().includes(valor));
         sugestões.forEach(produto => {
             const li = document.createElement('li');
@@ -511,6 +537,7 @@ function autocompleteBusca(inputId, listId) {
         }
     });
 }
+
 document.addEventListener("DOMContentLoaded", () => {
     autocompleteBusca('searchInput', 'autocomplete-list'); // Desktop
     autocompleteBusca('searchInputMobile', 'autocomplete-list-mobile'); // Mobile
@@ -588,21 +615,7 @@ document.getElementById("link-email").addEventListener("click", function (e) {
 });
 
 // ================= REDIRECIONAMENTO ENTRE PÁGINAS (ROLAGEM) ================
-window.addEventListener("load", function () {
-    const shouldScroll = sessionStorage.getItem("scrollToProdutos");
-    if (shouldScroll === "true") {
-        sessionStorage.removeItem("scrollToProdutos");
-        setTimeout(() => {
-            const target = document.querySelector("#inicio-produtos");
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - 86,
-                    behavior: "smooth"
-                });
-            }
-        }, 100);
-    }
-});
+
 document.getElementById("link-todos-produtos").addEventListener("click", function (e) {
     e.preventDefault();
     sessionStorage.setItem("scrollToProdutos", "true");
@@ -654,60 +667,7 @@ if (window.location.hash) {
     });
 }
 
-window.addEventListener('load', function () {
-    if (window.location.hash) {
-        const btn = document.querySelector(window.location.hash);
-        if (btn) btn.click();
-        setTimeout(() => {
-            const targetContainer = document.querySelector('#inicio-produtos');
-            if (targetContainer) {
-                const y = targetContainer.getBoundingClientRect().top + window.scrollY - 110;
-                window.scrollTo({ top: y, behavior: "smooth" });
-            }
-        }, 250);
-    }
-});
-// FADE-IN nos subitens do cabeçalho ao navegar em categorias.html
 
-// Função para ativar o fadein (igual ao overlay, mas reaproveitável)
-function ativarFadeInProdutos() {
-    // Esconde tudo antes
-    document.querySelectorAll('.fadein').forEach(el => {
-        el.classList.remove('show');
-    });
-
-    // Mostra com efeito
-    setTimeout(() => {
-        document.querySelectorAll('.fadein').forEach((el, i) => {
-            setTimeout(() => {
-                el.classList.add('show');
-            }, i * 80);
-        });
-    }, 10);
-}
-
-// Aplica o fadein ao clicar em qualquer subitem de categoria do cabeçalho
-document.querySelectorAll('.submenu-nested a, .submenu-nestedC a, .submenu-nestedM a').forEach(link => {
-    link.addEventListener('click', function (e) {
-        // Se for link para a própria categorias.html (hash), deixa o overlay e o scroll cuidar
-        if (this.href.includes('categorias.html#')) {
-            // Espera o hash e aplica o fade
-            setTimeout(() => {
-                ativarFadeInProdutos();
-            }, 420); // após o overlay (ajuste conforme necessário)
-        } else {
-            // Para outros links, faz fade imediato
-            ativarFadeInProdutos();
-        }
-    });
-});
-
-// Também ativa no clique do menu principal "Categorias" caso você navegue entre hashes
-document.getElementById('link-categorias').addEventListener('click', function () {
-    setTimeout(() => {
-        ativarFadeInProdutos();
-    }, 420);
-});
 
 
 
@@ -829,4 +789,22 @@ document.querySelectorAll('.mobile-link:not(.mobile-categorias)').forEach(link =
     catBtn.classList.remove('open');
     catSubmenu.classList.remove('open');
   };
+});
+
+
+// CARREGAR OS PRODUTOS NAS SESSÕES
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // ...já tem carregarTodosProdutosFirestore();
+
+    carregarProdutosPorSessaoFirestore("anel", "container-aneis");
+    carregarProdutosPorSessaoFirestore("brinco", "container-brincos");
+    carregarProdutosPorSessaoFirestore("colar", "container-colares");
+    carregarProdutosPorSessaoFirestore("corrente", "container-correntes");
+    carregarProdutosPorSessaoFirestore("pulseira", "container-pulseiras");
+    carregarProdutosPorSessaoFirestore("piercing", "container-piercings"); 
+    carregarProdutosPorSessaoFirestore("limpeza", "container-limpeza");
+    carregarProdutosPorSessaoFirestore("canga-toalha", "container-cangas");
+    carregarProdutosPorSessaoFirestore("moletom", "container-moletons");
 });

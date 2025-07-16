@@ -1,3 +1,18 @@
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyA5u3vlPtjofjBgsaT9z1qu2fifBhkKPmo",
+    authDomain: "kaibeads-2ab98.firebaseapp.com",
+    projectId: "kaibeads-2ab98",
+    storageBucket: "kaibeads-2ab98.appspot.com",
+    messagingSenderId: "405735155633",
+    appId: "1:405735155633:web:a9c151f7d4b611b788ff90",
+    measurementId: "G-N2NDBL58J7"
+};
+// Inicializa Firebase só se ainda não foi inicializado
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const targetId = localStorage.getItem('scrollToTarget');
     if (targetId) {
@@ -222,13 +237,13 @@ function atualizarContadorCarrinhoGeral() {
     const contadorDesktop = document.getElementById("contador-carrinho");
     if (contadorDesktop) {
         contadorDesktop.textContent = carrinho.length;
-        contadorDesktop.style.display = carrinho.length > 0 ? "flex" : "none";
+        contadorDesktop.style.display = "flex"; // SEMPRE EXIBE
     }
     // Mobile
     const contadorMobile = document.getElementById("contador-carrinho-mobile");
     if (contadorMobile) {
         contadorMobile.textContent = carrinho.length;
-        contadorMobile.style.display = carrinho.length > 0 ? "flex" : "none";
+        contadorMobile.style.display = "flex"; // SEMPRE EXIBE
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
@@ -243,34 +258,25 @@ function autocompleteBusca(inputId, listId) {
 
     if (!input || !autocompleteList) return;
 
-    // Carregar todos os produtos do localStorage (igual sua função)
-    function carregarProdutosDoLocalStorage() {
-        const secoes = [
-            "aneis", "brincos", "colares", "correntes", "pulseiras",
-            "piercings", "limpeza", "canga-toalhas", "moletons"
-        ];
-        let todos = [];
-        secoes.forEach(sessao => {
-            const produtosSessao = JSON.parse(localStorage.getItem(`produtos-${sessao}`)) || [];
-            todos = todos.concat(produtosSessao);
-        });
-        // Remover duplicatas
-        const nomesVistos = new Set();
-        return todos.filter(p => {
-            if (nomesVistos.has(p.nome)) return false;
-            nomesVistos.add(p.nome);
-            return true;
-        });
-    }
-    const produtos = carregarProdutosDoLocalStorage();
+    let produtos = [];
 
+    // Carrega os produtos do Firestore uma única vez
+    firebase.firestore().collection("produtos").get()
+        .then(snapshot => {
+            produtos = [];
+            snapshot.forEach(doc => {
+                produtos.push(doc.data());
+            });
+        });
+
+    // Listener para digitar
     input.addEventListener('input', function () {
         const valor = this.value.toLowerCase();
         autocompleteList.innerHTML = '';
         if (!valor) return;
-
-        const sugestões = produtos.filter(p => p.nome.toLowerCase().includes(valor));
-        sugestões.forEach(produto => {
+        // Só filtra se já carregou produtos do Firebase
+        const sugestoes = produtos.filter(p => p.nome && p.nome.toLowerCase().includes(valor));
+        sugestoes.forEach(produto => {
             const li = document.createElement('li');
             const itemContainer = document.createElement('div');
             itemContainer.classList.add('autocomplete-item');
@@ -295,16 +301,20 @@ function autocompleteBusca(inputId, listId) {
         });
     });
 
+    // Fecha sugestões ao clicar fora
     document.addEventListener('click', function (e) {
         if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${listId}`)) {
             autocompleteList.innerHTML = '';
         }
     });
 }
+
+
 document.addEventListener("DOMContentLoaded", () => {
     autocompleteBusca('searchInput', 'autocomplete-list'); // Desktop
     autocompleteBusca('searchInputMobile', 'autocomplete-list-mobile'); // Mobile
 });
+
 
 
 

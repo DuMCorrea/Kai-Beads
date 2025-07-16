@@ -404,6 +404,40 @@ header nav ul li{
 
 
 
+/* REDIRECIONAMENTO CORRETO*/
+
+#todos-btn {
+    scroll-margin-top: 152px; /* ajuste para altura do seu cabeçalho */
+}
+#anel-btn {
+    scroll-margin-top: 195px; /* ajuste para altura do seu cabeçalho */
+}
+#brinco-btn {
+    scroll-margin-top: 238px;
+}
+#colar-btn {
+    scroll-margin-top: 281px;
+}
+#corrente-btn {
+    scroll-margin-top: 324px;
+}
+#pulseira-btn {
+    scroll-margin-top: 367px;
+}
+#piercing-btn {
+    scroll-margin-top: 410px;
+}
+#limpeza-btn {
+    scroll-margin-top: 453px;
+}
+#cangas-btn {
+    scroll-margin-top: 496px;
+}
+#moletons-btn {
+    scroll-margin-top: 539px;
+}
+
+
 
 /* MENU LATERAL */
 
@@ -967,6 +1001,10 @@ footer .flex {
     max-width: 120px;
     margin-top: -75px; /* Ajuste para aproximar as imagens */
     margin-bottom: 55px; /* Ajuste para aproximar as imagens */
+}
+
+.hamburger {
+  display: none;
 }
 
 

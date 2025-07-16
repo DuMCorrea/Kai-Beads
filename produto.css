@@ -392,8 +392,8 @@ header nav ul li{
 
 #contador-carrinho {
     position: absolute;
-    top: -7px;
-    right: -7px;
+    top: -7px;      /* sobe a bolinha */
+    right: -7px;    /* cola na borda */
     background: #ADD8E6;
     color: black;
     font-size: 12px;
@@ -401,14 +401,13 @@ header nav ul li{
     width: 18px;
     height: 18px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
     border: 1.5px solid #fff;
     box-shadow: 0 1px 5px rgba(46,179,233,0.12);
     z-index: 2;
     transition: background 0.3s;
-    padding-left: 4px;
-    line-height: 16px;
-    
 }
 
 
@@ -511,7 +510,11 @@ header nav ul li{
 .miniaturas {
     display: flex;
     gap: 10px;
-    margin-top: 305px;
+    margin-top: 360px; /* ajuste o valor conforme o visual que quiser */
+    justify-content: center;
+    align-items: center;
+    /* position: relative; // pode até remover se não usa mais para outros efeitos */
+    /* top: 300px;         // REMOVER! */
 }
 
 .miniatura {
