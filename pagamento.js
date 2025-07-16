@@ -328,3 +328,90 @@ document.getElementById('botaoFinalizarPedido').addEventListener('click', async 
 
 
 
+// AJUSTES CAMPOS DO FORMULÁRIO
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const cepInput = document.getElementById('cep');
+
+  cepInput.addEventListener('input', function(e) {
+    let value = cepInput.value.replace(/\D/g, ''); // Remove tudo que não for número
+
+    if (value.length > 5) {
+      value = value.slice(0, 5) + '-' + value.slice(5, 8);
+    }
+    cepInput.value = value.slice(0, 9); // Máximo 9 caracteres: 00000-000
+  });
+
+  cepInput.addEventListener('blur', function() {
+    if (cepInput.value.length !== 9) {
+      cepInput.setCustomValidity('Digite um CEP válido no formato 00000-000');
+      cepInput.reportValidity();
+    } else {
+      cepInput.setCustomValidity('');
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const cepInput = document.getElementById('cep');
+  const enderecoInput = document.getElementById('endereco');
+  const cidadeInput = document.getElementById('cidade');
+  const estadoInput = document.getElementById('estado');
+
+  let ultimoCepBuscado = '';
+
+  cepInput.addEventListener('input', function(e) {
+    let value = cepInput.value.replace(/\D/g, '');
+
+    if (value.length > 5) {
+      value = value.slice(0, 5) + '-' + value.slice(5, 8);
+    }
+    cepInput.value = value.slice(0, 9);
+
+    // Só busca o CEP quando tiver os 8 dígitos (9 com o traço) e evitar requisições duplicadas
+    if (cepInput.value.length === 9 && cepInput.value !== ultimoCepBuscado) {
+      let cepLimpo = cepInput.value.replace('-', '');
+      buscarCep(cepLimpo);
+      ultimoCepBuscado = cepInput.value;
+    }
+  });
+
+  cepInput.addEventListener('blur', function() {
+    if (cepInput.value.length !== 9) {
+      cepInput.setCustomValidity('Digite um CEP válido no formato 00000-000');
+      cepInput.reportValidity();
+    } else {
+      cepInput.setCustomValidity('');
+    }
+  });
+
+  function buscarCep(cep) {
+    enderecoInput.value = 'Carregando...';
+    cidadeInput.value = '';
+    estadoInput.value = '';
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.erro) {
+          enderecoInput.value = '';
+          cidadeInput.value = '';
+          estadoInput.value = '';
+          alert('CEP não encontrado.');
+          return;
+        }
+        enderecoInput.value = data.logradouro || '';
+        cidadeInput.value = data.localidade || '';
+        estadoInput.value = data.uf || '';
+      })
+      .catch(err => {
+        enderecoInput.value = '';
+        cidadeInput.value = '';
+        estadoInput.value = '';
+        alert('Erro ao buscar CEP. Tente novamente.');
+      });
+  }
+});
+
